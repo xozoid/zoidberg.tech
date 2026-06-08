@@ -1,0 +1,30 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Personal website for xozoid." } = Astro.props;
+const siteVersion = import.meta.env.PUBLIC_SITE_VERSION || "dev";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="version" content={siteVersion} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen bg-white text-neutral-950 antialiased">
+    <slot />
+    <footer class="mx-auto max-w-3xl px-6 py-8 text-sm text-neutral-500">
+      <span>Version {siteVersion}</span>
+    </footer>
+  </body>
+</html>
