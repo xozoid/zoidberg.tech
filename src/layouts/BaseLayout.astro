@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { title, description = "Personal website for xozoid." } = Astro.props;
-const siteVersion = import.meta.env.PUBLIC_SITE_VERSION || "dev";
+const siteVersion = import.meta.env.PUBLIC_SITE_VERSION || "0+dev";
 ---
 
 <!doctype html>
@@ -20,11 +20,73 @@ const siteVersion = import.meta.env.PUBLIC_SITE_VERSION || "dev";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- TODO (xozoid): tree shake and self-host fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600;700&family=Kode+Mono:wght@400;500;600;700&family=Offside&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@0..1"
+    />
   </head>
-  <body class="min-h-screen bg-white text-neutral-950 antialiased">
+  <body>
     <slot />
-    <footer class="mx-auto max-w-3xl px-6 py-8 text-sm text-neutral-500">
-      <span>Version {siteVersion}</span>
-    </footer>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <span>Xenon Core</span>
+          <span>v{siteVersion}</span>
+        </div>
+        <div>
+          <span>Status</span>
+          <span>online</span>
+        </div>
+        <div>
+          <span>Link</span>
+          <span>stable</span>
+        </div>
+        <icon id="footer-signal-icon">signal_cellular_4_bar</icon>
+      </footer>
+    </div>
+    <script>
+      const signalIcon = document.getElementById("footer-signal-icon");
+
+      if (signalIcon) {
+        const minIntervalMs = 500;
+        const maxIntervalMs = 5_000;
+
+        const pickSignalIcon = () => {
+          const roll = Math.random();
+
+          if (roll < 0.3) return "signal_cellular_4_bar";
+          if (roll < 0.9) return "signal_cellular_3_bar";
+          if (roll < 0.99) return "signal_cellular_2_bar";
+
+          return "signal_cellular_1_bar";
+        };
+
+        const scheduleUpdate = () => {
+          const intervalMs =
+            minIntervalMs + Math.random() * (maxIntervalMs - minIntervalMs);
+
+          window.setTimeout(() => {
+            const iconName = pickSignalIcon();
+            signalIcon.textContent = iconName;
+            signalIcon.classList.toggle(
+              "text-tertiary",
+              iconName === "signal_cellular_1_bar",
+            );
+            scheduleUpdate();
+          }, intervalMs);
+        };
+
+        scheduleUpdate();
+      }
+    </script>
   </body>
 </html>

@@ -1,0 +1,17 @@
+@theme {
+  --animate-blink: blink 1s step-start infinite;
+}
+
+@utility animate-blink {
+  animation: var(--animate-blink);
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}

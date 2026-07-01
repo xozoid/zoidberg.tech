@@ -3,17 +3,20 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="zoidberg.tech">
-  <main
-    class="mx-auto flex min-h-[calc(100vh-5rem)] max-w-3xl flex-col justify-center px-6 py-16"
-  >
-    <p class="text-sm font-medium tracking-wide text-neutral-500 uppercase">
-      zoidberg.tech
-    </p>
-    <h1 class="mt-4 text-4xl font-semibold text-balance sm:text-5xl">
-      Personal site coming soon.
-    </h1>
-    <p class="mt-6 max-w-2xl text-lg leading-8 text-neutral-700">
-      This Astro and Tailwind CSS site is ready for content and theming.
-    </p>
+  <main class="text-center">
+    <canvas id="z-logo" class="mx-auto mt-10 mb-2 aspect-square h-[50vh] w-full"
+    ></canvas>
+    <h1 class="font-brand text-6xl text-primary">zoidberg.tech</h1>
+    <div class="my-4">
+      <h2 class="text-xl">Systems engineer</h2>
+      <h2 class="text-xl">Software • Hardware • Infrastructure</h2>
+      <h3 class="opacity-70">Occasional menance</h3>
+    </div>
+
+    <a
+      href="/home"
+      class="mx-auto btn-text inline-block font-mono btn-size-lg text-secondary"
+      >&gt; ENTER<span class="animate-blink">█</span></a
+    >
   </main>
 </BaseLayout>
