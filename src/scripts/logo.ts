@@ -1,3 +1,5 @@
+import { getThemeColor } from "./utils";
+
 type Point = [number, number];
 type Rect = { x: number; y: number; w: number; h: number };
 type PathSample = { point: Point; distance: number };
@@ -9,9 +11,18 @@ let view: Rect = { x: 0, y: 0, w: 0, h: 0 };
 const zedCenterWidth = 0.7;
 const zedCenterRadius = 0.07;
 const zedCenterInset = (1 - zedCenterWidth) / 2;
-const zedPointSpacing = 0.01;
-const zedArcSteps = 24;
-const zedTraceDurationSeconds = 5;
+const zedPointSpacing = 0.005;
+const zedArcSteps = 48;
+const zedTraceDurationSeconds = 6;
+const zedHelixAmplitude = 0.05;
+const zedRadiusSpatialFrequency = 8;
+const zedRadiusTemporalFrequency = 2;
+const zedPhaseSpatialFrequency = 2;
+const zedPhaseTemporalFrequency = 0.5;
+const zedPhaseTurns = 12;
+const zedPhaseRotationRate = Math.PI * 2;
+const zedEndTaperPower = 0.7;
+const zedStrokeWidth = 3;
 
 function resize(canvas: HTMLCanvasElement) {
   devicePixelRatioCapped = Math.min(window.devicePixelRatio || 1, 2);
@@ -35,6 +46,14 @@ function lerpPoint(a: Point, b: Point, t: number): Point {
   return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
 }
 
+function lerp(a: number, b: number, t: number): number {
+  return a + (b - a) * t;
+}
+
+function smoothstep(t: number): number {
+  return t * t * (3 - 2 * t);
+}
+
 function toCanvasPoint(point: Point): Point {
   return [view.x + view.w * point[0], view.y + view.h * point[1]];
 }
@@ -46,6 +65,58 @@ function appendSample(samples: Array<PathSample>, point: Point) {
     : 0;
 
   samples.push({ point, distance });
+}
+
+function randomUnit(x: number, y: number): number {
+  const n = Math.sin(x * 127.1 + y * 311.7) * 43758.5453123;
+
+  return n - Math.floor(n);
+}
+
+function smoothNoise(x: number, y: number): number {
+  const x0 = Math.floor(x);
+  const y0 = Math.floor(y);
+  const tx = smoothstep(x - x0);
+  const ty = smoothstep(y - y0);
+  const a = randomUnit(x0, y0);
+  const b = randomUnit(x0 + 1, y0);
+  const c = randomUnit(x0, y0 + 1);
+  const d = randomUnit(x0 + 1, y0 + 1);
+
+  return lerp(lerp(a, b, tx), lerp(c, d, tx), ty);
+}
+
+function zedHelixRadius(
+  distance: number,
+  timeSeconds: number,
+  totalDistance: number,
+): number {
+  const pathProgress = totalDistance
+    ? Math.min(Math.max(distance / totalDistance, 0), 1)
+    : 0;
+  const endTaper = Math.sin(Math.PI * pathProgress) ** zedEndTaperPower;
+
+  return (
+    zedHelixAmplitude *
+    endTaper *
+    smoothNoise(
+      distance * zedRadiusSpatialFrequency,
+      timeSeconds * zedRadiusTemporalFrequency,
+    )
+  );
+}
+
+function zedHelixPhi(distance: number, timeSeconds: number): number {
+  return (
+    Math.PI *
+      2 *
+      zedPhaseTurns *
+      smoothNoise(
+        distance * zedPhaseSpatialFrequency,
+        timeSeconds * zedPhaseTemporalFrequency,
+      ) +
+    timeSeconds * zedPhaseRotationRate
+  );
 }
 
 function pointOnCircle(center: Point, radius: number, angle: number): Point {
@@ -172,6 +243,25 @@ function zedPointAtDistance(samples: Array<PathSample>, t: number): Point {
   return last.point;
 }
 
+function zedNormalAtDistance(
+  samples: Array<PathSample>,
+  t: number,
+  totalDistance: number,
+): Point {
+  const sampleDistance = zedPointSpacing / 2;
+  const startDistance = Math.max(t - sampleDistance, 0);
+  const endDistance = Math.min(t + sampleDistance, totalDistance);
+  const start = zedPointAtDistance(samples, startDistance);
+  const end = zedPointAtDistance(samples, endDistance);
+  const dx = end[0] - start[0];
+  const dy = end[1] - start[1];
+  const length = Math.hypot(dx, dy);
+
+  if (!length) return [0, 0];
+
+  return [dy / length, -dx / length];
+}
+
 function zedPath(timeSeconds: number): Array<Point> {
   const samples = zedPathSamples();
   const totalDistance = samples.at(-1)?.distance ?? 0;
@@ -185,8 +275,17 @@ function zedPath(timeSeconds: number): Array<Point> {
 
   for (let i = 0; i <= pointCount; i++) {
     const t = Math.min(i * zedPointSpacing, visibleDistance);
+    const point = zedPointAtDistance(samples, t);
+    const normal = zedNormalAtDistance(samples, t, totalDistance);
+    const radius = zedHelixRadius(t, timeSeconds, totalDistance);
+    const offset = radius * Math.cos(zedHelixPhi(t, timeSeconds));
 
-    path.push(toCanvasPoint(zedPointAtDistance(samples, t)));
+    path.push(
+      toCanvasPoint([
+        point[0] + offset * normal[0],
+        point[1] + offset * normal[1],
+      ]),
+    );
   }
 
   return path;
@@ -218,8 +317,8 @@ function initLogo() {
     for (const p of path) {
       context.lineTo(p[0], p[1]);
     }
-    context.lineWidth = 1;
-    context.strokeStyle = "white";
+    context.lineWidth = zedStrokeWidth * devicePixelRatioCapped;
+    context.strokeStyle = getThemeColor("primary");
     context.stroke();
 
     if (!reduceMotion) animationFrame = window.requestAnimationFrame(render);
