@@ -233,13 +233,13 @@
   }
 
   #footer-wrapper {
-    @apply absolute bottom-0 w-full px-6;
+    @apply absolute bottom-0 w-full px-2 md:px-6;
   }
 
   footer {
-    @apply py-2;
-    @apply flex justify-between;
-    @apply text-center text-sm;
+    @apply py-1 md:py-2;
+    @apply flex items-center justify-between;
+    @apply text-center text-xs md:text-sm;
     @apply border-t border-outline;
 
     & > div > span {
