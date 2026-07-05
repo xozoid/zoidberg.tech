@@ -7,22 +7,38 @@ type PathSample = { point: Point; distance: number };
 let animationFrame = 0;
 let devicePixelRatioCapped = 1;
 let view: Rect = { x: 0, y: 0, w: 0, h: 0 };
+let glowCanvas: HTMLCanvasElement | undefined;
+let glowContext: CanvasRenderingContext2D | undefined;
+let noiseSeed = Math.random() * 10_000;
 
 const zedCenterWidth = 0.7;
 const zedCenterRadius = 0.07;
 const zedCenterInset = (1 - zedCenterWidth) / 2;
-const zedPointSpacing = 0.005;
+const zedPointSpacing = 0.004;
 const zedArcSteps = 48;
 const zedTraceDurationSeconds = 6;
 const zedHelixAmplitude = 0.05;
-const zedRadiusSpatialFrequency = 8;
-const zedRadiusTemporalFrequency = 2;
+const zedRadiusSpatialFrequency = 2;
+const zedRadiusTemporalFrequency = 0.1;
 const zedPhaseSpatialFrequency = 2;
-const zedPhaseTemporalFrequency = 0.5;
+const zedPhaseTemporalFrequency = 0.1;
 const zedPhaseTurns = 12;
 const zedPhaseRotationRate = Math.PI * 2;
 const zedEndTaperPower = 0.7;
 const zedStrokeWidth = 3;
+const zedTubeRadius = 0.055;
+const zedTubeFaceAlpha = 0.07;
+const zedTubeEdgeAlpha = 0.38;
+const zedTubeEdgeWidth = 0.008;
+const zedTubeEdgeBlur = 0.0025;
+const zedElectrodeLength = 0.045;
+const zedElectrodeOverlap = 0.008;
+const zedElectrodeRadius = zedTubeRadius * 1.12;
+const zedGlowLayers = [
+  { width: 0.008, blur: 0.047, alpha: 0.9 },
+  { width: 0.016, blur: 0.017, alpha: 0.5 },
+  { width: 0.006, blur: 0.009, alpha: 0.1 },
+];
 
 function resize(canvas: HTMLCanvasElement) {
   devicePixelRatioCapped = Math.min(window.devicePixelRatio || 1, 2);
@@ -32,6 +48,10 @@ function resize(canvas: HTMLCanvasElement) {
   const h = Math.floor(rect.height * devicePixelRatioCapped);
   canvas.width = w;
   canvas.height = h;
+  glowCanvas ??= document.createElement("canvas");
+  glowCanvas.width = w;
+  glowCanvas.height = h;
+  glowContext = glowCanvas.getContext("2d", { alpha: true }) ?? undefined;
 
   view.w = view.h = Math.min(w, h);
   view.x = (w - view.w) / 2;
@@ -68,7 +88,7 @@ function appendSample(samples: Array<PathSample>, point: Point) {
 }
 
 function randomUnit(x: number, y: number): number {
-  const n = Math.sin(x * 127.1 + y * 311.7) * 43758.5453123;
+  const n = Math.sin(x * 127.1 + y * 311.7 + noiseSeed) * 43758.5453123;
 
   return n - Math.floor(n);
 }
@@ -262,6 +282,16 @@ function zedNormalAtDistance(
   return [dy / length, -dx / length];
 }
 
+function zedTangentAtDistance(
+  samples: Array<PathSample>,
+  t: number,
+  totalDistance: number,
+): Point {
+  const normal = zedNormalAtDistance(samples, t, totalDistance);
+
+  return [-normal[1], normal[0]];
+}
+
 function zedPath(timeSeconds: number): Array<Point> {
   const samples = zedPathSamples();
   const totalDistance = samples.at(-1)?.distance ?? 0;
@@ -291,6 +321,167 @@ function zedPath(timeSeconds: number): Array<Point> {
   return path;
 }
 
+function zedCenterPath(): Array<Point> {
+  const samples = zedPathSamples();
+  const totalDistance = samples.at(-1)?.distance ?? 0;
+  const pointCount = Math.ceil(totalDistance / zedPointSpacing);
+  const path: Array<Point> = [];
+
+  for (let i = 0; i <= pointCount; i++) {
+    const t = Math.min(i * zedPointSpacing, totalDistance);
+
+    path.push(toCanvasPoint(zedPointAtDistance(samples, t)));
+  }
+
+  return path;
+}
+
+function zedOffsetPath(offset: number): Array<Point> {
+  const samples = zedPathSamples();
+  const totalDistance = samples.at(-1)?.distance ?? 0;
+  const pointCount = Math.ceil(totalDistance / zedPointSpacing);
+  const path: Array<Point> = [];
+
+  for (let i = 0; i <= pointCount; i++) {
+    const t = Math.min(i * zedPointSpacing, totalDistance);
+    const point = zedPointAtDistance(samples, t);
+    const normal = zedNormalAtDistance(samples, t, totalDistance);
+
+    path.push(
+      toCanvasPoint([
+        point[0] + offset * normal[0],
+        point[1] + offset * normal[1],
+      ]),
+    );
+  }
+
+  return path;
+}
+
+function tracePath(context: CanvasRenderingContext2D, path: Array<Point>) {
+  context.beginPath();
+  context.moveTo(path[0][0], path[0][1]);
+  for (const p of path) {
+    context.lineTo(p[0], p[1]);
+  }
+}
+
+function drawElectrode(
+  context: CanvasRenderingContext2D,
+  samples: Array<PathSample>,
+  distance: number,
+  outwardDirection: 1 | -1,
+) {
+  const totalDistance = samples.at(-1)?.distance ?? 0;
+  const point = zedPointAtDistance(samples, distance);
+  const tangent = zedTangentAtDistance(samples, distance, totalDistance);
+  const normal = zedNormalAtDistance(samples, distance, totalDistance);
+  const outward: Point = [
+    tangent[0] * outwardDirection,
+    tangent[1] * outwardDirection,
+  ];
+  const inner = zedElectrodeOverlap;
+  const outer = zedElectrodeLength;
+  const corners = [
+    toCanvasPoint([
+      point[0] - inner * outward[0] + zedElectrodeRadius * normal[0],
+      point[1] - inner * outward[1] + zedElectrodeRadius * normal[1],
+    ]),
+    toCanvasPoint([
+      point[0] + outer * outward[0] + zedElectrodeRadius * normal[0],
+      point[1] + outer * outward[1] + zedElectrodeRadius * normal[1],
+    ]),
+    toCanvasPoint([
+      point[0] + outer * outward[0] - zedElectrodeRadius * normal[0],
+      point[1] + outer * outward[1] - zedElectrodeRadius * normal[1],
+    ]),
+    toCanvasPoint([
+      point[0] - inner * outward[0] - zedElectrodeRadius * normal[0],
+      point[1] - inner * outward[1] - zedElectrodeRadius * normal[1],
+    ]),
+  ];
+  const gradientStart = toCanvasPoint([
+    point[0] - zedElectrodeRadius * normal[0],
+    point[1] - zedElectrodeRadius * normal[1],
+  ]);
+  const gradientEnd = toCanvasPoint([
+    point[0] + zedElectrodeRadius * normal[0],
+    point[1] + zedElectrodeRadius * normal[1],
+  ]);
+  const gradient = context.createLinearGradient(
+    gradientStart[0],
+    gradientStart[1],
+    gradientEnd[0],
+    gradientEnd[1],
+  );
+
+  gradient.addColorStop(0, "rgb(88 96 100)");
+  gradient.addColorStop(0.2, "rgb(168 178 182)");
+  gradient.addColorStop(0.5, "rgb(116 126 130)");
+  gradient.addColorStop(0.8, "rgb(186 196 198)");
+  gradient.addColorStop(1, "rgb(82 90 94)");
+
+  context.save();
+  context.filter = "none";
+  context.globalAlpha = 1;
+  context.beginPath();
+  context.moveTo(corners[0][0], corners[0][1]);
+  for (const corner of corners.slice(1)) {
+    context.lineTo(corner[0], corner[1]);
+  }
+  context.closePath();
+  context.fillStyle = gradient;
+  context.fill();
+  context.lineWidth = 0.002 * view.w;
+  context.strokeStyle = "rgb(245 252 255)";
+  context.globalAlpha = 0.28;
+  context.stroke();
+  context.restore();
+}
+
+function drawElectrodes(context: CanvasRenderingContext2D) {
+  const samples = zedPathSamples();
+  const totalDistance = samples.at(-1)?.distance ?? 0;
+
+  drawElectrode(context, samples, 0, -1);
+  drawElectrode(context, samples, totalDistance, 1);
+}
+
+function drawGlassTube(context: CanvasRenderingContext2D) {
+  const centerPath = zedCenterPath();
+  const edgePaths = [
+    zedOffsetPath(zedTubeRadius),
+    zedOffsetPath(-zedTubeRadius),
+  ];
+
+  context.save();
+  context.lineCap = "butt";
+  context.lineJoin = "round";
+  context.strokeStyle = "rgb(220 245 255)";
+  context.filter = "none";
+  context.globalAlpha = zedTubeFaceAlpha;
+  tracePath(context, centerPath);
+  context.lineWidth = zedTubeRadius * 2 * view.w;
+  context.stroke();
+
+  context.globalAlpha = zedTubeEdgeAlpha;
+  context.filter = `blur(${zedTubeEdgeBlur * view.w}px)`;
+  context.lineWidth = zedTubeEdgeWidth * view.w;
+  for (const edgePath of edgePaths) {
+    tracePath(context, edgePath);
+    context.stroke();
+  }
+
+  context.filter = "none";
+  context.globalAlpha = zedTubeEdgeAlpha * 0.75;
+  context.lineWidth = (zedTubeEdgeWidth * view.w) / 2;
+  for (const edgePath of edgePaths) {
+    tracePath(context, edgePath);
+    context.stroke();
+  }
+  context.restore();
+}
+
 function initLogo() {
   const canvas = document.querySelector<HTMLCanvasElement>("#z-glow");
   const context = canvas?.getContext("2d", { alpha: true });
@@ -308,18 +499,46 @@ function initLogo() {
       ? zedTraceDurationSeconds
       : (now - animationStartMs) / 1000;
 
-    context.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+    context.clearRect(0, 0, canvas.width, canvas.height);
 
     const path = zedPath(time);
+    const primaryColor = getThemeColor("primary");
 
-    context.beginPath();
-    context.moveTo(path[0][0], path[0][1]);
-    for (const p of path) {
-      context.lineTo(p[0], p[1]);
-    }
+    drawGlassTube(context);
+
+    context.lineCap = "butt";
+    context.lineJoin = "round";
+    context.filter = "none";
+    context.globalAlpha = 1;
+    tracePath(context, path);
     context.lineWidth = zedStrokeWidth * devicePixelRatioCapped;
-    context.strokeStyle = getThemeColor("primary");
+    context.strokeStyle = primaryColor;
     context.stroke();
+
+    drawElectrodes(context);
+
+    if (glowContext && glowCanvas) {
+      glowContext.clearRect(0, 0, glowCanvas.width, glowCanvas.height);
+      glowContext.lineCap = "butt";
+      glowContext.lineJoin = "round";
+      glowContext.strokeStyle = primaryColor;
+      glowContext.globalAlpha = 1;
+      glowContext.filter = "none";
+
+      for (const layer of zedGlowLayers) {
+        tracePath(glowContext, path);
+        glowContext.lineWidth = layer.width * view.w;
+        glowContext.stroke();
+      }
+
+      for (const layer of zedGlowLayers) {
+        context.globalAlpha = layer.alpha;
+        context.filter = `blur(${layer.blur * view.w}px)`;
+        context.drawImage(glowCanvas, 0, 0);
+      }
+    }
+    context.filter = "none";
+    context.globalAlpha = 1;
 
     if (!reduceMotion) animationFrame = window.requestAnimationFrame(render);
   };
