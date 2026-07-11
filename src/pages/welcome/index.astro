@@ -1,0 +1,36 @@
+---
+import BaseLayout from "src/layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="zoidberg.tech">
+  <main class="text-center">
+    <div
+      id="z-logo"
+      class="relative mx-auto mt-10 mb-2 aspect-square h-[50vh] w-full"
+    >
+      <canvas id="z-glow" class="absolute inset-0 h-full w-full"></canvas>
+    </div>
+    <h1 class="font-brand text-4xl text-primary md:text-6xl">zoidberg.tech</h1>
+    <div class="my-4">
+      <h2 class="md:text-xl">Systems engineer</h2>
+      <h2 class="md:text-xl">Software • Hardware • Infrastructure</h2>
+      <h3 class="opacity-70 max-md:text-sm">Occasional menance</h3>
+    </div>
+
+    <a
+      id="enter-site"
+      href="/"
+      class="mx-auto btn-text inline-block font-mono btn-size-lg text-secondary"
+      >&gt; ENTER<span class="animate-blink">█</span></a
+    >
+    <script>
+      import "src/scripts/logo";
+    </script>
+    <script is:inline>
+      document.getElementById("enter-site")?.addEventListener("click", () => {
+        document.cookie =
+          "welcome_seen=true; Max-Age=2592000; Path=/; SameSite=Lax";
+      });
+    </script>
+  </main>
+</BaseLayout>
