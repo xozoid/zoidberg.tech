@@ -1,5 +1,3 @@
-import { getThemeColor } from "./utils";
-
 type Point = [number, number];
 type Rect = { x: number; y: number; w: number; h: number };
 type PathSample = { point: Point; distance: number };
@@ -36,9 +34,22 @@ const zedElectrodeOverlap = 0.008;
 const zedElectrodeRadius = zedTubeRadius * 1.12;
 const zedGlowLayers = [
   { width: 0.008, blur: 0.047, alpha: 0.9 },
-  { width: 0.016, blur: 0.017, alpha: 0.5 },
+  { width: 0.016, blur: 0.17, alpha: 0.5 },
   { width: 0.006, blur: 0.009, alpha: 0.1 },
 ];
+const darkModeColors = {
+  surface: "#0a0c10",
+  primary: "#48d8ff",
+  tube: "rgb(220 245 255)",
+  electrodeStroke: "rgb(245 252 255)",
+  electrodeGradient: [
+    "rgb(88 96 100)",
+    "rgb(168 178 182)",
+    "rgb(116 126 130)",
+    "rgb(186 196 198)",
+    "rgb(82 90 94)",
+  ],
+} as const;
 
 function resize(canvas: HTMLCanvasElement) {
   devicePixelRatioCapped = Math.min(window.devicePixelRatio || 1, 2);
@@ -415,11 +426,11 @@ function drawElectrode(
     gradientEnd[1],
   );
 
-  gradient.addColorStop(0, "rgb(88 96 100)");
-  gradient.addColorStop(0.2, "rgb(168 178 182)");
-  gradient.addColorStop(0.5, "rgb(116 126 130)");
-  gradient.addColorStop(0.8, "rgb(186 196 198)");
-  gradient.addColorStop(1, "rgb(82 90 94)");
+  gradient.addColorStop(0, darkModeColors.electrodeGradient[0]);
+  gradient.addColorStop(0.2, darkModeColors.electrodeGradient[1]);
+  gradient.addColorStop(0.5, darkModeColors.electrodeGradient[2]);
+  gradient.addColorStop(0.8, darkModeColors.electrodeGradient[3]);
+  gradient.addColorStop(1, darkModeColors.electrodeGradient[4]);
 
   context.save();
   context.filter = "none";
@@ -433,7 +444,7 @@ function drawElectrode(
   context.fillStyle = gradient;
   context.fill();
   context.lineWidth = 0.002 * view.w;
-  context.strokeStyle = "rgb(245 252 255)";
+  context.strokeStyle = darkModeColors.electrodeStroke;
   context.globalAlpha = 0.28;
   context.stroke();
   context.restore();
@@ -457,7 +468,7 @@ function drawGlassTube(context: CanvasRenderingContext2D) {
   context.save();
   context.lineCap = "butt";
   context.lineJoin = "round";
-  context.strokeStyle = "rgb(220 245 255)";
+  context.strokeStyle = darkModeColors.tube;
   context.filter = "none";
   context.globalAlpha = zedTubeFaceAlpha;
   tracePath(context, centerPath);
@@ -502,7 +513,7 @@ function initLogo() {
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     const path = zedPath(time);
-    const primaryColor = getThemeColor("primary");
+    const primaryColor = darkModeColors.primary;
 
     drawGlassTube(context);
 

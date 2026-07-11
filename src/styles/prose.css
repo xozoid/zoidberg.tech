@@ -28,7 +28,12 @@
   }
 
   h1,
-  h2 {
-    @apply font-serif text-primary;
+  h2,
+  h3 {
+    @apply font-serif text-primary normal-case;
+  }
+
+  :where(pre, code, kbd) {
+    border-radius: 0;
   }
 }

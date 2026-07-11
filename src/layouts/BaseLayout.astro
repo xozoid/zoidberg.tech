@@ -7,7 +7,10 @@ interface Props {
 }
 
 const { title, description = "Personal website for xozoid." } = Astro.props;
-const siteVersion = import.meta.env.PUBLIC_SITE_VERSION || "0+dev";
+const siteVersion = import.meta.env.PUBLIC_SITE_VERSION || "v0+dev";
+const showFooterNav = Astro.url.pathname.replace(/\/$/, "") !== "/welcome";
+const showStyleLink =
+  import.meta.env.DEV || import.meta.env.PUBLIC_DEBUG === "true";
 ---
 
 <!doctype html>
@@ -35,26 +38,74 @@ const siteVersion = import.meta.env.PUBLIC_SITE_VERSION || "0+dev";
     />
   </head>
   <body>
-    <slot />
-    <div id="footer-wrapper">
-      <footer>
-        <div>
-          <span>Xenon Core</span>
-          <span>v{siteVersion}</span>
-        </div>
-        <div>
-          <span>Status</span>
-          <span>online</span>
-        </div>
-        <div class="max-md:hidden">
-          <span>Link</span>
-          <span>stable</span>
-        </div>
-        <icon>signal_cellular_4_bar</icon>
-      </footer>
-    </div>
-    <script>
-      import "../scripts/footer-signal";
+    <script is:inline>
+      if (document.cookie.split("; ").includes("theme=light")) {
+        document.documentElement.classList.add("light");
+      }
     </script>
+    <slot />
+    <footer>
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <a href="/welcome">
+                <span class="text-on-surface opacity-70">Xenon Core</span>
+                <span>{siteVersion}</span>
+              </a>
+            </td>
+            <td>
+              <a href="/">[ ~ ]</a>
+            </td>
+            {
+              showFooterNav && (
+                <>
+                  <td>
+                    <a href="/logs">[logs]</a>
+                  </td>
+                  <td>
+                    <a href="/artifacts">[artifacts]</a>
+                  </td>
+                  <td>
+                    <a href="/profile">[profile]</a>
+                  </td>
+                </>
+              )
+            }
+            <td class="footer-actions">
+              <div>
+                <icon class="text-secondary">signal_cellular_4_bar</icon>
+                <a href="/terminal" class="btn-text btn-sq">
+                  <icon>terminal</icon>
+                </a>
+                {
+                  showStyleLink && (
+                    <a href="/style" class="btn-text btn-sq">
+                      <icon>palette</icon>
+                    </a>
+                  )
+                }
+              </div>
+            </td>
+            <td class="flex gap-1 p-1">
+              <button id="theme-light" class="btn-text btn-sq" type="button">
+                <icon>light_mode</icon>
+              </button>
+              <button
+                id="theme-dark"
+                class="open btn-text btn-sq"
+                type="button"
+              >
+                <icon>dark_mode</icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <script>
+        import "../scripts/footer-signal";
+        import "../scripts/footer-theme";
+      </script>
+    </footer>
   </body>
 </html>

@@ -83,6 +83,14 @@
 }
 
 @layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-outline);
+  }
+
   html {
     @apply overscroll-y-contain scroll-smooth;
 
@@ -151,6 +159,7 @@
 
   body {
     @apply relative min-h-screen w-full overscroll-y-contain antialiased;
+    @apply flex flex-col gap-4 p-2 md:p-4;
     @apply bg-surface text-on-surface;
     @apply max-md:scroll-mt-10;
   }
@@ -192,7 +201,22 @@
   h1,
   h2,
   h3 {
-    @apply font-title uppercase;
+    @apply font-title text-primary uppercase;
+  }
+
+  h1 {
+    @apply text-4xl leading-7;
+    @apply md:text-6xl md:leading-12;
+  }
+
+  h2 {
+    @apply text-2xl leading-5;
+    @apply md:text-3xl md:leading-6;
+  }
+
+  h3 {
+    @apply text-xl leading-4;
+    @apply md:text-2xl md:leading-5;
   }
 }
 
@@ -228,54 +252,52 @@
   }
 
   main {
-    @apply min-h-full overflow-hidden px-2 pt-2 pb-20 md:px-4;
-    @apply mx-auto;
-  }
-
-  #footer-wrapper {
-    @apply absolute bottom-0 w-full px-2 md:px-6;
+    @apply grow overflow-hidden;
   }
 
   footer {
-    @apply py-1 md:py-2;
-    @apply flex items-center justify-between;
-    @apply text-center text-xs md:text-sm;
-    @apply border-t border-outline;
+    @apply text-center text-xs text-primary uppercase md:text-sm;
 
-    & > div > span {
-      @apply uppercase;
-
-      @variant first-of-type {
-        @apply opacity-70;
-      }
-
-      @variant last-of-type {
-        @apply text-primary;
-      }
+    & table {
+      @apply w-full border-collapse border;
     }
 
-    & icon {
-      @apply text-secondary;
+    & table > tbody > tr:hover {
+      background-color: transparent;
+    }
+
+    & td {
+      @apply h-10 border-r p-0 align-middle whitespace-nowrap;
+    }
+
+    & td:last-child {
+      @apply border-r-0;
+    }
+
+    & .footer-actions {
+      @apply w-full;
+    }
+
+    & .footer-actions > div {
+      @apply flex items-center justify-end gap-1 p-1;
+    }
+
+    & a {
+      @apply btn-outlined;
+      @apply md:px-4 md:py-2;
+      @apply h-full border-0;
+    }
+
+    & td > icon {
+      @apply mx-2;
+    }
+
+    & .radioset {
+      @apply border-0 p-0;
     }
   }
 }
 
-@utility status-box {
-  @apply flex items-center justify-center gap-1 rounded-md p-1;
-  @apply empty:hidden;
-}
-
-@utility status-error {
-  @apply status-box;
-  @apply bg-error-container text-on-error-container;
-}
-
-@utility status-tertiary {
-  @apply status-box;
-  @apply bg-tertiary-container text-on-tertiary-container;
-}
-
-@utility status-success {
-  @apply status-box;
-  @apply bg-primary-container text-on-primary-container;
+@utility box {
+  @apply border p-1 md:p-2;
 }

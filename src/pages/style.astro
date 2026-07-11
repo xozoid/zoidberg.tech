@@ -1,0 +1,279 @@
+---
+import BaseLayout from "src/layouts/BaseLayout.astro";
+
+const colorPairs = [
+  {
+    name: "Primary",
+    tone: "bg-primary text-on-primary",
+    onTone: "bg-on-primary text-primary",
+    onName: "On Primary",
+  },
+  {
+    name: "Secondary",
+    tone: "bg-secondary text-on-secondary",
+    onTone: "bg-on-secondary text-secondary",
+    onName: "On Secondary",
+  },
+  {
+    name: "Tertiary",
+    tone: "bg-tertiary text-on-tertiary",
+    onTone: "bg-on-tertiary text-tertiary",
+    onName: "On Tertiary",
+  },
+  {
+    name: "Error",
+    tone: "bg-error text-on-error",
+    onTone: "bg-on-error text-error",
+    onName: "On Error",
+  },
+  {
+    name: "Primary Container",
+    tone: "bg-primary-container text-on-primary-container",
+    onTone: "bg-on-primary-container text-primary-container",
+    onName: "On Primary Container",
+  },
+  {
+    name: "Secondary Container",
+    tone: "bg-secondary-container text-on-secondary-container",
+    onTone: "bg-on-secondary-container text-secondary-container",
+    onName: "On Secondary Container",
+  },
+  {
+    name: "Tertiary Container",
+    tone: "bg-tertiary-container text-on-tertiary-container",
+    onTone: "bg-on-tertiary-container text-tertiary-container",
+    onName: "On Tertiary Container",
+  },
+  {
+    name: "Error Container",
+    tone: "bg-error-container text-on-error-container",
+    onTone: "bg-on-error-container text-error-container",
+    onName: "On Error Container",
+  },
+];
+
+const fixedTones = [
+  {
+    name: "Primary",
+    fixed: "bg-primary-fixed text-on-primary-fixed",
+    dim: "bg-primary-fixed-dim text-on-primary-fixed",
+    onFixed: "bg-on-primary-fixed text-primary-fixed",
+    onVariant: "bg-on-primary-fixed-variant text-primary-fixed",
+  },
+  {
+    name: "Secondary",
+    fixed: "bg-secondary-fixed text-on-secondary-fixed",
+    dim: "bg-secondary-fixed-dim text-on-secondary-fixed",
+    onFixed: "bg-on-secondary-fixed text-secondary-fixed",
+    onVariant: "bg-on-secondary-fixed-variant text-secondary-fixed",
+  },
+  {
+    name: "Tertiary",
+    fixed: "bg-tertiary-fixed text-on-tertiary-fixed",
+    dim: "bg-tertiary-fixed-dim text-on-tertiary-fixed",
+    onFixed: "bg-on-tertiary-fixed text-tertiary-fixed",
+    onVariant: "bg-on-tertiary-fixed-variant text-tertiary-fixed",
+  },
+];
+
+const buttonVariants = ["btn-filled", "btn-outlined", "btn-text"];
+---
+
+<BaseLayout
+  title="Style test | zoidberg.tech"
+  description="Visual style test page for zoidberg.tech."
+>
+  <main class="max-w-6xl space-y-4">
+    <header class="box">
+      <h1>Style test</h1>
+      <div class="prose">
+        <p>
+          This page collects the shared visual primitives used by this site:
+          color tokens, typography, prose, buttons, icons, and basic tables.
+        </p>
+      </div>
+    </header>
+
+    <section class="space-y-2 box">
+      <h2>Colors</h2>
+      <div class="grid grid-cols-4 gap-2">
+        {
+          colorPairs.map((color) => (
+            <div>
+              <div class={`h-24 p-2 ${color.tone}`}>{color.name}</div>
+              <div class={`h-16 p-2 ${color.onTone}`}>{color.onName}</div>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="grid grid-cols-3 gap-2">
+        {
+          fixedTones.map((color) => (
+            <div>
+              <div class="flex">
+                <div class={`h-20 w-1/2 p-2 ${color.fixed}`}>
+                  {color.name} Fixed
+                </div>
+                <div class={`h-20 w-1/2 p-2 ${color.dim}`}>
+                  {color.name} Fixed Dim
+                </div>
+              </div>
+              <div class={`p-2 ${color.onFixed}`}>On {color.name} Fixed</div>
+              <div class={`p-2 ${color.onVariant}`}>
+                On {color.name} Fixed Variant
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="grid grid-cols-3">
+        <div class="bg-surface-dim p-2 text-on-surface">Surface Dim</div>
+        <div class="bg-surface p-2 text-on-surface">Surface</div>
+        <div class="bg-surface-bright p-2 text-on-surface">Surface Bright</div>
+      </div>
+      <div class="grid grid-cols-2">
+        <div class="bg-inverse-surface p-2 text-inverse-on-surface">
+          Inverse Surface
+        </div>
+        <div class="bg-inverse-on-surface p-2 text-inverse-surface">
+          Inverse On Surface
+        </div>
+      </div>
+      <div class="grid grid-cols-5">
+        <div class="bg-surface-container-lowest p-2 text-on-surface">
+          Lowest
+        </div>
+        <div class="bg-surface-container-low p-2 text-on-surface">Low</div>
+        <div class="bg-surface-container p-2 text-on-surface">Container</div>
+        <div class="bg-surface-container-high p-2 text-on-surface">High</div>
+        <div class="bg-surface-container-highest p-2 text-on-surface">
+          Highest
+        </div>
+      </div>
+      <div class="grid grid-cols-4">
+        <div class="bg-on-surface p-2 text-surface">On Surface</div>
+        <div class="bg-on-surface-variant p-2 text-surface">
+          On Surface Variant
+        </div>
+        <div class="bg-outline p-2 text-surface">Outline</div>
+        <div class="bg-outline-variant p-2 text-on-surface">
+          Outline Variant
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-3 box">
+      <h2>Typography</h2>
+      <div class="grid gap-2 md:grid-cols-2">
+        <div class="space-y-3 bg-surface-container p-4">
+          <div class="font-brand text-4xl text-primary lowercase">
+            Brand face
+          </div>
+          <div class="font-title text-3xl text-secondary uppercase">
+            Title face
+          </div>
+          <div class="font-sans text-xl">Sans body text</div>
+          <div class="font-serif text-xl text-on-surface-variant">
+            Serif supporting text
+          </div>
+          <div class="font-mono text-xl text-tertiary">Mono terminal text</div>
+        </div>
+
+        <div class="prose">
+          <h1>Heading 1</h1>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. A
+            <q>short quote</q> sits beside <b>bold text</b>, an
+            <a href="/welcome">inline link</a>, and <code>inline code</code>.
+          </p>
+          <h2>Heading 2</h2>
+          <p class="lead">
+            Lead text should feel distinct without leaving the design system.
+          </p>
+          <blockquote>
+            Blockquote text uses the prose palette and the shared outline.
+          </blockquote>
+          <p>Keyboard treatments should survive: <kbd>Enter</kbd>.</p>
+          <pre><code>&lt;button class="btn-filled"&gt;
+  &lt;icon&gt;terminal&lt;/icon&gt;
+  Run
+&lt;/button&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-3 box">
+      <h2>Buttons</h2>
+      <div class="grid grid-cols-3 gap-2">
+        {
+          buttonVariants.map((variant) => (
+            <button class={variant} type="button">
+              <icon>mouse</icon>
+              {variant.replace("btn-", "")}
+            </button>
+          ))
+        }
+        {
+          buttonVariants.map((variant) => (
+            <button class={variant} type="button" disabled>
+              <icon>mouse</icon>
+              disabled
+            </button>
+          ))
+        }
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2">
+        {
+          buttonVariants.map((variant) => (
+            <button class={`${variant} btn-sq`} type="button">
+              <icon>mouse</icon>
+            </button>
+          ))
+        }
+        <button class="btn-outlined btn-size-lg" type="button">
+          <icon>rocket_launch</icon>
+          Large
+        </button>
+        <button class="btn-outlined btn-size-xl" type="button">
+          <icon>rocket_launch</icon>
+          XL
+        </button>
+      </div>
+    </section>
+
+    <section class="space-y-3 box">
+      <h2>Tables</h2>
+      <div class="border border-outline-variant">
+        <table class="w-full text-left">
+          <thead>
+            <tr>
+              <th class="p-2">Signal</th>
+              <th class="p-2">State</th>
+              <th class="p-2">Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-2">Core</td>
+              <td class="p-2 text-secondary">online</td>
+              <td class="p-2 font-mono">99.98%</td>
+            </tr>
+            <tr>
+              <td class="p-2">Relay</td>
+              <td class="p-2 text-primary">stable</td>
+              <td class="p-2 font-mono">42 ms</td>
+            </tr>
+            <tr>
+              <td class="p-2">Archive</td>
+              <td class="p-2 text-tertiary">warming</td>
+              <td class="p-2 font-mono">7 jobs</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
