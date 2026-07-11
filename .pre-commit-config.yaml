@@ -47,3 +47,13 @@ repos:
         entry: npm run lint:headings
         language: system
         pass_filenames: false
+      - id: vale-sync
+        name: vale sync
+        entry: npm run lint:prose:sync
+        language: system
+        pass_filenames: false
+      - id: vale
+        name: vale
+        entry: npm run lint:prose
+        language: system
+        pass_filenames: false

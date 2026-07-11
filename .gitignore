@@ -5,6 +5,11 @@
 # Node
 node_modules
 
+# Vale
+.vale/styles/*
+!.vale/styles/config/
+!.vale/styles/config/**
+
 # Astro
 .astro
 dist

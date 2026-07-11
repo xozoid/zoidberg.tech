@@ -9,12 +9,15 @@
     "preview": "astro preview",
     "check": "astro check",
     "lint:headings": "node scripts/lint-heading-case.mjs",
+    "lint:prose:sync": "node_modules/@vvago/vale/bin/vale sync",
+    "lint:prose": "npm run build && node_modules/@vvago/vale/bin/vale --glob='!**/style/**' --output=line readme.md dist",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
     "@tailwindcss/vite": "^4.3.0",
+    "@vvago/vale": "^3.15.1",
     "astro": "^6.4.4",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
