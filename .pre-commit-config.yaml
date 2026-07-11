@@ -42,3 +42,8 @@ repos:
         entry: npm run check
         language: system
         pass_filenames: false
+      - id: heading-case
+        name: heading sentence case
+        entry: npm run lint:headings
+        language: system
+        pass_filenames: false

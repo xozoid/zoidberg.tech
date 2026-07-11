@@ -35,6 +35,9 @@ jobs:
       - name: Read site version
         run: echo "PUBLIC_SITE_VERSION=$(git describe --tags --always --dirty)" >> "$GITHUB_ENV"
 
+      - name: Check heading case
+        run: npm run lint:headings
+
       - name: Build
         run: npm run build
 
