@@ -1,1 +1,281 @@
 @import "tailwindcss";
+
+@import "./buttons.css";
+@import "./effects.css";
+@import "./fonts.css";
+@import "./prose.css";
+
+/* Apply light theme if on element or any ancestor */
+@custom-variant light (&:where(.light, .light *));
+
+@custom-variant disabled (&:disabled, &[disabled]);
+@custom-variant open (&:where(.open, .open *));
+@custom-variant error (&:where(.error, .error *));
+@custom-variant edit (&:where(.edit, .edit *));
+@custom-variant inverse (&:where(.inverse, .inverse *));
+
+@theme {
+  --color-*: initial;
+
+  --color-primary: #48d8ff;
+  --color-on-primary: #001f2a;
+  --color-primary-container: #053449;
+  --color-on-primary-container: #c8f3ff;
+  --color-primary-fixed: #c8f3ff;
+  --color-on-primary-fixed: #001f2a;
+  --color-primary-fixed-dim: #8be8ff;
+  --color-on-primary-fixed-variant: #00506b;
+  --color-inverse-primary: #00a9d6;
+
+  --color-secondary: #79f7c5;
+  --color-on-secondary: #002116;
+  --color-secondary-container: #12382c;
+  --color-on-secondary-container: #b8ffe2;
+  --color-secondary-fixed: #b8ffe2;
+  --color-on-secondary-fixed: #002116;
+  --color-secondary-fixed-dim: #8eecc9;
+  --color-on-secondary-fixed-variant: #1d5c48;
+
+  --color-tertiary: #9a8cff;
+  --color-on-tertiary: #1a1242;
+  --color-tertiary-container: #2d2564;
+  --color-on-tertiary-container: #e5ddff;
+  --color-tertiary-fixed: #e5ddff;
+  --color-on-tertiary-fixed: #1a1242;
+  --color-tertiary-fixed-dim: #c9bdff;
+  --color-on-tertiary-fixed-variant: #5147a3;
+
+  --color-error: #ff7070;
+  --color-on-error: #330000;
+  --color-error-container: #5c1414;
+  --color-on-error-container: #ffdad6;
+
+  --color-surface: #0a0c10;
+  --color-on-surface: #e7eef4;
+  --color-surface-dim: #05070a;
+  --color-surface-bright: #1b222a;
+  --color-surface-variant: #1a232b;
+  --color-on-surface-variant: #b8c6d1;
+
+  --color-inverse-surface: #e7eef4;
+  --color-inverse-on-surface: #10151a;
+
+  --color-surface-container-lowest: #05070a;
+  --color-surface-container-low: #0d1116;
+  --color-surface-container: #11161b;
+  --color-surface-container-high: #181f26;
+  --color-surface-container-highest: #202a33;
+
+  --color-outline: #5f7888;
+  --color-outline-variant: #263844;
+
+  --color-shadow: #000000;
+  --color-scrim: #000000;
+
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --font-brand: "Offside", "Kode Mono", monospace;
+  --font-title: "IBM Plex Sans", system-ui, sans-serif;
+  --font-sans: "IBM Plex Sans", system-ui, sans-serif;
+  --font-serif: "IBM Plex Serif", Georgia, serif;
+  --font-mono: "Kode Mono", ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    @apply overscroll-y-contain scroll-smooth;
+
+    font-variant-emoji: unicode;
+
+    @variant light {
+      /* Xenon Blue */
+      --color-primary: #006d91;
+      --color-on-primary: #ffffff;
+      --color-primary-container: #c6efff;
+      --color-on-primary-container: #001f2a;
+      --color-primary-fixed: #c6efff;
+      --color-on-primary-fixed: #001f2a;
+      --color-primary-fixed-dim: #8fdcff;
+      --color-on-primary-fixed-variant: #00506b;
+      --color-inverse-primary: #7bd9ff;
+
+      /* Plasma Teal */
+      --color-secondary: #35696a;
+      --color-on-secondary: #ffffff;
+      --color-secondary-container: #d3f0ef;
+      --color-on-secondary-container: #001f20;
+      --color-secondary-fixed: #d3f0ef;
+      --color-on-secondary-fixed: #001f20;
+      --color-secondary-fixed-dim: #b5d4d2;
+      --color-on-secondary-fixed-variant: #1d4f50;
+
+      /* Ion Violet */
+      --color-tertiary: #6157c8;
+      --color-on-tertiary: #ffffff;
+      --color-tertiary-container: #e4deff;
+      --color-on-tertiary-container: #1b1245;
+      --color-tertiary-fixed: #e4deff;
+      --color-on-tertiary-fixed: #1b1245;
+      --color-tertiary-fixed-dim: #c7bcff;
+      --color-on-tertiary-fixed-variant: #4b419f;
+
+      /* Status */
+      --color-error: #ba1a1a;
+      --color-on-error: #ffffff;
+      --color-error-container: #ffdad6;
+      --color-on-error-container: #410002;
+
+      --color-surface: #f6f8fb;
+      --color-on-surface: #182026;
+
+      --color-surface-dim: #d9dde2;
+      --color-surface-bright: #ffffff;
+
+      --color-surface-variant: #dde5ea;
+      --color-on-surface-variant: #49555d;
+
+      --color-inverse-surface: #222a31;
+      --color-inverse-on-surface: #edf2f6;
+
+      --color-surface-container-lowest: #ffffff;
+      --color-surface-container-low: #f2f5f8;
+      --color-surface-container: #ecf0f4;
+      --color-surface-container-high: #e6ebef;
+      --color-surface-container-highest: #dfe5ea;
+
+      --color-outline: #72808b;
+      --color-outline-variant: #c2cbd1;
+    }
+  }
+
+  body {
+    @apply relative min-h-screen w-full overscroll-y-contain antialiased;
+    @apply bg-surface text-on-surface;
+    @apply max-md:scroll-mt-10;
+  }
+
+  table td {
+    @apply px-1 py-0.5;
+  }
+
+  table > thead {
+    @apply sticky top-0 z-10;
+    @apply bg-surface;
+  }
+
+  table > tbody > tr {
+    @apply even:bg-surface-container;
+    @apply hover:bg-surface-container-high;
+  }
+
+  hr {
+    @apply border-outline-variant;
+  }
+
+  .grid > hr {
+    @apply col-span-full;
+  }
+
+  * {
+    @apply disabled:pointer-events-none;
+  }
+
+  details[open] .details-icon-closed {
+    @apply hidden;
+  }
+
+  details:not([open]) .details-icon-open {
+    @apply hidden;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-title uppercase;
+  }
+}
+
+@layer components {
+  icon {
+    user-select: none;
+    font-family: "Material Symbols Outlined";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -moz-font-feature-settings: "liga";
+    font-feature-settings: "liga";
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  icon.filled {
+    font-variation-settings: "FILL" 1;
+  }
+
+  icon.lg {
+    font-size: 32px;
+  }
+
+  icon.sm {
+    font-size: 20px;
+  }
+
+  main {
+    @apply min-h-full overflow-hidden px-2 pt-2 pb-20 md:px-4;
+    @apply mx-auto;
+  }
+
+  #footer-wrapper {
+    @apply absolute bottom-0 w-full px-2 md:px-6;
+  }
+
+  footer {
+    @apply py-1 md:py-2;
+    @apply flex items-center justify-between;
+    @apply text-center text-xs md:text-sm;
+    @apply border-t border-outline;
+
+    & > div > span {
+      @apply uppercase;
+
+      @variant first-of-type {
+        @apply opacity-70;
+      }
+
+      @variant last-of-type {
+        @apply text-primary;
+      }
+    }
+
+    & icon {
+      @apply text-secondary;
+    }
+  }
+}
+
+@utility status-box {
+  @apply flex items-center justify-center gap-1 rounded-md p-1;
+  @apply empty:hidden;
+}
+
+@utility status-error {
+  @apply status-box;
+  @apply bg-error-container text-on-error-container;
+}
+
+@utility status-tertiary {
+  @apply status-box;
+  @apply bg-tertiary-container text-on-tertiary-container;
+}
+
+@utility status-success {
+  @apply status-box;
+  @apply bg-primary-container text-on-primary-container;
+}

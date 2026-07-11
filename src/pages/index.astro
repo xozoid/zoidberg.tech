@@ -1,19 +1,14 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BaseLayout from "src/layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="zoidberg.tech">
-  <main
-    class="mx-auto flex min-h-[calc(100vh-5rem)] max-w-3xl flex-col justify-center px-6 py-16"
-  >
-    <p class="text-sm font-medium tracking-wide text-neutral-500 uppercase">
-      zoidberg.tech
-    </p>
-    <h1 class="mt-4 text-4xl font-semibold text-balance sm:text-5xl">
-      Personal site coming soon.
-    </h1>
-    <p class="mt-6 max-w-2xl text-lg leading-8 text-neutral-700">
-      This Astro and Tailwind CSS site is ready for content and theming.
-    </p>
+  <script is:inline>
+    if (!document.cookie.split("; ").includes("welcome_seen=true")) {
+      window.location.replace("/welcome");
+    }
+  </script>
+  <main class="text-center">
+    <h2 class="font-brand text-2xl text-primary md:text-4xl">coming soon</h2>
   </main>
 </BaseLayout>

@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { title, description = "Personal website for xozoid." } = Astro.props;
-const siteVersion = import.meta.env.PUBLIC_SITE_VERSION || "dev";
+const siteVersion = import.meta.env.PUBLIC_SITE_VERSION || "0+dev";
 ---
 
 <!doctype html>
@@ -20,11 +20,41 @@ const siteVersion = import.meta.env.PUBLIC_SITE_VERSION || "dev";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- TODO (xozoid): tree shake and self-host fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600;700&family=Kode+Mono:wght@400;500;600;700&family=Offside&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@0..1"
+    />
   </head>
-  <body class="min-h-screen bg-white text-neutral-950 antialiased">
+  <body>
     <slot />
-    <footer class="mx-auto max-w-3xl px-6 py-8 text-sm text-neutral-500">
-      <span>Version {siteVersion}</span>
-    </footer>
+    <div id="footer-wrapper">
+      <footer>
+        <div>
+          <span>Xenon Core</span>
+          <span>v{siteVersion}</span>
+        </div>
+        <div>
+          <span>Status</span>
+          <span>online</span>
+        </div>
+        <div class="max-md:hidden">
+          <span>Link</span>
+          <span>stable</span>
+        </div>
+        <icon>signal_cellular_4_bar</icon>
+      </footer>
+    </div>
+    <script>
+      import "../scripts/footer-signal";
+    </script>
   </body>
 </html>
