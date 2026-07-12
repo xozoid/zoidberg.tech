@@ -5,19 +5,28 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "npm run generate:favicon",
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
+    "generate:favicon": "jiti scripts/generate-favicon.ts",
+    "lint:headings": "node scripts/lint-heading-case.mjs",
+    "lint:prose:sync": "node_modules/@vvago/vale/bin/vale sync",
+    "lint:prose": "npm run build && node_modules/@vvago/vale/bin/vale --glob='!**/{style/**,*.svg}' --output=line readme.md dist",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
     "@tailwindcss/vite": "^4.3.0",
+    "@types/node": "^26.1.1",
+    "@vvago/vale": "^3.15.1",
     "astro": "^6.4.4",
+    "jiti": "^2.7.0",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.8.0",
+    "svgo": "^4.0.2",
     "tailwindcss": "^4.3.0",
     "typescript": "^6.0.3",
     "vite": "^7.3.5"

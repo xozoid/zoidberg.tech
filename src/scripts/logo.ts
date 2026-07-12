@@ -1,8 +1,6 @@
-import { getThemeColor } from "./utils";
-
-type Point = [number, number];
+export type Point = [number, number];
 type Rect = { x: number; y: number; w: number; h: number };
-type PathSample = { point: Point; distance: number };
+export type PathSample = { point: Point; distance: number };
 
 let animationFrame = 0;
 let devicePixelRatioCapped = 1;
@@ -14,7 +12,7 @@ let noiseSeed = Math.random() * 10_000;
 const zedCenterWidth = 0.7;
 const zedCenterRadius = 0.07;
 const zedCenterInset = (1 - zedCenterWidth) / 2;
-const zedPointSpacing = 0.004;
+export const zedPointSpacing = 0.004;
 const zedArcSteps = 48;
 const zedTraceDurationSeconds = 6;
 const zedHelixAmplitude = 0.05;
@@ -26,19 +24,32 @@ const zedPhaseTurns = 12;
 const zedPhaseRotationRate = Math.PI * 2;
 const zedEndTaperPower = 0.7;
 const zedStrokeWidth = 3;
-const zedTubeRadius = 0.055;
-const zedTubeFaceAlpha = 0.07;
-const zedTubeEdgeAlpha = 0.38;
-const zedTubeEdgeWidth = 0.008;
+export const zedTubeRadius = 0.055;
+export const zedTubeFaceAlpha = 0.07;
+export const zedTubeEdgeAlpha = 0.38;
+export const zedTubeEdgeWidth = 0.008;
 const zedTubeEdgeBlur = 0.0025;
-const zedElectrodeLength = 0.045;
-const zedElectrodeOverlap = 0.008;
-const zedElectrodeRadius = zedTubeRadius * 1.12;
+export const zedElectrodeLength = 0.045;
+export const zedElectrodeOverlap = 0.008;
+export const zedElectrodeRadius = zedTubeRadius * 1.12;
 const zedGlowLayers = [
   { width: 0.008, blur: 0.047, alpha: 0.9 },
-  { width: 0.016, blur: 0.017, alpha: 0.5 },
+  { width: 0.016, blur: 0.17, alpha: 0.5 },
   { width: 0.006, blur: 0.009, alpha: 0.1 },
 ];
+export const darkModeColors = {
+  surface: "#0a0c10",
+  primary: "#48d8ff",
+  tube: "rgb(220 245 255)",
+  electrodeStroke: "rgb(245 252 255)",
+  electrodeGradient: [
+    "rgb(88 96 100)",
+    "rgb(168 178 182)",
+    "rgb(116 126 130)",
+    "rgb(186 196 198)",
+    "rgb(82 90 94)",
+  ],
+} as const;
 
 function resize(canvas: HTMLCanvasElement) {
   devicePixelRatioCapped = Math.min(window.devicePixelRatio || 1, 2);
@@ -167,7 +178,7 @@ function appendArc(
   }
 }
 
-function zedPathSamples(): Array<PathSample> {
+export function zedPathSamples(): Array<PathSample> {
   const left = zedCenterInset;
   const right = 1 - zedCenterInset;
   const top = zedCenterInset;
@@ -240,7 +251,10 @@ function zedPathSamples(): Array<PathSample> {
   return samples;
 }
 
-function zedPointAtDistance(samples: Array<PathSample>, t: number): Point {
+export function zedPointAtDistance(
+  samples: Array<PathSample>,
+  t: number,
+): Point {
   const last = samples.at(-1);
 
   if (!last || t <= 0) return samples[0]?.point ?? [0, 0];
@@ -263,12 +277,12 @@ function zedPointAtDistance(samples: Array<PathSample>, t: number): Point {
   return last.point;
 }
 
-function zedNormalAtDistance(
+export function zedNormalAtDistance(
   samples: Array<PathSample>,
   t: number,
   totalDistance: number,
+  sampleDistance = zedPointSpacing / 2,
 ): Point {
-  const sampleDistance = zedPointSpacing / 2;
   const startDistance = Math.max(t - sampleDistance, 0);
   const endDistance = Math.min(t + sampleDistance, totalDistance);
   const start = zedPointAtDistance(samples, startDistance);
@@ -282,14 +296,45 @@ function zedNormalAtDistance(
   return [dy / length, -dx / length];
 }
 
-function zedTangentAtDistance(
+export function zedTangentAtDistance(
   samples: Array<PathSample>,
   t: number,
   totalDistance: number,
+  sampleDistance = zedPointSpacing / 2,
 ): Point {
-  const normal = zedNormalAtDistance(samples, t, totalDistance);
+  const normal = zedNormalAtDistance(samples, t, totalDistance, sampleDistance);
 
   return [-normal[1], normal[0]];
+}
+
+export function zedSampledPath(
+  project: (
+    point: Point,
+    normal: Point,
+    distance: number,
+    totalDistance: number,
+  ) => Point,
+  pointSpacing = zedPointSpacing,
+): Array<Point> {
+  const samples = zedPathSamples();
+  const totalDistance = samples.at(-1)?.distance ?? 0;
+  const pointCount = Math.ceil(totalDistance / pointSpacing);
+  const path: Array<Point> = [];
+
+  for (let i = 0; i <= pointCount; i++) {
+    const t = Math.min(i * pointSpacing, totalDistance);
+    const point = zedPointAtDistance(samples, t);
+    const normal = zedNormalAtDistance(
+      samples,
+      t,
+      totalDistance,
+      pointSpacing / 2,
+    );
+
+    path.push(project(point, normal, t, totalDistance));
+  }
+
+  return path;
 }
 
 function zedPath(timeSeconds: number): Array<Point> {
@@ -322,40 +367,16 @@ function zedPath(timeSeconds: number): Array<Point> {
 }
 
 function zedCenterPath(): Array<Point> {
-  const samples = zedPathSamples();
-  const totalDistance = samples.at(-1)?.distance ?? 0;
-  const pointCount = Math.ceil(totalDistance / zedPointSpacing);
-  const path: Array<Point> = [];
-
-  for (let i = 0; i <= pointCount; i++) {
-    const t = Math.min(i * zedPointSpacing, totalDistance);
-
-    path.push(toCanvasPoint(zedPointAtDistance(samples, t)));
-  }
-
-  return path;
+  return zedSampledPath((point) => toCanvasPoint(point));
 }
 
 function zedOffsetPath(offset: number): Array<Point> {
-  const samples = zedPathSamples();
-  const totalDistance = samples.at(-1)?.distance ?? 0;
-  const pointCount = Math.ceil(totalDistance / zedPointSpacing);
-  const path: Array<Point> = [];
-
-  for (let i = 0; i <= pointCount; i++) {
-    const t = Math.min(i * zedPointSpacing, totalDistance);
-    const point = zedPointAtDistance(samples, t);
-    const normal = zedNormalAtDistance(samples, t, totalDistance);
-
-    path.push(
-      toCanvasPoint([
-        point[0] + offset * normal[0],
-        point[1] + offset * normal[1],
-      ]),
-    );
-  }
-
-  return path;
+  return zedSampledPath((point, normal) =>
+    toCanvasPoint([
+      point[0] + offset * normal[0],
+      point[1] + offset * normal[1],
+    ]),
+  );
 }
 
 function tracePath(context: CanvasRenderingContext2D, path: Array<Point>) {
@@ -415,11 +436,11 @@ function drawElectrode(
     gradientEnd[1],
   );
 
-  gradient.addColorStop(0, "rgb(88 96 100)");
-  gradient.addColorStop(0.2, "rgb(168 178 182)");
-  gradient.addColorStop(0.5, "rgb(116 126 130)");
-  gradient.addColorStop(0.8, "rgb(186 196 198)");
-  gradient.addColorStop(1, "rgb(82 90 94)");
+  gradient.addColorStop(0, darkModeColors.electrodeGradient[0]);
+  gradient.addColorStop(0.2, darkModeColors.electrodeGradient[1]);
+  gradient.addColorStop(0.5, darkModeColors.electrodeGradient[2]);
+  gradient.addColorStop(0.8, darkModeColors.electrodeGradient[3]);
+  gradient.addColorStop(1, darkModeColors.electrodeGradient[4]);
 
   context.save();
   context.filter = "none";
@@ -433,7 +454,7 @@ function drawElectrode(
   context.fillStyle = gradient;
   context.fill();
   context.lineWidth = 0.002 * view.w;
-  context.strokeStyle = "rgb(245 252 255)";
+  context.strokeStyle = darkModeColors.electrodeStroke;
   context.globalAlpha = 0.28;
   context.stroke();
   context.restore();
@@ -457,7 +478,7 @@ function drawGlassTube(context: CanvasRenderingContext2D) {
   context.save();
   context.lineCap = "butt";
   context.lineJoin = "round";
-  context.strokeStyle = "rgb(220 245 255)";
+  context.strokeStyle = darkModeColors.tube;
   context.filter = "none";
   context.globalAlpha = zedTubeFaceAlpha;
   tracePath(context, centerPath);
@@ -502,7 +523,7 @@ function initLogo() {
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     const path = zedPath(time);
-    const primaryColor = getThemeColor("primary");
+    const primaryColor = darkModeColors.primary;
 
     drawGlassTube(context);
 
@@ -558,4 +579,6 @@ function initLogo() {
   animationFrame = window.requestAnimationFrame(render);
 }
 
-initLogo();
+if (typeof document !== "undefined") {
+  initLogo();
+}

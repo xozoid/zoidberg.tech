@@ -5,9 +5,17 @@
 # Node
 node_modules
 
+# Vale
+.vale/styles/*
+!.vale/styles/config/
+!.vale/styles/config/**
+
 # Astro
 .astro
 dist
 
 # Logs
 npm-debug.log*
+
+# Generate content
+public/favicon.svg

@@ -48,6 +48,9 @@ jobs:
       - name: Check Astro diagnostics
         run: npm run check
 
+      - name: Check heading case
+        run: npm run lint:headings
+
   build:
     runs-on: ubuntu-latest
     steps:
