@@ -2,33 +2,102 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
+import sharp from "sharp";
 import { optimize } from "svgo";
 
 import {
+  avatarRenderProfile,
   darkModeColors,
   type Point,
-  faviconRenderProfile,
   zedCenterPath,
+  zedElectrodeDimensions,
   zedElectrodeGradientAxis,
   zedElectrodePolygon,
-  zedTubeEdgeWidth,
+  zedEndTaperPower,
+  zedHelixAmplitude,
   zedOffsetPath,
   zedPathSamples,
+  zedPhaseRotationRate,
+  zedPhaseSpatialFrequency,
+  zedPhaseTemporalFrequency,
+  zedPhaseTurns,
+  zedPointAtDistance,
+  zedRadiusSpatialFrequency,
+  zedRadiusTemporalFrequency,
+  zedNormalAtDistance,
   zedRenderViewport,
+  zedTubeEdgeWidth,
   zedTubeRadius,
 } from "../src/lib/zed-logo";
 
-const outputPath = resolve("public/favicon.svg");
+const outputSvgPath = resolve("public/avatar.svg");
+const outputPngSizes = [1024, 512, 256] as const;
 
-const profile = faviconRenderProfile;
+const profile = avatarRenderProfile;
 const size = profile.size;
 const viewport = zedRenderViewport(profile);
 
-/*
- * SVG-space transform.
- *
- * The Canvas renderer uses the complete square viewport. This does too.
- */
+function lerp(a: number, b: number, t: number): number {
+  return a + (b - a) * t;
+}
+
+function smoothstep(t: number): number {
+  return t * t * (3 - 2 * t);
+}
+
+function randomUnit(x: number, y: number): number {
+  const seed = profile.fixedNoiseSeed ?? 0;
+  const n = Math.sin(x * 127.1 + y * 311.7 + seed) * 43758.5453123;
+
+  return n - Math.floor(n);
+}
+
+function smoothNoise(x: number, y: number): number {
+  const x0 = Math.floor(x);
+  const y0 = Math.floor(y);
+  const tx = smoothstep(x - x0);
+  const ty = smoothstep(y - y0);
+  const a = randomUnit(x0, y0);
+  const b = randomUnit(x0 + 1, y0);
+  const c = randomUnit(x0, y0 + 1);
+  const d = randomUnit(x0 + 1, y0 + 1);
+
+  return lerp(lerp(a, b, tx), lerp(c, d, tx), ty);
+}
+
+function zedHelixRadius(
+  distance: number,
+  timeSeconds: number,
+  totalDistance: number,
+): number {
+  const pathProgress = totalDistance
+    ? Math.min(Math.max(distance / totalDistance, 0), 1)
+    : 0;
+  const endTaper = Math.sin(Math.PI * pathProgress) ** zedEndTaperPower;
+
+  return (
+    zedHelixAmplitude *
+    endTaper *
+    smoothNoise(
+      distance * zedRadiusSpatialFrequency,
+      timeSeconds * zedRadiusTemporalFrequency,
+    )
+  );
+}
+
+function zedHelixPhi(distance: number, timeSeconds: number): number {
+  return (
+    Math.PI *
+      2 *
+      zedPhaseTurns *
+      smoothNoise(
+        distance * zedPhaseSpatialFrequency,
+        timeSeconds * zedPhaseTemporalFrequency,
+      ) +
+    timeSeconds * zedPhaseRotationRate
+  );
+}
+
 function toSvgPoint(point: Point): Point {
   return viewport.point(point);
 }
@@ -37,12 +106,6 @@ function round(value: number): string {
   return Number(value.toFixed(3)).toString();
 }
 
-/**
- * SVG polyline path.
- *
- * The source Canvas implementation also draws sampled line segments, so this
- * preserves the renderer's behavior rather than fitting a different curve.
- */
 function pointsToPath(points: Point[]): string {
   const first = points[0];
 
@@ -58,6 +121,36 @@ function pointsToPath(points: Point[]): string {
 
 function pointsToPolygon(points: Point[]): string {
   return points.map(([x, y]) => `${round(x)},${round(y)}`).join(" ");
+}
+
+function zedFrozenHelixPath(): Point[] {
+  const samples = zedPathSamples();
+  const totalDistance = samples.at(-1)?.distance ?? 0;
+  const pointCount = Math.ceil(totalDistance / profile.pointSpacing);
+  const timeSeconds = profile.fixedTimeSeconds ?? 0;
+  const path: Point[] = [];
+
+  for (let i = 0; i <= pointCount; i++) {
+    const distance = Math.min(i * profile.pointSpacing, totalDistance);
+    const point = zedPointAtDistance(samples, distance);
+    const normal = zedNormalAtDistance(
+      samples,
+      distance,
+      totalDistance,
+      profile.pointSpacing / 2,
+    );
+    const radius = zedHelixRadius(distance, timeSeconds, totalDistance);
+    const offset = radius * Math.cos(zedHelixPhi(distance, timeSeconds));
+
+    path.push(
+      toSvgPoint([
+        point[0] + offset * normal[0],
+        point[1] + offset * normal[1],
+      ]),
+    );
+  }
+
+  return path;
 }
 
 function toGradientCoordinates(axis: { start: Point; end: Point }): {
@@ -99,47 +192,57 @@ function linearGradient(
   `;
 }
 
-export function buildFaviconSvg(): string {
+export function buildAvatarSvg(): string {
   const samples = zedPathSamples();
   const totalDistance = samples.at(-1)?.distance ?? 0;
-
+  const scaledTubeRadius = zedTubeRadius * profile.tubeRadiusScale;
+  const scaledElectrodeRadius =
+    zedElectrodeDimensions.radius * profile.electrodeRadiusScale;
+  const scaledElectrodeDimensions = {
+    ...zedElectrodeDimensions,
+    radius: scaledElectrodeRadius,
+  };
   const centerPath = pointsToPath(
     zedCenterPath(toSvgPoint, profile.pointSpacing),
   );
   const positiveEdgePath = pointsToPath(
-    zedOffsetPath(zedTubeRadius, toSvgPoint, profile.pointSpacing),
+    zedOffsetPath(scaledTubeRadius, toSvgPoint, profile.pointSpacing),
   );
   const negativeEdgePath = pointsToPath(
-    zedOffsetPath(-zedTubeRadius, toSvgPoint, profile.pointSpacing),
+    zedOffsetPath(-scaledTubeRadius, toSvgPoint, profile.pointSpacing),
   );
-
-  const plasmaPath = centerPath;
-
+  const plasmaPath = pointsToPath(zedFrozenHelixPath());
   const startElectrode = zedElectrodePolygon(
     samples,
     0,
     -1,
     profile.pointSpacing / 2,
+    scaledElectrodeDimensions,
   ).map(toSvgPoint);
-
   const endElectrode = zedElectrodePolygon(
     samples,
     totalDistance,
     1,
     profile.pointSpacing / 2,
+    scaledElectrodeDimensions,
   ).map(toSvgPoint);
-
   const startGradient = toGradientCoordinates(
-    zedElectrodeGradientAxis(samples, 0, profile.pointSpacing / 2),
+    zedElectrodeGradientAxis(
+      samples,
+      0,
+      profile.pointSpacing / 2,
+      scaledElectrodeRadius,
+    ),
   );
-
   const endGradient = toGradientCoordinates(
-    zedElectrodeGradientAxis(samples, totalDistance, profile.pointSpacing / 2),
+    zedElectrodeGradientAxis(
+      samples,
+      totalDistance,
+      profile.pointSpacing / 2,
+      scaledElectrodeRadius,
+    ),
   );
-
-  const tubeWidth = viewport.normalizedLength(
-    zedTubeRadius * 2 * profile.tubeRadiusScale,
-  );
+  const tubeWidth = viewport.normalizedLength(scaledTubeRadius * 2);
   const tubeEdgeWidth = viewport.normalizedLength(
     zedTubeEdgeWidth * profile.tubeEdgeWidthScale,
   );
@@ -155,18 +258,31 @@ export function buildFaviconSvg(): string {
   viewBox="0 0 ${size} ${size}"
   fill="none"
 >
-  <title>Zed plasma tube</title>
+  <title>Zed plasma avatar</title>
 
   <defs>
     ${linearGradient("start-electrode", startGradient)}
     ${linearGradient("end-electrode", endGradient)}
 
     <filter
-      id="plasma-glow-near"
+      id="ambient-glow"
       x="-35%"
       y="-35%"
       width="170%"
       height="170%"
+      color-interpolation-filters="sRGB"
+    >
+      <feGaussianBlur stdDeviation="${viewport.profileLength(
+        profile.ambientGlowBlur ?? 0,
+      )}"/>
+    </filter>
+
+    <filter
+      id="plasma-glow-near"
+      x="-25%"
+      y="-25%"
+      width="150%"
+      height="150%"
       color-interpolation-filters="sRGB"
     >
       <feGaussianBlur stdDeviation="${viewport.profileLength(
@@ -176,10 +292,10 @@ export function buildFaviconSvg(): string {
 
     <filter
       id="plasma-glow-wide"
-      x="-70%"
-      y="-70%"
-      width="240%"
-      height="240%"
+      x="-45%"
+      y="-45%"
+      width="190%"
+      height="190%"
       color-interpolation-filters="sRGB"
     >
       <feGaussianBlur stdDeviation="${viewport.profileLength(
@@ -189,10 +305,10 @@ export function buildFaviconSvg(): string {
 
     <filter
       id="tube-edge-blur"
-      x="-20%"
-      y="-20%"
-      width="140%"
-      height="140%"
+      x="-15%"
+      y="-15%"
+      width="130%"
+      height="130%"
       color-interpolation-filters="sRGB"
     >
       <feGaussianBlur stdDeviation="${viewport.profileLength(
@@ -201,7 +317,18 @@ export function buildFaviconSvg(): string {
     </filter>
   </defs>
 
-  <!-- Glass tube face -->
+  <rect width="${size}" height="${size}" fill="${profile.background}"/>
+
+  <path
+    d="${centerPath}"
+    stroke="${darkModeColors.primary}"
+    stroke-width="${viewport.profileLength(profile.ambientGlowWidth ?? 0)}"
+    stroke-linecap="butt"
+    stroke-linejoin="round"
+    opacity="${profile.ambientGlowAlpha}"
+    filter="url(#ambient-glow)"
+  />
+
   <path
     d="${centerPath}"
     stroke="${darkModeColors.tube}"
@@ -211,7 +338,6 @@ export function buildFaviconSvg(): string {
     opacity="${profile.tubeFaceAlpha}"
   />
 
-  <!-- Blurred glass edges -->
   <g
     stroke="${darkModeColors.tube}"
     stroke-width="${round(tubeEdgeWidth)}"
@@ -224,19 +350,17 @@ export function buildFaviconSvg(): string {
     <path d="${negativeEdgePath}"/>
   </g>
 
-  <!-- Crisp glass edges -->
   <g
     stroke="${darkModeColors.tube}"
     stroke-width="${round(tubeEdgeWidth / 2)}"
     stroke-linecap="butt"
     stroke-linejoin="round"
-    opacity="${profile.tubeEdgeAlpha * 0.75}"
+    opacity="${profile.tubeEdgeAlpha * 0.7}"
   >
     <path d="${positiveEdgePath}"/>
     <path d="${negativeEdgePath}"/>
   </g>
 
-  <!-- Wide plasma glow -->
   <path
     d="${plasmaPath}"
     stroke="${darkModeColors.primary}"
@@ -247,7 +371,6 @@ export function buildFaviconSvg(): string {
     filter="url(#plasma-glow-wide)"
   />
 
-  <!-- Near plasma glow -->
   <path
     d="${plasmaPath}"
     stroke="${darkModeColors.primary}"
@@ -258,7 +381,6 @@ export function buildFaviconSvg(): string {
     filter="url(#plasma-glow-near)"
   />
 
-  <!-- Plasma trace -->
   <path
     d="${plasmaPath}"
     stroke="${darkModeColors.primary}"
@@ -267,41 +389,55 @@ export function buildFaviconSvg(): string {
     stroke-linejoin="round"
   />
 
-  <!-- Start electrode -->
   <polygon
     points="${pointsToPolygon(startElectrode)}"
     fill="url(#start-electrode)"
     stroke="${darkModeColors.electrodeStroke}"
     stroke-width="${round(electrodeStrokeWidth)}"
-    stroke-opacity="0.28"
+    stroke-opacity="0.3"
   />
 
-  <!-- End electrode -->
   <polygon
     points="${pointsToPolygon(endElectrode)}"
     fill="url(#end-electrode)"
     stroke="${darkModeColors.electrodeStroke}"
     stroke-width="${round(electrodeStrokeWidth)}"
-    stroke-opacity="0.28"
+    stroke-opacity="0.3"
   />
 </svg>
 `;
 }
 
+async function writePng(svg: string, pngSize: number): Promise<void> {
+  const outputPath = resolve(`public/avatar-${pngSize}.png`);
+
+  await sharp(Buffer.from(svg))
+    .resize(pngSize, pngSize, { fit: "fill" })
+    .png()
+    .toFile(outputPath);
+}
+
 async function main(): Promise<void> {
-  const svg = buildFaviconSvg();
+  const svg = buildAvatarSvg();
   const optimizedSvg = optimize(svg, {
     multipass: true,
-    path: outputPath,
+    path: outputSvgPath,
   }).data;
 
-  await mkdir(dirname(outputPath), {
+  await mkdir(dirname(outputSvgPath), {
     recursive: true,
   });
 
-  await writeFile(outputPath, `${optimizedSvg}\n`, "utf8");
+  await writeFile(outputSvgPath, `${optimizedSvg}\n`, "utf8");
 
-  console.log(`Generated ${outputPath}`);
+  for (const pngSize of outputPngSizes) {
+    await writePng(optimizedSvg, pngSize);
+  }
+
+  console.log(`Generated ${outputSvgPath}`);
+  for (const pngSize of outputPngSizes) {
+    console.log(`Generated ${resolve(`public/avatar-${pngSize}.png`)}`);
+  }
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
