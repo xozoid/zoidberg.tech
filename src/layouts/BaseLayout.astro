@@ -48,7 +48,7 @@ const showStyleLink =
       <table>
         <tbody>
           <tr>
-            <td>
+            <td class="max-md:hidden">
               <a href="/welcome">
                 <span class="text-on-surface opacity-70">Xenon Core</span>
                 <span>{siteVersion}</span>
@@ -75,12 +75,12 @@ const showStyleLink =
             <td class="footer-actions">
               <div>
                 <icon class="text-secondary">signal_cellular_4_bar</icon>
-                <a href="/terminal" class="btn-text btn-sq">
+                <a href="/terminal" class="btn-text btn-sq max-md:hidden">
                   <icon>terminal</icon>
                 </a>
                 {
                   showStyleLink && (
-                    <a href="/style" class="btn-text btn-sq">
+                    <a href="/style" class="btn-text btn-sq max-md:hidden">
                       <icon>palette</icon>
                     </a>
                   )
