@@ -204,18 +204,15 @@
   }
 
   h1 {
-    @apply text-4xl leading-7;
-    @apply md:text-6xl md:leading-12;
+    @apply text-4xl md:text-6xl;
   }
 
   h2 {
-    @apply text-2xl leading-5;
-    @apply md:text-3xl md:leading-6;
+    @apply text-2xl md:text-3xl;
   }
 
   h3 {
-    @apply text-xl leading-4;
-    @apply md:text-2xl md:leading-5;
+    @apply text-xl md:text-2xl;
   }
 }
 

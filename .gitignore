@@ -16,3 +16,6 @@ dist
 
 # Logs
 npm-debug.log*
+
+# Generate content
+public/favicon.svg

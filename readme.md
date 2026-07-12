@@ -15,9 +15,11 @@ npm run build
 
 ## Deployment
 
-Publishing a GitHub release tells GitHub Actions to build the static site and deploy `dist` to GitHub Pages. Production address: `https://zoidberg.tech`.
+Publishing a GitHub release tells GitHub Actions to build the static site and
+deploy `dist` to GitHub Pages. Production address: `https://zoidberg.tech`.
 
-Git tags provide the source of truth for the deployed site version. The deploy workflow reads `PUBLIC_SITE_VERSION` from:
+Git tags provide the source of truth for the deployed site version. The deploy
+workflow reads `PUBLIC_SITE_VERSION` from:
 
 ```sh
 git describe --tags --always --dirty

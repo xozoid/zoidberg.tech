@@ -77,6 +77,7 @@ const fixedTones = [
 ];
 
 const buttonVariants = ["btn-filled", "btn-outlined", "btn-text"];
+const faviconSizes = [16, 24, 32, 48, 64, 128, 256] as const;
 ---
 
 <BaseLayout
@@ -93,6 +94,28 @@ const buttonVariants = ["btn-filled", "btn-outlined", "btn-text"];
         </p>
       </div>
     </header>
+
+    <section class="space-y-3 box">
+      <h2>Favicon sizes</h2>
+      <div class="flex flex-wrap gap-2">
+        {
+          faviconSizes.map((size) => (
+            <figure class="space-y-2">
+              <figcaption class="font-mono text-sm text-on-surface-variant">
+                {size}px
+              </figcaption>
+              <img
+                src="/favicon.svg"
+                alt={`${size}px favicon`}
+                width={size}
+                height={size}
+                style={`height: ${size}px; width: ${size}px;`}
+              />
+            </figure>
+          ))
+        }
+      </div>
+    </section>
 
     <section class="space-y-2 box">
       <h2>Colors</h2>

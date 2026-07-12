@@ -1,0 +1,6 @@
+interface:
+  display_name: "Validation and Release"
+  short_description: "Validate builds, CI, deploys, and releases"
+  default_prompt: "Use $validation-release to validate site changes or inspect deploy behavior."
+policy:
+  allow_implicit_invocation: true

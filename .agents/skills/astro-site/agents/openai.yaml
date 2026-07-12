@@ -1,0 +1,6 @@
+interface:
+  display_name: "Astro Site"
+  short_description: "Edit site pages and shared behavior"
+  default_prompt: "Use $astro-site to update an Astro route or shared site behavior."
+policy:
+  allow_implicit_invocation: true

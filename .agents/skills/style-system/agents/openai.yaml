@@ -1,0 +1,6 @@
+interface:
+  display_name: "Style System"
+  short_description: "Work on the site's visual system"
+  default_prompt: "Use $style-system to adjust colors, typography, or shared UI styling."
+policy:
+  allow_implicit_invocation: true
