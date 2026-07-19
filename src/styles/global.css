@@ -205,6 +205,8 @@
 
   h1 {
     @apply text-4xl md:text-6xl;
+
+    line-height: 1.12;
   }
 
   h2 {
@@ -301,5 +303,13 @@
 
   .font-title {
     text-transform: uppercase;
+  }
+}
+
+@utility crumbs {
+  @apply flex text-sm text-secondary uppercase;
+
+  & > a {
+    @apply hover:underline;
   }
 }

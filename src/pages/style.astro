@@ -1,4 +1,5 @@
 ---
+import Crumbs from "src/components/Crumbs.astro";
 import BaseLayout from "src/layouts/BaseLayout.astro";
 
 const colorPairs = [
@@ -86,6 +87,7 @@ const faviconSizes = [16, 24, 32, 48, 64, 128, 256] as const;
 >
   <main class="mx-auto max-w-6xl space-y-2 lg:space-y-4">
     <header class="box">
+      <Crumbs />
       <h1>Style test</h1>
       <div class="prose">
         <p>

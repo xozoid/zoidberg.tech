@@ -1,5 +1,6 @@
 Astro
 ENTER
+Ollie
 dark_mode
 light_mode
 rocket_launch
