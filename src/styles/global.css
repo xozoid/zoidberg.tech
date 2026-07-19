@@ -216,6 +216,10 @@
   h3 {
     @apply text-xl md:text-2xl;
   }
+
+  subtitle {
+    @apply block max-w-prose text-xl text-on-surface-variant;
+  }
 }
 
 @layer components {

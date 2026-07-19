@@ -1,0 +1,122 @@
+---
+import Crumbs from "src/components/Crumbs.astro";
+import BaseLayout from "src/layouts/BaseLayout.astro";
+
+const profileSections = [
+  {
+    title: "Background",
+    icon: "badge",
+    body: [
+      "I studied electrical engineering before discovering that the problems I enjoyed most lived where software, electronics, and physical systems meet.",
+      "Today I work as a systems engineer, building automation, improving infrastructure, and learning whatever technology seems useful next.",
+      "This website documents the projects, experiments, and ideas that don't fit on a résumé.",
+    ],
+  },
+  {
+    title: "Why this site",
+    icon: "book_2",
+    body: [
+      "I built this site to document projects, share what I'm learning, and keep a public notebook of ideas that seem worth remembering.",
+      "It's part portfolio, part engineering journal, and part excuse to build another website.",
+    ],
+  },
+  {
+    title: "Engineering philosophy",
+    icon: "precision_manufacturing",
+    body: [
+      "I value practical systems over clever ones.",
+      "Good engineering should stay understandable, resilient, and maintainable by the next person—including my future self.",
+      "I prefer tight feedback loops, incremental improvement, and tools that reduce friction instead of adding unnecessary complexity.",
+    ],
+  },
+  {
+    title: "Values",
+    icon: "verified",
+    ul: [
+      "Stay curious.",
+      "Build things that last.",
+      "Document what you learn.",
+      "Leave systems better than you found them.",
+      "Choose practical over impressive.",
+    ],
+  },
+  {
+    title: "Current interests",
+    icon: "radar",
+    body: [
+      "Lately I spend time on systems automation, infrastructure reliability, embedded hardware, and home lab projects.",
+      "Outside of work, I'm restoring a 1977 MG roadster, practicing TIG welding, and turning my yard into something worth wandering through.",
+      "My interests tend to rotate, but they almost always involve building, fixing, or understanding something.",
+    ],
+  },
+  {
+    title: "Current objectives",
+    icon: "flag",
+    body: [
+      "I'm finishing my graduate degree in computer engineering while preparing for a professional doctorate.",
+      "Alongside that, I'm working toward completing the MG EV conversion, improving this website, and documenting more of my work publicly.",
+      "Long term, I'd like to keep building useful things, share what I learn, and remain curious enough to always have another side quest waiting.",
+    ],
+  },
+  {
+    title: "Hobbies and side quests",
+    icon: "extension",
+    body: [
+      "I'm happiest when parallel projects keep moving.",
+      "Some involve code. Others involve welding, woodworking, gardening, electronics, stained glass, or baking.",
+      "I don't see much separation between hobbies and engineering. They're all opportunities to learn new skills, explore ideas, and create something tangible.",
+    ],
+  },
+  {
+    title: "Favorite tools",
+    icon: "tools_power_drill",
+    ul: [
+      "Hammer, occasionally used as a universal tool",
+      "Linux",
+      "Neovim",
+      "Python",
+      "TIG welder",
+      "KiCad",
+      "Whiteboard",
+      "Oscilloscope",
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Identity | zoidberg.tech"
+  description="Personal profile for Xenon Ollie Zoidberg, including background, interests, engineering philosophy, and current objectives."
+>
+  <main class="mx-auto w-full max-w-6xl space-y-2 md:space-y-4">
+    <div class="box">
+      <Crumbs />
+      <h1>Identity</h1>
+      <subtitle>The person behind the projects.</subtitle>
+    </div>
+
+    <section
+      class="grid gap-2 md:grid-cols-[repeat(auto-fit,minmax(400px,1fr))] md:gap-4"
+    >
+      {
+        profileSections.map((section) => (
+          <article class="box">
+            <div class="flex items-center justify-between gap-3">
+              <h3>{section.title}</h3>
+              <icon class="text-secondary">{section.icon}</icon>
+            </div>
+            {section.ul ? (
+              <ul class="list-disc space-y-1 pl-5">
+                {section.ul.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            ) : (
+              <p class="prose">{section.body?.join(" ")}</p>
+            )}
+          </article>
+        ))
+      }
+    </section>
+  </main>
+</BaseLayout>

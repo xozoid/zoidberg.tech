@@ -1,7 +1,11 @@
 Astro
 ENTER
+Neovim
 Ollie
+arrow_back
 dark_mode
 light_mode
+precision_manufacturing
 rocket_launch
+tools_power_drill
 zoidberg
