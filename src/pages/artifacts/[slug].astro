@@ -1,0 +1,55 @@
+---
+import Crumbs from "src/components/Crumbs.astro";
+import { artifactStubs } from "src/data/artifactStubs";
+import BaseLayout from "src/layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return artifactStubs.map((artifact) => ({
+    params: { slug: artifact.slug },
+    props: { artifact },
+  }));
+}
+
+const { artifact } = Astro.props;
+---
+
+<BaseLayout
+  title={`${artifact.title} | zoidberg.tech`}
+  description={`${artifact.title} project notes and artifact stub.`}
+>
+  <main class="mx-auto w-full max-w-4xl space-y-2 md:space-y-4">
+    <section class="box">
+      <Crumbs />
+      <div class="flex items-center justify-between gap-3">
+        <h1>{artifact.title}</h1>
+        <icon class="text-secondary">{artifact.icon}</icon>
+      </div>
+      <subtitle>Artifact stub.</subtitle>
+    </section>
+
+    <section class="box">
+      <h2>Overview</h2>
+      <p class="prose">{artifact.summary.join(" ")}</p>
+      <div class="mt-3 flex flex-wrap gap-1 md:gap-2">
+        {
+          artifact.tags.map((tag) => (
+            <a
+              href={`/artifacts?tag=${encodeURIComponent(tag.toLowerCase())}`}
+              class="btn-chip"
+            >
+              {tag}
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="box">
+      <h2>Status</h2>
+      <p class="prose">
+        Full project notes remain in progress. This stub keeps links from the
+        profile and project index working.
+      </p>
+    </section>
+  </main>
+</BaseLayout>

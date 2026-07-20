@@ -77,7 +77,7 @@ const fixedTones = [
   },
 ];
 
-const buttonVariants = ["btn-filled", "btn-outlined", "btn-text"];
+const buttonVariants = ["btn-filled", "btn-chip", "btn-outlined", "btn-text"];
 const faviconSizes = [16, 24, 32, 48, 64, 128, 256] as const;
 ---
 
@@ -227,7 +227,7 @@ const faviconSizes = [16, 24, 32, 48, 64, 128, 256] as const;
 
     <section class="space-y-3 box">
       <h2>Buttons</h2>
-      <div class="grid grid-cols-3 gap-2">
+      <div class="grid grid-cols-4 gap-2">
         {
           buttonVariants.map((variant) => (
             <button class={variant} type="button">
