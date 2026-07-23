@@ -53,41 +53,47 @@ import BaseLayout from "src/layouts/BaseLayout.astro";
     <section class="space-y-2 box md:space-y-4">
       <h2>Experience</h2>
       {
-        experience.map((item) => (
-          <article class="box border-outline-variant bg-surface-container-low">
-            <div class="items-baseline justify-between gap-1 md:flex">
-              <div>
-                <h3>{item.role}</h3>
-                <div class="text-on-surface-variant">{item.organization}</div>
-                <h4 class="mb-2 text-secondary">
-                  <span class="text-on-surface-variant">Focus:</span>
-                  {item.focus.join(" • ")}
-                </h4>
+        experience.map((organization) =>
+          organization.roles.map((role) => (
+            <article class="box border-outline-variant bg-surface-container-low">
+              <div class="items-baseline justify-between gap-1 md:flex">
+                <div>
+                  <h3>{role.role}</h3>
+                  <div class="text-on-surface-variant">
+                    {organization.organization}
+                    <span class="mx-1">•</span>
+                    {organization.location}
+                  </div>
+                  <h4 class="mb-2 text-secondary">
+                    <span class="text-on-surface-variant">Focus:</span>
+                    {role.focus.join(" • ")}
+                  </h4>
+                </div>
+                <div class="font-mono text-sm text-on-surface-variant">
+                  {role.dates}
+                </div>
               </div>
-              <div class="font-mono text-sm text-on-surface-variant">
-                {item.dates}
+              <div class="prose">
+                <p>{role.overview.join(" ")}</p>
+                <ul>
+                  {role.tasks.map((detail) => (
+                    <li>{detail}</li>
+                  ))}
+                </ul>
               </div>
-            </div>
-            <div class="prose">
-              <p>{item.overview.join(" ")}</p>
-              <ul>
-                {item.tasks.map((detail) => (
-                  <li>{detail}</li>
+              <div class="mt-2 flex flex-wrap gap-1 md:gap-2">
+                {role.topics.map((topic) => (
+                  <a
+                    href={`/artifacts?tag=${encodeURIComponent(topic.toLowerCase())}`}
+                    class="btn-chip"
+                  >
+                    {topic}
+                  </a>
                 ))}
-              </ul>
-            </div>
-            <div class="mt-2 flex flex-wrap gap-1 md:gap-2">
-              {item.topics.map((topic) => (
-                <a
-                  href={`/artifacts?tag=${encodeURIComponent(topic.toLowerCase())}`}
-                  class="btn-chip"
-                >
-                  {topic}
-                </a>
-              ))}
-            </div>
-          </article>
-        ))
+              </div>
+            </article>
+          )),
+        )
       }
     </section>
 

@@ -17,7 +17,8 @@ dns
 light_mode
 nummus
 precision_manufacturing
+pytest
 rocket_launch
 satellite_alt
 tools_power_drill
-zoidberg
+(?i)zoidberg
