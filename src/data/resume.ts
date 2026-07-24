@@ -3,15 +3,25 @@ export const resumeProfile = {
   title: "Lead Software Engineer",
   descriptor:
     "Software, embedded systems, hardware integration, and automation",
-  location: "Pullman, Washington",
   links: [
     {
+      icon: "location_on",
+      label: "Pullman, Washington",
+      href: null,
+    },
+    {
+      icon: "hub",
       label: "zoidberg.tech",
       href: "https://zoidberg.tech",
     },
     {
-      icon: "github",
-      label: "@xozoid",
+      icon: "contact_mail",
+      label: "xoz@zoidberg.tech",
+      href: "mailto:xoz@zoidberg.tech",
+    },
+    {
+      icon: "code",
+      label: "GitHub: @xozoid",
       href: "https://github.com/xozoid",
     },
   ],
@@ -20,7 +30,7 @@ export const resumeProfile = {
   resumeFocus: [
     "Internal platforms",
     "Engineering automation",
-    "Full-stack development",
+    "Developer productivity",
     "Hardware/software integration",
   ],
 } as const;
@@ -108,8 +118,7 @@ export const experience = [
 
         resumeTasks: [
           "Led multidisciplinary development of a GNSS timing platform from concept through working prototype.",
-          "Integrated PCB/FPGA design, Yocto Linux, C++ services, web tooling, and Prometheus telemetry.",
-          "Built automated validation tools for 10GbE networking and PoE test workflows.",
+          "Integrated PCB/FPGA design, Yocto Linux, C++ services, web tooling, Prometheus telemetry, and automated validation.",
         ],
       },
 
@@ -138,8 +147,7 @@ export const experience = [
         ],
 
         resumeTasks: [
-          "Delivered timing capabilities requiring nanosecond-level precision.",
-          "Worked directly with customers to translate requirements into production-ready hardware designs.",
+          "Delivered nanosecond-level timing capabilities, translating customer requirements into production hardware.",
           "Automated laboratory testing to improve repeatability and reduce manual test effort.",
         ],
       },
@@ -171,9 +179,7 @@ export const experience = [
         ],
 
         resumeTasks: [
-          "Used simulation and lab measurement to improve PCB routing, signal integrity, and EMC decisions.",
-          "Qualified alternate components to keep manufacturing moving during supply chain disruptions.",
-          "Debugged hardware failures through measurement, experimentation, and root-cause analysis.",
+          "Improved PCB signal-integrity and EMC decisions through simulation and lab measurement; debugged failures and qualified alternate components during supply disruptions.",
         ],
       },
 
@@ -214,9 +220,7 @@ export const experience = [
         ],
 
         resumeTasks: [
-          "Built Ethernet reliability software for product validation.",
-          "Performed regulatory, environmental, and hardware validation testing.",
-          "Designed manufacturing hardware that improved assembly safety and reduced defects.",
+          "Built Ethernet validation software and supported regulatory, environmental, manufacturing, and hardware validation.",
         ],
       },
     ],
@@ -234,7 +238,7 @@ export const education = [
   {
     credential: "B.S. Electrical Engineering",
     institution: "Washington State University",
-    dates: "2021",
+    dates: "Dec 2021",
     detail: "Magna Cum Laude • Mathematics and Physics minors",
   },
 ] as const;

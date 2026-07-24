@@ -15,6 +15,7 @@ directions_car
 dns
 (?i)homelab
 light_mode
+location_on
 nummus
 precision_manufacturing
 pytest

@@ -1,0 +1,53 @@
+@utility print-preview {
+  @apply block space-y-6 print:p-0;
+  @apply bg-inverse-surface;
+
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+@utility print-letter {
+  height: 11in;
+  width: 8.5in;
+  padding: 0.45in 0.5in;
+
+  font-size: 10pt;
+  line-height: 1.27;
+
+  @apply mx-auto bg-surface print:bg-white;
+
+  & h1 {
+    font-size: 24pt;
+    line-height: 1;
+    @apply font-bold;
+  }
+
+  & h2 {
+    font-size: 13pt;
+    line-height: 1.15;
+    @apply font-bold uppercase;
+  }
+
+  & h3 {
+    font-size: 11pt;
+    line-height: 1.15;
+    @apply font-bold text-black;
+  }
+
+  & h4 {
+    font-size: 9pt;
+    line-height: 1.15;
+    @apply font-bold text-on-surface-variant;
+  }
+
+  & h5 {
+    font-size: 9pt;
+    line-height: 1.15;
+    @apply font-mono text-on-surface-variant;
+  }
+
+  subtitle {
+    font-size: 11pt;
+    line-height: 1.15;
+  }
+}
