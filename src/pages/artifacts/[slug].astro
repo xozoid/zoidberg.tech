@@ -68,9 +68,8 @@ const artifact = artifacts[Astro.params.slug as ArtifactSlug];
     </div>
 
     <section class="box">
-      <h2>Details</h2>
       <div class="prose">
-        {artifact.details.map((paragraph) => <p>{paragraph.join(" ")}</p>)}
+        <Fragment set:html={artifact.details} />
       </div>
     </section>
 

@@ -1,10 +1,10 @@
 export const dotfiles = {
-  title: "Dotfiles",
+  title: "dotfiles",
   icon: "atr",
   summary: [
-    "Engineering a lightweight electric drivetrain through vehicle modeling, component selection, packaging, and hands-on restoration.",
+    "A version-controlled Linux environment that has gradually become my portable toolbox for development, automation, and system setup.",
   ],
-  tags: ["EV conversion", "Vehicle modeling", "Restoration"],
+  tags: ["Linux", "Shell", "Automation", "Developer tooling"],
   stats: [
     { label: "Status", value: "Sustaining" },
     { label: "Started", value: "Oct 2023", class: "font-mono" },
@@ -15,8 +15,43 @@ export const dotfiles = {
     {
       icon: "code",
       label: "Repository",
-      href: "https://github.com/xozoid/dotfiles",
+      href: "https://github.com/WattsUp/dotfiles",
     },
   ],
-  details: [["s1", "s2"], ["p2 s1"]],
+  details: `
+    <h2>The computer should remember this, not me</h2>
+    <p>
+      My dotfiles repository stores small preferences and repeated setup work
+      until they become infrastructure. Shell configuration, Git behavior, terminal
+      tooling, language environments, and scripts all live there. Desktop configuration
+      and development utilities also share that version-controlled place instead of
+      requiring manual rebuilds on every Linux system I use.
+    </p>
+
+    <figure>
+      <img src="/static/todo.jpg" alt="Terminal showing Neovim and tmux" />
+      <figcaption>A current workstation configured from the repository.</figcaption>
+    </figure>
+
+    <h2>Topic-oriented configuration</h2>
+    <p>
+      The repository follows Zach Holman's topic-oriented dotfiles structure.
+      Configuration groups by purpose rather than by machine: Git, Zsh, Python, Rust, Go,
+      tmux, desktop tooling, Docker, fonts, PlatformIO, and other areas each own their
+      setup.
+    </p>
+    <p>
+      Bootstrap scripts create the appropriate symlinks into my home directory while
+      topic-specific install scripts configure the surrounding software. Over 3 years of
+      commits, that structure has turned the repository into a long-running record of how
+      I prefer to use computers.
+    </p>
+
+    <h2>A project with no finish line</h2>
+    <p>
+      This acts less like a standalone product than a continuously maintained toolbox.
+      Every time I remove a manual setup step, fix an annoyance, or discover a better
+      tool, some of that knowledge tends to end up here.
+    </p>
+  `,
 } as const;

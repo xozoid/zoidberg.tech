@@ -4,19 +4,68 @@ export const nummus = {
   summary: [
     "A self-hosted financial planning application that aggregates account data and turns it into useful trends, forecasts, and planning workflows.",
   ],
-  tags: ["Finance", "Self-hosted", "Planning"],
+  tags: ["Python", "Flask", "Finance", "Self-hosted"],
   stats: [
     { label: "Status", value: "In progress" },
     { label: "Started", value: "Jun 2023", class: "font-mono" },
-    { label: "Type", value: "Financial web-app" },
+    { label: "Type", value: "Financial web application" },
     { label: "Role", value: "Personal project" },
   ],
   links: [
     {
       icon: "code",
       label: "Repository",
-      href: "https://github.com/xozoid/nummus",
+      href: "https://github.com/WattsUp/nummus",
     },
   ],
-  details: [["s1", "s2"], ["p2 s1"]],
+  details: `
+    <h2>Personal finance as an engineering problem</h2>
+    <p>
+      nummus fills the gap I kept running into: a self-hosted place where transaction
+      history, budgets, investments, net worth, and long-term planning can share the same
+      data model.
+    </p>
+    <p>
+      The goal focuses less on recording what I spent yesterday and more on turning years
+      of financial data into information useful for decisions.
+    </p>
+
+    <figure>
+      <img src="/static/todo.jpg" alt="nummus dashboard" />
+      <figcaption>Current dashboard, portfolio view, or net-worth overview.</figcaption>
+    </figure>
+
+    <h2>From transactions to a financial model</h2>
+    <p>
+      The application collects and categorizes transactions, manages budgets, tracks
+      investments, calculates net worth, and projects future performance. Those functions
+      intentionally live together so the same account data doesn't need duplication
+      across separate tools.
+    </p>
+
+    <figure>
+      <img src="/static/todo.jpg" alt="Budget screen" />
+      <figcaption>A representative planning workflow.</figcaption>
+    </figure>
+
+    <h2>A self-hosted web application</h2>
+    <p>
+      nummus primarily uses Python, Flask, and SQLAlchemy. The
+      project has gradually accumulated the supporting pieces expected of a service rather
+      than a script: authentication, optional database encryption, testing, packaging,
+      metrics, container deployment, and automated development tooling.
+    </p>
+
+    <h2>Why it keeps growing</h2>
+    <p>
+      Personal finance has endless edge cases, and the backlog grows every time I use the
+      application. Having complete control over the data and model makes experimentation
+      cheap.
+    </p>
+    <p>
+      It has also become a useful test bed for patterns that show up in my professional
+      software work: data ingestion, normalization, matching, relational models, web
+      interfaces, deployment, and observability.
+    </p>
+  `,
 } as const;
