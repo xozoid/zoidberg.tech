@@ -1,22 +1,23 @@
-export const homelab = {
-  title: "Homelab",
-  icon: "dns",
+export const badgeLife = {
+  title: "Badge life",
+  icon: "badge",
   summary: [
     "My playground for networking, automation, virtualization, monitoring, and self-hosted services.",
     "Most services that power this website started here.",
   ],
   tags: ["Networking", "Automation", "Self-hosting"],
   stats: [
-    { label: "Status", value: "In progress" },
-    { label: "Started", value: "2017", class: "font-mono" },
-    { label: "Type", value: "Infrastructure & learning platform" },
+    { label: "Status", value: "Complete" },
+    { label: "Started", value: "Nov 2019", class: "font-mono" },
+    { label: "Finished", value: "Mar 2020", class: "font-mono" },
+    { label: "Type", value: "Artwork" },
     { label: "Role", value: "Personal project" },
   ],
   links: [
     {
       icon: "code",
       label: "Repository",
-      href: "https://github.com/xozoid/homelab",
+      href: "https://github.com/xozoid/BadgeLife",
     },
   ],
   details: [["s1", "s2"], ["p2 s1"]],
