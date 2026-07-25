@@ -1,4 +1,5 @@
 ---
+import Crumbs from "src/components/Crumbs.astro";
 import BaseLayout from "src/layouts/BaseLayout.astro";
 
 const colorPairs = [
@@ -76,7 +77,7 @@ const fixedTones = [
   },
 ];
 
-const buttonVariants = ["btn-filled", "btn-outlined", "btn-text"];
+const buttonVariants = ["btn-filled", "btn-chip", "btn-outlined", "btn-text"];
 const faviconSizes = [16, 24, 32, 48, 64, 128, 256] as const;
 ---
 
@@ -86,6 +87,7 @@ const faviconSizes = [16, 24, 32, 48, 64, 128, 256] as const;
 >
   <main class="mx-auto max-w-6xl space-y-2 lg:space-y-4">
     <header class="box">
+      <Crumbs />
       <h1>Style test</h1>
       <div class="prose">
         <p>
@@ -225,7 +227,7 @@ const faviconSizes = [16, 24, 32, 48, 64, 128, 256] as const;
 
     <section class="space-y-3 box">
       <h2>Buttons</h2>
-      <div class="grid grid-cols-3 gap-2">
+      <div class="grid grid-cols-4 gap-2">
         {
           buttonVariants.map((variant) => (
             <button class={variant} type="button">

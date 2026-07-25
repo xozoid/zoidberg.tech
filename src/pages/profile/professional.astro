@@ -1,0 +1,138 @@
+---
+import Crumbs from "src/components/Crumbs.astro";
+import { education, experience, projects, skills } from "src/data/resume";
+import BaseLayout from "src/layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Professional | zoidberg.tech"
+  description="Professional profile for Xenon Ollie Zoidberg, including summary, experience, education, technical skills, and selected projects."
+>
+  <main class="mx-auto w-full max-w-6xl space-y-2 md:space-y-4">
+    <section class="box">
+      <Crumbs />
+      <div class="flex items-center justify-between">
+        <h1>Professional</h1>
+        <a
+          href="/profile/resume.pdf"
+          target="_blank"
+          class="btn-filled"
+          type="button"
+        >
+          <icon>download</icon>
+          <span>Résumé</span>
+        </a>
+      </div>
+      <subtitle>
+        Experience, education, technical capabilities, and selected project
+        work.
+      </subtitle>
+    </section>
+    <div class="flex flex-wrap items-start gap-2 md:gap-4">
+      <section class="grow-3 box">
+        <h2>Summary</h2>
+        <p class="prose">
+          I like solving problems that don't fit cleanly into a single
+          discipline. My background spans electronics, embedded Linux, software
+          engineering, manufacturing, and infrastructure, and I've found the
+          most interesting projects live somewhere in the overlap.
+        </p>
+      </section>
+      <section class="max-w-96 grow box">
+        <h2>Technical skills</h2>
+        <div class="mt-2 flex flex-wrap gap-1 md:gap-2">
+          {
+            skills.map((skill) => (
+              <a
+                href={`/artifacts?tag=${encodeURIComponent(skill.toLowerCase())}`}
+                class="btn-chip"
+              >
+                {skill}
+              </a>
+            ))
+          }
+        </div>
+      </section>
+    </div>
+
+    <section class="space-y-2 box md:space-y-4">
+      <h2>Experience</h2>
+      {
+        experience.map((organization) =>
+          organization.roles.map((role) => (
+            <article class="box border-outline-variant bg-surface-container-low">
+              <div class="items-baseline justify-between gap-1 md:flex">
+                <div>
+                  <h3>{role.role}</h3>
+                  <div class="text-on-surface-variant">
+                    {organization.organization}
+                    <span class="mx-1">•</span>
+                    {organization.location}
+                  </div>
+                  <h4 class="mb-2 text-secondary">
+                    <span class="text-on-surface-variant">Focus:</span>
+                    {role.focus.join(" • ")}
+                  </h4>
+                </div>
+                <div class="font-mono text-sm text-on-surface-variant">
+                  {role.dates}
+                </div>
+              </div>
+              <div class="prose">
+                <p>{role.overview.join(" ")}</p>
+                <ul>
+                  {role.tasks.map((detail) => (
+                    <li>{detail}</li>
+                  ))}
+                </ul>
+              </div>
+              <div class="mt-2 flex flex-wrap gap-1 md:gap-2">
+                {role.topics.map((topic) => (
+                  <a
+                    href={`/artifacts?tag=${encodeURIComponent(topic.toLowerCase())}`}
+                    class="btn-chip"
+                  >
+                    {topic}
+                  </a>
+                ))}
+              </div>
+            </article>
+          )),
+        )
+      }
+    </section>
+
+    <div class="flex items-start gap-2 max-md:flex-wrap md:gap-4">
+      <section class="grow space-y-2 box md:space-y-4">
+        <h2>Selected projects</h2>
+        {
+          projects.map((project) => (
+            <article class="box border-outline-variant bg-surface-container-low">
+              <h3>{project.name}</h3>
+              <p class="prose">{project.summary.join(" ")}</p>
+              <a href={project.link} class="ml-auto btn-text w-fit">
+                <span>Open</span>
+                <icon>arrow_forward</icon>
+              </a>
+            </article>
+          ))
+        }
+      </section>
+      <section class="max-w-96 grow space-y-2 box md:space-y-4">
+        <h2>Education</h2>
+        {
+          education.map((item) => (
+            <article class="box border-outline-variant bg-surface-container-low">
+              <h3>{item.credential}</h3>
+              <p class="text-secondary">{item.institution}</p>
+              <p class="font-mono text-sm text-on-surface-variant">
+                {item.dates}
+              </p>
+              <p class="prose">{item.detail}</p>
+            </article>
+          ))
+        }
+      </section>
+    </div>
+  </main>
+</BaseLayout>

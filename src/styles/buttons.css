@@ -8,7 +8,6 @@
 
 @utility btn {
   @apply flex items-center gap-1 border whitespace-nowrap transition;
-  @apply cursor-default;
 
   padding-inline: var(--btn-px);
   padding-block: var(--btn-py);
@@ -72,6 +71,48 @@
 
   @variant disabled {
     @apply bg-on-surface/12;
+  }
+}
+
+@utility btn-chip {
+  @apply btn font-mono;
+
+  --btn-base-color: var(--color-surface-container-high);
+  --btn-text-color: var(--color-on-surface);
+  --btn-state-color: var(--color-primary);
+
+  --btn-bg-color: var(--btn-base-color);
+  --btn-border-color: transparent;
+
+  --btn-px: calc(var(--spacing) * 1);
+  --btn-py: 0;
+
+  @variant not-disabled {
+    @variant hover {
+      --btn-bg-color: color-mix(
+        in oklab,
+        var(--btn-base-color) 92%,
+        var(--btn-state-color)
+      );
+      @apply shadow-md btn-icon-filled;
+    }
+
+    @variant [:active, :focus-visible] {
+      --btn-bg-color: color-mix(
+        in oklab,
+        var(--btn-base-color) 90%,
+        var(--btn-state-color)
+      );
+      @apply btn-icon-filled;
+    }
+  }
+
+  @variant disabled {
+    @apply bg-on-surface/12;
+  }
+
+  & icon {
+    font-size: 20px;
   }
 }
 

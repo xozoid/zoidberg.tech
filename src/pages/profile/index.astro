@@ -1,10 +1,107 @@
 ---
+import Crumbs from "src/components/Crumbs.astro";
 import BaseLayout from "src/layouts/BaseLayout.astro";
+
+const siteLastUpdate = import.meta.env.PUBLIC_SITE_LAST_UPDATE || "local";
+
+const stats = [
+  { label: "Location", value: "Pullman, Washington" },
+  { label: "Focus", value: "Systems / Automation / Infrastructure" },
+  { label: "Version", value: "v0.0", class: "font-mono", id: "build-version" },
+  { label: "Branch", value: "side-quests" },
+  { label: "Last update", value: siteLastUpdate },
+  { label: "Compiled", value: "March 1999" },
+  { label: "Architecture", value: "Carbon-based" },
+  { label: "Runtime", value: "Earth" },
+  { label: "License", value: "MIT* (Makes Interesting Things)" },
+];
+
+const sections = [
+  {
+    title: "Professional",
+    href: "/profile/professional",
+    icon: "work",
+    description:
+      "Experience, education, technical capabilities, and selected project history.",
+  },
+  {
+    title: "Identity",
+    href: "/profile/personal",
+    icon: "person",
+    description:
+      "Interests, background, engineering philosophy, and current side quests.",
+  },
+];
 ---
 
-<BaseLayout title="zoidberg.tech">
-  <main class="box">
-    <h2>Profile</h2>
-    <p>Coming soon</p>
+<BaseLayout
+  title="Profile | zoidberg.tech"
+  description="Profile index for Xenon Ollie zoidberg, with career and identity pages."
+>
+  <main class="mx-auto w-full max-w-6xl space-y-2 md:space-y-4">
+    <div class="flex flex-wrap items-start gap-2 md:gap-4">
+      <section class="grow-3 box">
+        <Crumbs />
+        <h1>Profile</h1>
+        <p class="font-brand text-3xl text-secondary">Xenon Ollie Zoidberg</p>
+        <subtitle>Systems engineer.</subtitle>
+        <subtitle>Builder by nature.</subtitle>
+        <subtitle>Curious by compulsion.</subtitle>
+        <subtitle> Collector of interesting side projects. </subtitle>
+      </section>
+      <section class="grow box">
+        <h2>Signals</h2>
+        <dl class="space-y-3">
+          {
+            stats.map((stat) => (
+              <div>
+                <dt class="text-secondary uppercase">{stat.label}</dt>
+                <dd id={stat.id} class={stat.class}>
+                  {stat.value}
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+        <script>
+          const buildVersion = document.querySelector("#build-version");
+          const manufacturedAt = new Date("1999-03-01T00:00:00");
+          const now = new Date();
+          let versionMajor = now.getFullYear() - manufacturedAt.getFullYear();
+          let versionMinor = now.getMonth() - manufacturedAt.getMonth();
+
+          if (versionMinor < 0) {
+            versionMajor -= 1;
+            versionMinor += 12;
+          }
+
+          if (buildVersion) {
+            buildVersion.innerHTML = `v${versionMajor}.${versionMinor}`;
+          }
+        </script>
+      </section>
+    </div>
+    <div
+      class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-2 md:gap-4"
+    >
+      {
+        sections.map((section) => (
+          <a
+            href={section.href}
+            class="box transition hover:border-primary hover:bg-surface-container"
+          >
+            <div class="flex items-center justify-between gap-3">
+              <h2>{section.title}</h2>
+              <icon class="text-secondary">{section.icon}</icon>
+            </div>
+            <p class="min-h-24">{section.description}</p>
+            <div class="flex items-center justify-end text-primary">
+              <span>Open</span>
+              <icon>arrow_forward</icon>
+            </div>
+          </a>
+        ))
+      }
+    </div>
   </main>
 </BaseLayout>

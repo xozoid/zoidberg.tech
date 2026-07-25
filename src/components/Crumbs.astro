@@ -1,0 +1,18 @@
+---
+const pathSegments = Astro.url.pathname
+  .replace(/\/$/, "")
+  .split("/")
+  .filter(Boolean);
+const ancestorSegments = pathSegments.slice(0, -1);
+const crumbs = [
+  { href: "/", label: "~/" },
+  ...ancestorSegments.map((segment, index) => ({
+    href: `/${ancestorSegments.slice(0, index + 1).join("/")}`,
+    label: `${segment}/`,
+  })),
+];
+---
+
+<nav class="crumbs" aria-label="Breadcrumb">
+  {crumbs.map((crumb) => <a href={crumb.href}>{crumb.label}</a>)}
+</nav>

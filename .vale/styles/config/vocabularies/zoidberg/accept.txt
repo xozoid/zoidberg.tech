@@ -1,6 +1,25 @@
 Astro
 ENTER
+Magna Cum Laude
+MG Midget
+Neovim
+Ollie
+APIs
+SIwave
+SQLAlchemy
+Yocto
+account_balance_wallet
+arrow_back
 dark_mode
+directions_car
+dns
+(?i)homelab
 light_mode
+location_on
+nummus
+precision_manufacturing
+pytest
 rocket_launch
-zoidberg
+satellite_alt
+tools_power_drill
+(?i)zoidberg

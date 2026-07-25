@@ -3,6 +3,7 @@
 @import "./buttons.css";
 @import "./effects.css";
 @import "./fonts.css";
+@import "./print.css";
 @import "./prose.css";
 
 /* Apply light theme if on element or any ancestor */
@@ -205,6 +206,8 @@
 
   h1 {
     @apply text-4xl md:text-6xl;
+
+    line-height: 1.12;
   }
 
   h2 {
@@ -213,6 +216,10 @@
 
   h3 {
     @apply text-xl md:text-2xl;
+  }
+
+  subtitle {
+    @apply block max-w-prose text-xl text-on-surface-variant;
   }
 }
 
@@ -245,6 +252,10 @@
 
   icon.sm {
     font-size: 20px;
+  }
+
+  icon.xs {
+    font-size: 16px;
   }
 
   main {
@@ -301,5 +312,13 @@
 
   .font-title {
     text-transform: uppercase;
+  }
+}
+
+@utility crumbs {
+  @apply flex text-sm text-secondary uppercase;
+
+  & > a {
+    @apply hover:underline;
   }
 }

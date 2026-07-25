@@ -1,0 +1,192 @@
+---
+import "src/styles/global.css";
+
+import {
+  education,
+  experience,
+  projects,
+  resumeProfile,
+  resumeSkills,
+} from "src/data/resume";
+
+const selectedProjects = projects.slice(0, 3);
+---
+
+<!doctype html>
+<html lang="en" class="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Print-ready one-page resume for Xenon Ollie Zoidberg."
+    />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Resume | Xenon Ollie Zoidberg</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600;700&family=Kode+Mono:wght@400;500;600;700&family=Offside&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@0..1"
+    />
+  </head>
+  <body class="print-preview">
+    <!-- PDF workflow: print this route on Letter paper at 100% scale, margins none, backgrounds enabled. -->
+    <main class="print-letter flex flex-col gap-2 overflow-visible">
+      <header class="flex justify-between gap-4">
+        <div>
+          <div class="font-bold text-primary uppercase">
+            {resumeProfile.title}
+          </div>
+          <h1 class="text-black">{resumeProfile.name}</h1>
+          <subtitle>{resumeProfile.descriptor}</subtitle>
+        </div>
+        <div class="text-on-surface-variant">
+          {
+            resumeProfile.links.map((link) => (
+              <a class="flex items-center gap-1" href={link.href}>
+                {link.icon && <icon class="xs">{link.icon}</icon>}
+                {link.label}
+              </a>
+            ))
+          }
+        </div>
+      </header>
+
+      <hr class="border-t-2 border-primary" />
+
+      <section class="flex gap-8">
+        <h2>Summary</h2>
+        <p>{resumeProfile.resumeOverview}</p>
+      </section>
+
+      <hr class="border-outline-variant" />
+
+      <div class="flex w-full grow gap-8">
+        <section class="grow space-y-3">
+          <section>
+            <h2>Experience</h2>
+            <div class="space-y-3">
+              {
+                experience.map((organization) => (
+                  <article class="border-l-2 border-outline-variant">
+                    <h4 class="pl-0.5">@{organization.organization}</h4>
+                    {organization.roles.map((role) => (
+                      <div class="pl-2.5 not-last:mb-4">
+                        <div class="flex justify-between gap-2">
+                          <h3>{role.role}</h3>
+                          <h5>{role.dates}</h5>
+                        </div>
+                        <h4>{role.focus.join(" / ")}</h4>
+                        <ul class="space-y-1 pl-4">
+                          {role.resumeTasks.map((task) => (
+                            <li>{task}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </article>
+                ))
+              }
+            </div>
+          </section>
+          <section>
+            <h2>Selected projects</h2>
+            <div class="space-y-3">
+              {
+                selectedProjects.map((project) => (
+                  <div class="resume-entry">
+                    <h3>{project.name}</h3>
+                    <p>{project.summary[0]}</p>
+                  </div>
+                ))
+              }
+            </div>
+          </section>
+        </section>
+        <div class="flex w-48 shrink-0 flex-col justify-between gap-4">
+          <section>
+            <h2>Focus</h2>
+            <div class="space-y-1">
+              {
+                resumeProfile.resumeFocus.map((focus) => (
+                  <div class="rounded border bg-primary-container px-1 font-bold text-on-surface-variant">
+                    {focus}
+                  </div>
+                ))
+              }
+            </div>
+          </section>
+          <section>
+            <h2>Technical skills</h2>
+            <div class="space-y-3">
+              {
+                Object.entries(resumeSkills).map(([group, items]) => (
+                  <div class="">
+                    <h4 class="uppercase">{group}</h4>
+                    <p>
+                      {items.map((item, index) => (
+                        <>
+                          <span class="text-nowrap">{item}</span>
+                          {index < items.length - 1 && " • "}
+                        </>
+                      ))}
+                    </p>
+                  </div>
+                ))
+              }
+            </div>
+          </section>
+          <section>
+            <h2>Education</h2>
+            <div class="space-y-3">
+              {
+                education.map((item) => (
+                  <div class="">
+                    <h3>{item.credential}</h3>
+                    <h4>@{item.institution}</h4>
+                    <h5>{item.dates}</h5>
+                    <p>{item.detail}</p>
+                  </div>
+                ))
+              }
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+    <p
+      class="fixed bottom-0 left-0 m-0 h-20 w-screen bg-error-container text-on-error-container"
+      id="overflow-warning"
+      hidden
+    >
+      Resume content exceeds one Letter page.
+    </p>
+
+    <script>
+      const paper = document.querySelector(".print-letter");
+      const warning = document.querySelector("#overflow-warning");
+
+      const checkResumeOverflow = () => {
+        if (
+          !(paper instanceof HTMLElement) ||
+          !(warning instanceof HTMLElement)
+        ) {
+          return;
+        }
+
+        warning.hidden = paper.scrollHeight <= paper.clientHeight + 1;
+      };
+
+      checkResumeOverflow();
+      globalThis.addEventListener("resize", checkResumeOverflow);
+    </script>
+  </body>
+</html>
