@@ -1,16 +1,15 @@
 ---
 import Crumbs from "src/components/Crumbs.astro";
-import { artifactStubs } from "src/data/artifactStubs";
+import { artifacts, type ArtifactSlug } from "src/data/artifacts";
 import BaseLayout from "src/layouts/BaseLayout.astro";
 
 export function getStaticPaths() {
-  return artifactStubs.map((artifact) => ({
-    params: { slug: artifact.slug },
-    props: { artifact },
+  return Object.keys(artifacts).map((slug) => ({
+    params: { slug },
   }));
 }
 
-const { artifact } = Astro.props;
+const artifact = artifacts[Astro.params.slug as ArtifactSlug];
 ---
 
 <BaseLayout
