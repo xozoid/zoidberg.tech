@@ -1,7 +1,24 @@
 ---
+import type { ImageMetadata } from "astro";
 import Crumbs from "src/components/Crumbs.astro";
+import OptimizedImage from "src/components/OptimizedImage.astro";
 import { artifacts, type ArtifactSlug } from "src/data/artifacts";
 import BaseLayout from "src/layouts/BaseLayout.astro";
+
+type ArtifactDetailImage = {
+  type: "image";
+  src: ImageMetadata;
+  alt: string;
+  caption?: string;
+};
+
+type ArtifactDetailBlock = string | ArtifactDetailImage;
+
+function isOptimizedImageDetail(
+  detailBlock: ArtifactDetailBlock,
+): detailBlock is ArtifactDetailImage {
+  return typeof detailBlock !== "string" && detailBlock.type === "image";
+}
 
 export function getStaticPaths() {
   return Object.keys(artifacts).map((slug) => ({
@@ -10,6 +27,9 @@ export function getStaticPaths() {
 }
 
 const artifact = artifacts[Astro.params.slug as ArtifactSlug];
+const detailBlocks = Array.isArray(artifact.details)
+  ? artifact.details
+  : [artifact.details];
 ---
 
 <BaseLayout
@@ -69,7 +89,19 @@ const artifact = artifacts[Astro.params.slug as ArtifactSlug];
 
     <section class="box">
       <div class="prose">
-        <Fragment set:html={artifact.details} />
+        {
+          detailBlocks.map((detailBlock) =>
+            isOptimizedImageDetail(detailBlock) ? (
+              <OptimizedImage
+                src={detailBlock.src}
+                alt={detailBlock.alt}
+                caption={detailBlock.caption}
+              />
+            ) : (
+              <Fragment set:html={detailBlock} />
+            ),
+          )
+        }
       </div>
     </section>
 

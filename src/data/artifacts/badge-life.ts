@@ -1,3 +1,5 @@
+import badgeImage from "src/assets/artifacts/badge-life/badge.jpg";
+
 export const badgeLife = {
   title: "Badge Life",
   icon: "badge",
@@ -20,7 +22,8 @@ export const badgeLife = {
       href: "https://github.com/WattsUp/BadgeLife",
     },
   ],
-  details: `
+  details: [
+    `
     <h2>A badge for engineers</h2>
     <p>
       Badge Life started with a small idea: if I had to wear an ID card every day,
@@ -31,13 +34,14 @@ export const badgeLife = {
       The result uses intentionally non-functional electronics. The copper creates a
       circuit-like surface, explores RF geometry, and makes an otherwise mundane object
       feel like a compact engineering artifact.
-    </p>
-
-    <figure>
-      <img src="/static/todo.jpg" alt="Three-board PCB badge holder assembly" />
-      <figcaption>The finished three-board PCB badge holder.</figcaption>
-    </figure>
-
+    </p>`,
+    {
+      type: "image",
+      src: badgeImage,
+      alt: "Two black PCB badge holder frames with gold circuit artwork around rectangular ID openings",
+      caption: "The finished three-board PCB badge holder.",
+    },
+    `
     <h2>RF as artwork</h2>
     <p>
       RF-inspired details fill the board: trace antennas, a Sierpiński fractal antenna,
@@ -49,11 +53,6 @@ export const badgeLife = {
       design elements normally driven by electrical requirements and use them purely as
       visual language.
     </p>
-
-    <figure>
-      <img src="/static/todo.jpg" alt="Close-up of PCB antenna artwork and matching networks" />
-      <figcaption>Antennas, matching networks, trace capacitor, and Snake artwork.</figcaption>
-    </figure>
 
     <h2>PCB as a mechanical material</h2>
     <p>
@@ -67,4 +66,5 @@ export const badgeLife = {
       improve the mechanical process.
     </p>
   `,
+  ],
 } as const;
