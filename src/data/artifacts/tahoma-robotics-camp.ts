@@ -1,3 +1,7 @@
+import imgFlagFrenzy from "src/assets/artifacts/tahoma-robotics-camp/flag-frenzy.png";
+import imgMallardMadness from "src/assets/artifacts/tahoma-robotics-camp/mallard-madness.png";
+import imgWifflePiffle from "src/assets/artifacts/tahoma-robotics-camp/wiffle-piffle.png";
+
 export const tahomaRoboticsCamp = {
   title: "Tahoma Robotics Camp",
   icon: "precision_manufacturing",
@@ -20,7 +24,8 @@ export const tahomaRoboticsCamp = {
       href: "https://github.com/WattsUp/Mallard-Madness",
     },
   ],
-  details: `
+  details: [
+    `
     <h2>Building robots for a week, competing on Friday</h2>
     <p>
       Tahoma Robotics Club ran a week-long summer camp where students ages 8-14 built VEX
@@ -32,11 +37,6 @@ export const tahomaRoboticsCamp = {
       campers could build successfully. I also helped teams with electronics, programming,
       and troubleshooting. Older teams had more freedom to invent their own machines.
     </p>
-
-    <figure>
-      <img src="/static/todo.jpg" alt="Students building VEX robots at robotics camp" />
-      <figcaption>A representative week of Tahoma Robotics Camp.</figcaption>
-    </figure>
 
     <h2>From counselor to game designer</h2>
     <p>
@@ -69,25 +69,28 @@ export const tahomaRoboticsCamp = {
       run it. I wrote custom software for match scoring, rankings, alliance selection, and
       the elimination bracket. I also developed a livestreaming setup so family members
       could watch remotely.
-    </p>
-
-    <figure>
-      <img src="/static/todo.jpg" alt="Wiffle Piffle game field and scoring software" />
-      <figcaption>The first fully custom camp game and competition system.</figcaption>
-    </figure>
-
+    </p>`,
+    {
+      type: "image",
+      src: imgWifflePiffle,
+      alt: "Circular Wiffle Piffle logo with red and blue arcs, a Wiffle ball, and a Bear Metal bear mark",
+      caption: "Wiffle Piffle branding for the first fully custom camp game.",
+    },
+    `
     <h2>2017: Flag Frenzy</h2>
     <p>
       Capture the flag inspired the next original game. Robots moved flags around
       the field while ping-pong balls could increase a flag's point value. I again
       developed the game, rules, supporting material, and competition infrastructure.
-    </p>
-
-    <figure>
-      <img src="/static/todo.jpg" alt="Flag Frenzy robotics game field" />
-      <figcaption>The 2017 camp game.</figcaption>
-    </figure>
-
+    </p>`,
+    {
+      type: "image",
+      src: imgFlagFrenzy,
+      alt: "Flag Frenzy logo with red and blue text with a triangular flag",
+      caption:
+        "Flag Frenzy, the 2017 camp game inspired by capture-the-flag mechanics.",
+    },
+    `
     <h2>2018: Mallard Madness</h2>
     <p>
       By 2018 I had moved away for college, but the camp asked me to create one more game.
@@ -99,11 +102,6 @@ export const tahomaRoboticsCamp = {
       and tournament software. Then I returned for the first week of camp to verify that
       the event ran correctly and train my replacement.
     </p>
-
-    <figure>
-      <img src="/static/todo.jpg" alt="Robots competing on the Mallard Madness field" />
-      <figcaption>Robots competing in the final game I designed for the camp.</figcaption>
-    </figure>
 
     <h2>Tournament software</h2>
     <p>
@@ -120,13 +118,15 @@ export const tahomaRoboticsCamp = {
       For Mallard Madness I also published the game resources and software so another
       robotics camp could reproduce the event instead of leaving the system as a one-off
       internal tool. The club could adapt and rerun it in following years.
-    </p>
-
-    <figure>
-      <img src="/static/todo.jpg" alt="Mallard Madness scoring display and elimination bracket" />
-      <figcaption>Real-time scoring, rankings, alliance selection, or the final bracket.</figcaption>
-    </figure>
-
+    </p>`,
+    {
+      type: "image",
+      src: imgMallardMadness,
+      alt: "Mallard Madness elimination bracket display showing semifinal and final scores with duck graphics",
+      caption:
+        "The Mallard Madness audience display showing the elimination bracket and match results.",
+    },
+    `
     <h2>More than teaching robotics</h2>
     <p>
       What began as helping children assemble VEX robots gradually turned into a compact
@@ -134,6 +134,6 @@ export const tahomaRoboticsCamp = {
       scoring models, software, and livestream graphics all had to describe the same
       system. Competition-day operations had to match that system well enough for campers,
       counselors, and an audience to use it.
-    </p>
-  `,
+    </p>`,
+  ],
 } as const;

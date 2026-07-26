@@ -1,3 +1,7 @@
+import imgFactionsMinis from "src/assets/artifacts/ti4/factions-minis.jpg";
+import imgHexesDiceCardboard from "src/assets/artifacts/ti4/hexes-dice-cardboard.jpg";
+import imgPackedBox from "src/assets/artifacts/ti4/packed-box.jpg";
+
 export const ti4 = {
   title: "Twilight Imperium 4 box",
   icon: "chess",
@@ -19,7 +23,8 @@ export const ti4 = {
       href: "https://github.com/WattsUp/TI4",
     },
   ],
-  details: `
+  details: [
+    `
     <h2>The storage problem</h2>
     <p>
       Twilight Imperium turns setup into a project of its own. The base game and
@@ -28,26 +33,37 @@ export const ti4 = {
     <p>
       I designed a custom insert and box system so those parts could stay organized
       between games and move from storage to the table with less sorting.
-    </p>
-
-    <figure>
-      <img src="/static/todo.jpg" alt="Completed Twilight Imperium storage system" />
-      <figcaption>The full organizer packed into the game box.</figcaption>
-    </figure>
-
+    </p>`,
+    {
+      type: "image",
+      src: imgPackedBox,
+      alt: "Twilight Imperium box filled with custom trays holding rulebooks, cards, boards, tokens, and game components",
+      caption:
+        "The packed Twilight Imperium storage system with the main organizer layers in place.",
+    },
+    `
     <h2>Designed around the game</h2>
     <p>
       Instead of treating the interior as one generic organizer, I modeled storage around
       the game's component hierarchy. The CAD repository includes dedicated player boxes,
       faction storage, hex storage, component organizers, an agenda holder, and other
       printed parts.
-    </p>
-
-    <figure>
-      <img src="/static/todo.jpg" alt="Player and faction organizers" />
-      <figcaption>Individual trays removed from the main box.</figcaption>
-    </figure>
-
+    </p>`,
+    {
+      type: "image",
+      src: imgFactionsMinis,
+      alt: "Custom Twilight Imperium trays holding faction hexes, fleet trays in player colors, map tiles, and cards",
+      caption:
+        "Faction and player trays organized around the way components move from box to table.",
+    },
+    {
+      type: "image",
+      src: imgHexesDiceCardboard,
+      alt: "Twilight Imperium faction pucks, dice, and tokens arranged in printed organizers on a table",
+      caption:
+        "Faction pucks, dice, and cardboard sorted into dedicated printed storage.",
+    },
+    `
     <h2>A practical CAD exercise</h2>
     <p>
       Board-game inserts make a useful mechanical-design exercise. Every millimeter of
@@ -57,6 +73,6 @@ export const ti4 = {
     <p>
       Unlike a CAD model made only to look correct on screen, every mistake in an organizer
       becomes visible the first time the game gets packed.
-    </p>
-  `,
+    </p>`,
+  ],
 } as const;

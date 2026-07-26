@@ -1,3 +1,8 @@
+import imgAllTrays from "src/assets/artifacts/tm/all-trays.jpg";
+import imgCase from "src/assets/artifacts/tm/case.jpg";
+import imgComponentTray from "src/assets/artifacts/tm/component-tray.jpg";
+import imgPaintedTiles from "src/assets/artifacts/tm/painted-tiles.jpg";
+
 export const tm = {
   title: "Terraforming Mars box",
   icon: "chess",
@@ -19,7 +24,8 @@ export const tm = {
       href: "https://github.com/WattsUp/Terraforming-Mars",
     },
   ],
-  details: `
+  details: [
+    `
     <h2>Everything in one case</h2>
     <p>
       This project started because Terraforming Mars had grown well beyond its original
@@ -30,13 +36,15 @@ export const tm = {
     <p>
       The final design fits the collection into a Pelican 1400 case using custom trays
       modeled around the actual components.
-    </p>
-
-    <figure>
-      <img src="/static/todo.jpg" alt="Completed Terraforming Mars storage system" />
-      <figcaption>The complete Terraforming Mars storage system.</figcaption>
-    </figure>
-
+    </p>`,
+    {
+      type: "image",
+      src: imgCase,
+      alt: "Black Pelican case labeled with geeky references stickers",
+      caption:
+        "The complete Terraforming Mars collection packed into a single Pelican 1400 case.",
+    },
+    `
     <h2>Packing by function</h2>
     <p>
       The interior uses dedicated tree, city, and card trays rather than a collection of
@@ -44,13 +52,22 @@ export const tm = {
       trade fleets, and player mats. They also hold resource cubes, political components,
       tracking markers, cards, maps, rulebooks, and the many smaller pieces accumulated
       across the expansions.
-    </p>
-
-    <figure>
-      <img src="/static/todo.jpg" alt="Trays removed from case" />
-      <figcaption>The main organizers and game components outside the case.</figcaption>
-    </figure>
-
+    </p>`,
+    {
+      type: "image",
+      src: imgAllTrays,
+      alt: "Terraforming Mars boards, maps, player mats, cards, resource cubes, tiles, and custom trays arranged on a table",
+      caption:
+        "The storage system unpacked, showing the trays and component groups outside the case.",
+    },
+    {
+      type: "image",
+      src: imgComponentTray,
+      alt: "Open Pelican case with printed trays holding Terraforming Mars resource cubes, markers, ships, and other game pieces",
+      caption:
+        "The top tray layer with resource cubes, markers, fleets, and small components held in fixed compartments.",
+    },
+    `
     <h2>Designing around fabrication</h2>
     <p>
       Some tray components exceeded my printer's build volume, so I split the parts for
@@ -61,12 +78,15 @@ export const tm = {
     <p>
       Those details turned the project from basic compartment modeling into a small
       exercise in tolerance, assembly, and designing around imperfect manufactured parts.
-    </p>
-
-    <figure>
-      <img src="/static/todo.jpg" alt="Painted 3D-printed Terraforming Mars terrain tiles" />
-      <figcaption>Painted cities, greenery, and unique replacement tiles.</figcaption>
-    </figure>
+    </p>`,
+    {
+      type: "image",
+      src: imgPaintedTiles,
+      alt: "Close-up of hand-painted 3D-printed Terraforming Mars terrain with a mushroom cloud, cities, greenery, and red resource cubes",
+      caption:
+        "Hand-painted replacement terrain pieces printed during organizer design phase",
+    },
+    `
 
     <h2>Painting Everything</h2>
     <p>
@@ -76,4 +96,5 @@ export const tm = {
       explains why I like it.
     </p>
   `,
+  ],
 } as const;

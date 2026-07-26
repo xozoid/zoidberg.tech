@@ -1,3 +1,7 @@
+import imgBlockDiagram from "src/assets/artifacts/cougsat/block-diagram.png";
+import imgRender from "src/assets/artifacts/cougsat/render.png";
+import imgEPS from "src/assets/artifacts/cougsat/eps.jpg";
+
 export const cougsat = {
   title: "CougSat-1 CubeSat",
   icon: "satellite_alt",
@@ -20,7 +24,8 @@ export const cougsat = {
       href: "https://github.com/CougsInSpace/CougSat1-Readme",
     },
   ],
-  details: `
+  details: [
+    `
     <h2>Learning systems engineering by building a satellite</h2>
     <p>
       I joined Cougs in Space during my first week at Washington State University and
@@ -32,13 +37,14 @@ export const cougsat = {
       My role increasingly centered on interfaces between disciplines. I advised and
       coordinated subsystem teams, maintained a coherent architecture, and helped
       hardware and software from different students operate as one spacecraft.
-    </p>
-
-    <figure>
-      <img src="/static/todo.jpg" alt="CougSat-1 render" />
-      <figcaption>Use the original orbital render or a later spacecraft render.</figcaption>
-    </figure>
-
+    </p>`,
+    {
+      type: "image",
+      src: imgRender,
+      alt: "Rendered CougSat-1 CubeSat flying over Earth with antennae deployed",
+      caption: "A rendered view of the CougSat-1 CubeSat concept in orbit.",
+    },
+    `
     <h2>Architecture and integration</h2>
     <p>
       The spacecraft split into avionics, command and data handling, attitude
@@ -51,13 +57,15 @@ export const cougsat = {
       Coordinating those interfaces drove the core systems problem. A satellite can contain
       strong individual subsystems and still fail if their assumptions about power,
       data, timing, mechanics, or operations don't agree.
-    </p>
-
-    <figure>
-      <img src="/static/todo.jpg" alt="Functional block diagram" />
-      <figcaption>CougSat-1 subsystem architecture and interfaces.</figcaption>
-    </figure>
-
+    </p>`,
+    {
+      type: "image",
+      src: imgBlockDiagram,
+      alt: "Block diagram showing CougSat-1 radio communications, electrical power, avionics, attitude control, payload, and backplane interfaces",
+      caption:
+        "The CougSat-1 subsystem architecture and primary electrical interfaces.",
+    },
+    `
     <h2>Electronics</h2>
     <p>
       I made my direct engineering contributions through the Electrical Systems team.
@@ -70,13 +78,14 @@ export const cougsat = {
       connected the spacecraft to its ground station over ham-radio bands. Routing the
       multi-layer radio board demanded extra care because of the component
       density, efficiency goals, and RF trace constraints.
-    </p>
-
-    <figure>
-      <img src="/static/todo.jpg" alt="Assembled electrical subsystem PCB" />
-      <figcaption>One of the CougSat-1 electrical subsystem boards.</figcaption>
-    </figure>
-
+    </p>`,
+    {
+      type: "image",
+      src: imgEPS,
+      alt: "Red CougSat-1 electrical power system printed circuit board populated with surface-mount components",
+      caption: "An assembled CougSat-1 electrical power subsystem board.",
+    },
+    `
     <h2>Embedded software and engineering infrastructure</h2>
     <p>
       I also wrote C++ firmware using Mbed and developed drivers for integrated circuits
@@ -105,4 +114,5 @@ export const cougsat = {
       Spend disproportionate attention on the interfaces between disciplines.
     </p>
   `,
+  ],
 } as const;

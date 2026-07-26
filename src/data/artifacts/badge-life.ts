@@ -1,4 +1,4 @@
-import badgeImage from "src/assets/artifacts/badge-life/badge.jpg";
+import imgBadge from "src/assets/artifacts/badge-life/badge.jpg";
 
 export const badgeLife = {
   title: "Badge Life",
@@ -37,7 +37,7 @@ export const badgeLife = {
     </p>`,
     {
       type: "image",
-      src: badgeImage,
+      src: imgBadge,
       alt: "Two black PCB badge holder frames with gold circuit artwork around rectangular ID openings",
       caption: "The finished three-board PCB badge holder.",
     },

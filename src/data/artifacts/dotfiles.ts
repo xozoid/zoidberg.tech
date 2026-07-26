@@ -1,3 +1,5 @@
+import imgTmuxCodingPanes from "src/assets/artifacts/dotfiles/tmux-coding-panes.png";
+
 export const dotfiles = {
   title: "dotfiles",
   icon: "atr",
@@ -18,7 +20,8 @@ export const dotfiles = {
       href: "https://github.com/WattsUp/dotfiles",
     },
   ],
-  details: `
+  details: [
+    `
     <h2>The computer should remember this, not me</h2>
     <p>
       My dotfiles repository stores small preferences and repeated setup work
@@ -26,13 +29,15 @@ export const dotfiles = {
       tooling, language environments, and scripts all live there. Desktop configuration
       and development utilities also share that version-controlled place instead of
       requiring manual rebuilds on every Linux system I use.
-    </p>
-
-    <figure>
-      <img src="/static/todo.jpg" alt="Terminal showing Neovim and tmux" />
-      <figcaption>A current workstation configured from the repository.</figcaption>
-    </figure>
-
+    </p>`,
+    {
+      type: "image",
+      src: imgTmuxCodingPanes,
+      alt: "Terminal workspace with Neovim, tmux panes, shell output, and status bars arranged for software development",
+      caption:
+        "A tmux and Neovim development session configured through the dotfiles repository.",
+    },
+    `
     <h2>Topic-oriented configuration</h2>
     <p>
       The repository follows Zach Holman's topic-oriented dotfiles structure.
@@ -54,4 +59,5 @@ export const dotfiles = {
       tool, some of that knowledge tends to end up here.
     </p>
   `,
+  ],
 } as const;

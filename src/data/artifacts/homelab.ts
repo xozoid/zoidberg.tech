@@ -1,3 +1,5 @@
+import imgRackTop from "src/assets/artifacts/homelab/rack-top.jpg";
+
 export const homelab = {
   title: "Homelab",
   icon: "dns",
@@ -19,7 +21,8 @@ export const homelab = {
       href: "https://github.com/WattsUp/homelab",
     },
   ],
-  details: `
+  details: [
+    `
     <h2>A permanent place to experiment</h2>
     <p>
       My homelab started as a collection of machines and services for experimenting with
@@ -31,13 +34,15 @@ export const homelab = {
       That includes virtualization, containers, dns, monitoring, routing, storage,
       deployment, backups, configuration management, and the thousand small problems
       involved in keeping services alive.
-    </p>
-
-    <figure>
-      <img src="/static/todo.jpg" alt="homelab hardware" />
-      <figcaption>Rack, servers, network hardware, or an older iteration of the lab.</figcaption>
-    </figure>
-
+    </p>`,
+    {
+      type: "image",
+      src: imgRackTop,
+      alt: "Top of a homelab rack with network switches, patch cables, and rack-mounted electronics",
+      caption:
+        "The rack-top layer of the homelab, with switching, patching, and small always-on systems exposed.",
+    },
+    `
     <h2>Infrastructure as code</h2>
     <p>
       The current public repository centers on Ansible. Hosts and group variables
@@ -50,11 +55,6 @@ export const homelab = {
       enough eventually become automation.
     </p>
 
-    <figure>
-      <img src="/static/todo.jpg" alt="network and service architecture" />
-      <figcaption>Topology of the current lab or a representative service stack.</figcaption>
-    </figure>
-
     <h2>Infrastructure for other projects</h2>
     <p>
       The homelab matters through the projects it enables. It makes other projects cheap
@@ -62,4 +62,5 @@ export const homelab = {
       target, or experimental service without first deciding how to host it.
     </p>
   `,
+  ],
 } as const;

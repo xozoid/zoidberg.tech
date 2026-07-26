@@ -1,3 +1,5 @@
+import imgOriginalState from "src/assets/artifacts/mg-midget/original-state.jpg";
+
 export const mgMidget = {
   title: "1977 MG Midget EV Conversion",
   icon: "directions_car",
@@ -18,7 +20,8 @@ export const mgMidget = {
       href: "https://github.com/xozoid/mg-midget-ev",
     },
   ],
-  details: `
+  details: [
+    `
     <h2>An old sports car, minus the old drivetrain</h2>
     <p>
       This project rebuilds and electrifies a 1977 MG roadster. The car arrived already
@@ -29,13 +32,15 @@ export const mgMidget = {
       I want to keep the character that makes the car entertaining: light weight,
       direct controls, low seating position, and compact dimensions. The new drivetrain
       should make the car quieter and more responsive.
-    </p>
-
-    <figure>
-      <img src="/static/todo.jpg" alt="MG Midget before restoration" />
-      <figcaption>The car before disassembly and EV conversion.</figcaption>
-    </figure>
-
+    </p>`,
+    {
+      type: "image",
+      src: imgOriginalState,
+      alt: "Maroon 1977 MG Midget sitting on a U-Haul trailer outside an industrial building",
+      caption:
+        "The MG Midget as acquired, before disassembly and EV conversion work began.",
+    },
+    `
     <h2>Engineering before fabrication</h2>
     <p>
       Before buying the major EV components I built a vehicle model to compare motors,
@@ -49,11 +54,6 @@ export const mgMidget = {
       around Pullman without exceeding continuous motor or battery limits.
     </p>
 
-    <figure>
-      <img src="/static/todo.jpg" alt="Drivetrain solver results" />
-      <figcaption>Comparison of candidate motor, battery, and gearing configurations.</figcaption>
-    </figure>
-
     <h2>Measuring the real car</h2>
     <p>
       A model helps only when its assumptions resemble the vehicle, so I have collected
@@ -66,12 +66,6 @@ export const mgMidget = {
       for rolling resistance and aerodynamic drag rather than relying entirely on generic
       values for a 1970s roadster.
     </p>
-
-    <figure>
-      <img src="/static/todo.jpg" alt="Coast-down experiment plots" />
-      <figcaption>Overlaid coast-down trials and fitted vehicle-resistance model.</figcaption>
-    </figure>
-
 <!--
     <h2>Restoration and packaging</h2>
     <p>
@@ -84,11 +78,6 @@ export const mgMidget = {
       distribution, ground clearance, crash structure, serviceability, and ultimately
       whether the conversion still feels like a Midget.
     </p>
-
-    <figure>
-      <img src="/static/todo.jpg" alt="Stripped chassis" />
-      <figcaption>Add as the physical restoration progresses.</figcaption>
-    </figure>
 
     <h2>The goal</h2>
     <p>
@@ -103,4 +92,5 @@ export const mgMidget = {
     </p>
 -->
   `,
+  ],
 } as const;

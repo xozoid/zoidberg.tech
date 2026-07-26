@@ -27,9 +27,9 @@ export function getStaticPaths() {
 }
 
 const artifact = artifacts[Astro.params.slug as ArtifactSlug];
-const detailBlocks = Array.isArray(artifact.details)
-  ? artifact.details
-  : [artifact.details];
+const detailBlocks = (
+  Array.isArray(artifact.details) ? artifact.details : [artifact.details]
+) as readonly ArtifactDetailBlock[];
 ---
 
 <BaseLayout
@@ -87,7 +87,7 @@ const detailBlocks = Array.isArray(artifact.details)
       </section>
     </div>
 
-    <section class="box">
+    <section class="mx-auto w-fit box">
       <div class="prose">
         {
           detailBlocks.map((detailBlock) =>

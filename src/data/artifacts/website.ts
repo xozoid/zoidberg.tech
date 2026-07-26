@@ -1,3 +1,6 @@
+import imgMk1 from "src/assets/artifacts/website/mk-1.png";
+import imgMk2 from "src/assets/artifacts/website/mk-2.png";
+
 export const website = {
   title: "zoidberg.tech",
   icon: "book_2",
@@ -18,32 +21,37 @@ export const website = {
       href: "https://github.com/xozoid/zoidberg.tech",
     },
   ],
-  details: `
+  details: [
+    `
     <h2>The website you have open</h2>
     <p>
       zoidberg.tech continues a personal website I have maintained in many forms for
       years. I use it as a portfolio, a public notebook, and a home for
       projects that need more than the few lines available on a résumé.
-    </p>
-
-    <figure>
-      <img src="/static/todo.jpg" alt="Website homepage with animated gas discharge tube" />
-      <figcaption>A desktop view of the current site.</figcaption>
-    </figure>
-
+    </p>`,
+    {
+      type: "image",
+      src: imgMk2,
+      alt: "Dark zoidberg.tech welcome screen with a glowing cyan Z logo, system-engineering subtitle, and terminal-style controls",
+      caption:
+        "The current zoidberg.tech welcome screen and Xenon Core visual language.",
+    },
+    `
     <h2>Why rebuild it</h2>
     <p>
       My previous site accumulated years of hand-written HTML, CSS, JavaScript,
       interactive résumé pages, project pages, tools, and experiments. Rather than
       continue renovating that structure indefinitely, I started over in 2026 with a
       smaller architecture and a clearer content model.
-    </p>
-
-    <figure>
-      <img src="/static/todo.jpg" alt="Previous bradleydavis.tech site" />
-      <figcaption>The previous site for comparison.</figcaption>
-    </figure>
-
+    </p>`,
+    {
+      type: "image",
+      src: imgMk1,
+      alt: "Pixel-art bradleydavis.tech website scene with a small character, Mars rover, trees, and an engine of a rocket",
+      caption:
+        "An earlier personal-site iteration built around a pixel-art interactive scene.",
+    },
+    `
     <h2>Static by default</h2>
     <p>
       The new site uses Astro, TypeScript, and Tailwind CSS. Most pages contain content
@@ -60,6 +68,6 @@ export const website = {
       Maintaining a personal website stays interesting because it never becomes finished.
       This version gives experiments, side projects, and work in progress somewhere to
       live before each item turns into a conventional portfolio piece.
-    </p>
-  `,
+    </p>`,
+  ],
 } as const;

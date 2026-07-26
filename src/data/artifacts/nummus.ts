@@ -1,3 +1,7 @@
+import imgAssetAllocation from "src/assets/artifacts/nummus/asset-allocation.png";
+import imgBudgeting from "src/assets/artifacts/nummus/budgeting.png";
+import imgDashboard from "src/assets/artifacts/nummus/dashboard.png";
+
 export const nummus = {
   title: "nummus",
   icon: "account_balance_wallet",
@@ -18,7 +22,8 @@ export const nummus = {
       href: "https://github.com/WattsUp/nummus",
     },
   ],
-  details: `
+  details: [
+    `
     <h2>Personal finance as an engineering problem</h2>
     <p>
       nummus fills the gap I kept running into: a self-hosted place where transaction
@@ -28,26 +33,37 @@ export const nummus = {
     <p>
       The goal focuses less on recording what I spent yesterday and more on turning years
       of financial data into information useful for decisions.
-    </p>
-
-    <figure>
-      <img src="/static/todo.jpg" alt="nummus dashboard" />
-      <figcaption>Current dashboard, portfolio view, or net-worth overview.</figcaption>
-    </figure>
-
+    </p>`,
+    {
+      type: "image",
+      src: imgDashboard,
+      alt: "nummus dashboard showing net worth, income, spending categories, and emergency fund charts",
+      caption:
+        "The dashboard combines current balances, category summaries, and trend charts into one overview.",
+    },
+    `
     <h2>From transactions to a financial model</h2>
     <p>
       The application collects and categorizes transactions, manages budgets, tracks
       investments, calculates net worth, and projects future performance. Those functions
       intentionally live together so the same account data doesn't need duplication
       across separate tools.
-    </p>
-
-    <figure>
-      <img src="/static/todo.jpg" alt="Budget screen" />
-      <figcaption>A representative planning workflow.</figcaption>
-    </figure>
-
+    </p>`,
+    {
+      type: "image",
+      src: imgBudgeting,
+      alt: "nummus budgeting screen with category balances, monthly assignment totals, and a target progress chart",
+      caption:
+        "The budgeting workflow tracks assigned money, account activity, available balances, and target progress.",
+    },
+    {
+      type: "image",
+      src: imgAssetAllocation,
+      alt: "nummus asset allocation chart grouped by U.S. sector with ETF holdings and dollar values",
+      caption:
+        "The asset allocation view breaks investment holdings down by sector and fund exposure.",
+    },
+    `
     <h2>A self-hosted web application</h2>
     <p>
       nummus primarily uses Python, Flask, and SQLAlchemy. The
@@ -66,6 +82,6 @@ export const nummus = {
       It has also become a useful test bed for patterns that show up in my professional
       software work: data ingestion, normalization, matching, relational models, web
       interfaces, deployment, and observability.
-    </p>
-  `,
+    </p>`,
+  ],
 } as const;
