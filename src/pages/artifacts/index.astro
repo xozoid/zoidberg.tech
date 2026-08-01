@@ -1,10 +1,63 @@
 ---
+import Crumbs from "src/components/Crumbs.astro";
 import BaseLayout from "src/layouts/BaseLayout.astro";
+import { artifacts } from "src/data/artifacts";
 ---
 
-<BaseLayout title="zoidberg.tech">
-  <main class="box">
-    <h2>Artifacts</h2>
-    <p>Coming soon</p>
+<BaseLayout
+  title="Artifacts | zoidberg.tech"
+  description="Project artifacts and engineering notes from zoidberg.tech."
+>
+  <main class="mx-auto w-full max-w-6xl space-y-2 md:space-y-4">
+    <section class="box">
+      <Crumbs />
+      <h1>Artifacts</h1>
+      <subtitle>Projects, builds, and technical side quests.</subtitle>
+    </section>
+
+    <section
+      class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-2 md:gap-4"
+    >
+      {
+        Object.entries(artifacts).map(([slug, artifact]) => (
+          <div class="flex min-h-72 flex-col gap-3 box">
+            <a
+              href={`/artifacts/${slug}`}
+              class="flex items-baseline justify-between gap-3 border-b-2 border-transparent transition-colors hover:border-secondary"
+            >
+              <h2>{artifact.title}</h2>
+              <icon class="text-secondary">{artifact.icon}</icon>
+            </a>
+            <p class="grow">{artifact.summary.join(" ")}</p>
+            <div class="flex flex-wrap gap-1 md:gap-2">
+              {artifact.tags.slice(0, -1).map((tag) => (
+                <a
+                  href={`/artifacts?tag=${encodeURIComponent(tag.toLowerCase())}`}
+                  class="btn-chip"
+                >
+                  {tag}
+                </a>
+              ))}
+
+              <div class="flex w-full items-center gap-1 md:gap-2">
+                {artifact.tags.slice(-1).map((tag) => (
+                  <a
+                    href={`/artifacts?tag=${encodeURIComponent(tag.toLowerCase())}`}
+                    class="btn-chip"
+                  >
+                    {tag}
+                  </a>
+                ))}
+
+                <a href={`/artifacts/${slug}`} class="ml-auto btn-text w-fit">
+                  <span>Open</span>
+                  <icon>arrow_forward</icon>
+                </a>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </section>
   </main>
 </BaseLayout>

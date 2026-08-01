@@ -1,0 +1,31 @@
+@utility optimized-image-link {
+  @apply relative block w-full overflow-hidden bg-surface-container-high;
+}
+
+@utility optimized-image-preview {
+  @apply block h-auto w-full opacity-100;
+
+  filter: blur(18px);
+  transform: scale(1.08);
+}
+
+@utility optimized-image-full {
+  @apply absolute inset-0 block h-full w-full object-cover opacity-0;
+  @apply transition-opacity duration-300;
+}
+
+@utility optimized-image-loaded {
+  .optimized-image-full {
+    @apply opacity-100;
+  }
+
+  .optimized-image-preview {
+    @apply opacity-0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .optimized-image-full {
+    transition: none;
+  }
+}

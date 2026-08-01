@@ -1,0 +1,4 @@
+interface:
+  display_name: "Optimized Image"
+  short_description: "Use the site optimized image component"
+  default_prompt: "Use $optimized-image to add or update optimized artifact images."

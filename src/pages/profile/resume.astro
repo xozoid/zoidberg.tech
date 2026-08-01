@@ -8,8 +8,6 @@ import {
   resumeProfile,
   resumeSkills,
 } from "src/data/resume";
-
-const selectedProjects = projects.slice(0, 3);
 ---
 
 <!doctype html>
@@ -101,7 +99,7 @@ const selectedProjects = projects.slice(0, 3);
             <h2>Selected projects</h2>
             <div class="space-y-3">
               {
-                selectedProjects.map((project) => (
+                projects.map((project) => (
                   <div class="resume-entry">
                     <h3>{project.name}</h3>
                     <p>{project.summary[0]}</p>

@@ -1,3 +1,5 @@
+import { artifacts, nTopArtifacts } from "src/data/artifacts";
+
 export const resumeProfile = {
   name: "Xenon Ollie Zoidberg",
   title: "Lead Software Engineer",
@@ -204,8 +206,8 @@ export const experience = [
           "Intel x86",
           "Oscilloscopes",
           "Packet Analysis",
-          "Agile",
           "JIRA",
+          "Agile",
           "PCB Design",
         ],
 
@@ -296,35 +298,10 @@ export const resumeSkills = {
   ],
 } as const;
 
-export const projects = [
-  {
-    name: "1977 MG Midget EV Conversion",
-    summary: [
-      "Engineering a lightweight electric drivetrain through vehicle modeling, coast-down testing, component selection, packaging, and hands-on restoration.",
-    ],
-    link: "/artifacts/mg-midget",
-  },
-  {
-    name: "nummus",
-    summary: [
-      "A self-hosted financial planning application that aggregates account data into budgeting, forecasting, and long-term planning workflows.",
-    ],
-    link: "/artifacts/nummus",
-  },
-  {
-    name: "CougSat-1 CubeSat",
-    summary: [
-      "Led systems engineering for a student-built CubeSat, coordinating electronics, communications, and embedded systems development.",
-      "Although the satellite never launched, the project shaped how I approach multidisciplinary engineering.",
-    ],
-    link: "/artifacts/cougsat",
-  },
-  {
-    name: "Homelab",
-    summary: [
-      "My playground for networking, automation, virtualization, monitoring, and self-hosted services.",
-      "Most services that power this website started here.",
-    ],
-    link: "/artifacts/homelab",
-  },
-] as const;
+export const projects = Object.entries(artifacts)
+  .slice(0, nTopArtifacts)
+  .map(([slug, artifact]) => ({
+    name: artifact.title,
+    summary: artifact.summary,
+    link: `/artifacts/${slug}`,
+  }));
