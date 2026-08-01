@@ -18,7 +18,7 @@ export const homelab = {
     {
       icon: "code",
       label: "Repository",
-      href: "https://github.com/WattsUp/homelab",
+      href: "https://github.com/xozoid/homelab",
     },
   ],
   details: [

@@ -21,7 +21,7 @@ export const tm = {
     {
       icon: "code",
       label: "Repository",
-      href: "https://github.com/WattsUp/Terraforming-Mars",
+      href: "https://github.com/xozoid/Terraforming-Mars",
     },
   ],
   details: [

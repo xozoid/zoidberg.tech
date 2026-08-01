@@ -20,7 +20,7 @@ export const ti4 = {
     {
       icon: "code",
       label: "Repository",
-      href: "https://github.com/WattsUp/TI4",
+      href: "https://github.com/xozoid/TI4",
     },
   ],
   details: [

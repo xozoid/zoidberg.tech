@@ -206,8 +206,8 @@ export const experience = [
           "Intel x86",
           "Oscilloscopes",
           "Packet Analysis",
-          "Agile",
           "JIRA",
+          "Agile",
           "PCB Design",
         ],
 

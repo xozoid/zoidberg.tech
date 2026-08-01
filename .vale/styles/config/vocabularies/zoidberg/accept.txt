@@ -37,6 +37,7 @@ strategize
 Tahoma
 Terraforming
 tmux
+tailwindcss
 Wiffle
 Xcalibear
 Zsh

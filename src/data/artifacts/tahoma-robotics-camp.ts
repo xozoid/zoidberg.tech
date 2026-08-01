@@ -21,7 +21,7 @@ export const tahomaRoboticsCamp = {
     {
       icon: "code",
       label: "Mallard Madness repository",
-      href: "https://github.com/WattsUp/Mallard-Madness",
+      href: "https://github.com/xozoid/Mallard-Madness",
     },
   ],
   details: [

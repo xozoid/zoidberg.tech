@@ -17,7 +17,7 @@ export const dotfiles = {
     {
       icon: "code",
       label: "Repository",
-      href: "https://github.com/WattsUp/dotfiles",
+      href: "https://github.com/xozoid/dotfiles",
     },
   ],
   details: [

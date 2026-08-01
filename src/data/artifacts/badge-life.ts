@@ -4,7 +4,7 @@ export const badgeLife = {
   title: "Badge Life",
   icon: "badge",
   summary: [
-    "An over-engineered PCB ID holder that turns an ordinary work badge into a piece of RF-themed electronic art.",
+    "An over-engineered PCB-based badge holder that turns an ordinary work badge into a piece of RF-themed electronic art.",
     "An early experiment in treating a printed circuit board as both a mechanical material and a visual medium.",
   ],
   tags: ["PCB design", "RF", "Fabrication", "Artwork"],
@@ -19,7 +19,7 @@ export const badgeLife = {
     {
       icon: "code",
       label: "Repository",
-      href: "https://github.com/WattsUp/BadgeLife",
+      href: "https://github.com/xozoid/BadgeLife",
     },
   ],
   details: [

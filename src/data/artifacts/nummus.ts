@@ -19,7 +19,7 @@ export const nummus = {
     {
       icon: "code",
       label: "Repository",
-      href: "https://github.com/WattsUp/nummus",
+      href: "https://github.com/xozoid/nummus",
     },
   ],
   details: [
