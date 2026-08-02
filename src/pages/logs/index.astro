@@ -18,19 +18,18 @@ import BaseLayout from "src/layouts/BaseLayout.astro";
     </section>
 
     <section
-      class="relative ml-8 space-y-2 border-l-2 border-secondary md:space-y-4"
+      class="relative ml-3 space-y-6 border-l-2 border-secondary md:ml-4"
       aria-label="Log entries"
     >
-      <div
-        class="absolute bottom-0 -left-4.25 m-0 h-8 w-8 rounded-full border-2 border-secondary bg-secondary"
-      >
-      </div>
       {
-        sortedLogs.map((log) => (
-          <article class="relative flex">
-            <div class="absolute -left-4.25 h-8 w-8 rounded-full border-2 border-secondary bg-surface" />
+        sortedLogs.map((log, index) => (
+          <article class="relative flex flex-wrap">
+            {index === sortedLogs.length - 1 && (
+              <div class="absolute -left-3.25 h-full w-6 bg-surface md:-left-4.25 md:w-8" />
+            )}
+            <div class="absolute -left-3.25 h-6 w-6 rounded-full border-2 border-secondary bg-surface md:-left-4.25 md:h-8 md:w-8" />
             <time
-              class="mt-4 w-40 shrink-0 border-t-2 border-secondary pr-2 pl-8 font-mono text-secondary"
+              class="mr-2 shrink-0 pl-4 font-mono text-secondary md:mt-1 md:w-36 md:text-right"
               datetime={log.date}
             >
               {new Date(`${log.date}T00:00:00`).toLocaleDateString("en-US", {
@@ -39,17 +38,17 @@ import BaseLayout from "src/layouts/BaseLayout.astro";
                 year: "numeric",
               })}
             </time>
-            <div class="grow space-y-2 box">
+            <div class="grow space-y-2 box max-md:ml-3">
               <div class="flex items-baseline gap-3">
                 <h2 class="grow">{log.title}</h2>
                 <icon class="shrink-0 text-secondary">{log.icon}</icon>
               </div>
-              <h3 class="text-sm text-on-surface-variant">
-                {"Project: "}
-                <a href={log.project.href} class="hover:underline">
-                  {log.project.label}
-                </a>
-              </h3>
+              <a
+                href={log.project.href}
+                class="text-on-surface-variant hover:underline"
+              >
+                {log.project.label}
+              </a>
               <p class="prose">{log.summary}</p>
               <div class="flex flex-wrap gap-1 md:gap-2">
                 {log.tags.slice(0, -1).map((tag) => (

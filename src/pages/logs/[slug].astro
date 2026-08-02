@@ -44,9 +44,11 @@ const olderLog = sortedLogs[logIndex + 1];
           <h1>{log.title}</h1>
           <icon class="text-secondary">{log.icon}</icon>
         </div>
-        <div class="text-on-surface-variant">
-          {"Project: "}
-          <a href={log.project.href} class="hover:underline">
+        <div>
+          <a
+            href={log.project.href}
+            class="text-on-surface-variant hover:underline"
+          >
             {log.project.label}
           </a>
         </div>
