@@ -19,7 +19,12 @@ const artifactsByTitle = Object.entries(artifacts).sort(
       <h1>Search</h1>
       <subtitle>Artifacts and logs from across zoidberg.tech.</subtitle>
       <label class="input-outlined mt-6 max-w-prose">
-        <input placeholder="" autocomplete="off" enterkeyhint="next" />
+        <input
+          id="search-query"
+          placeholder=""
+          autocomplete="off"
+          enterkeyhint="next"
+        />
         <div>
           <div>Search titles, summaries, and tags</div>
         </div>
@@ -27,19 +32,17 @@ const artifactsByTitle = Object.entries(artifacts).sort(
           <error></error>
         </div>
         <icon>search</icon>
-        <icon onclick="this.parentNode.querySelector('input').value=''"
-          >clear</icon
-        >
+        <icon id="search-clear">clear</icon>
       </label>
     </section>
 
     <section id="results-artifacts" hidden>
-      <div class="box bg-primary-container">
+      <div class="mb-2 box bg-primary-container md:mb-4">
         <h2 class="text-on-primary-container">Artifacts</h2>
       </div>
 
       <div
-        class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-2 md:gap-4"
+        class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-2 md:gap-4"
       >
         {
           artifactsByTitle.map(([slug, artifact]) => (
@@ -69,7 +72,7 @@ const artifactsByTitle = Object.entries(artifacts).sort(
     </section>
 
     <section id="results-logs" hidden>
-      <div class="box bg-primary-container">
+      <div class="mb-2 box bg-primary-container md:mb-4">
         <h2 class="text-on-primary-container">Logs</h2>
       </div>
 
@@ -123,4 +126,7 @@ const artifactsByTitle = Object.entries(artifacts).sort(
       </div>
     </section>
   </main>
+  <script>
+    import "src/scripts/search";
+  </script>
 </BaseLayout>
