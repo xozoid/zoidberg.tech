@@ -59,7 +59,7 @@ const { logs, variant } = Astro.props;
               <div class="flex flex-wrap gap-1 md:gap-2">
                 {log.tags.slice(0, -1).map((tag) => (
                   <a
-                    href={`/logs?tag=${encodeURIComponent(tag.toLowerCase())}`}
+                    href={`/search?q=${encodeURIComponent(tag.toLowerCase())}`}
                     class="btn-chip"
                   >
                     {tag}
@@ -68,7 +68,7 @@ const { logs, variant } = Astro.props;
                 <div class="flex grow gap-1 md:gap-2">
                   {log.tags.slice(-1).map((tag) => (
                     <a
-                      href={`/logs?tag=${encodeURIComponent(tag.toLowerCase())}`}
+                      href={`/search?q=${encodeURIComponent(tag.toLowerCase())}`}
                       class="btn-chip"
                     >
                       {tag}

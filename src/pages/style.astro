@@ -266,6 +266,81 @@ const faviconSizes = [16, 24, 32, 48, 64, 128, 256] as const;
     </section>
 
     <section class="space-y-3 box">
+      <h2>Inputs</h2>
+      <div class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-2">
+        <label class="input-outlined col-start-1">
+          <input placeholder="" autocomplete="off" enterkeyhint="next" />
+          <div>
+            <div>Text</div>
+          </div>
+          <div>
+            <error></error>
+            <span>Supporting text</span>
+          </div>
+          <icon>search</icon>
+          <icon onclick="this.parentNode.querySelector('input').value=''"
+            >clear</icon
+          >
+        </label>
+        <label class="input-outlined">
+          <input
+            value="Banana"
+            placeholder=""
+            autocomplete="off"
+            enterkeyhint="next"
+          />
+          <div>
+            <div>Text with value</div>
+          </div>
+          <icon>search</icon>
+        </label>
+        <label class="input-outlined">
+          <input
+            value="Banana"
+            placeholder=""
+            autocomplete="off"
+            enterkeyhint="next"
+            disabled
+          />
+          <div>
+            <div>Text disabled</div>
+          </div>
+          <div>
+            <error></error>
+            <span>Supporting text</span>
+          </div>
+          <icon>search</icon>
+        </label>
+        <label class="input-outlined col-start-1">
+          <input placeholder="" autocomplete="off" enterkeyhint="next" />
+          <div>
+            <div>Text</div>
+          </div>
+          <div>
+            <error>Inline validation error</error>
+            <span>Supporting text</span>
+          </div>
+          <icon>search</icon>
+        </label>
+        <label class="input-outlined">
+          <input
+            value="Banana"
+            placeholder=""
+            autocomplete="off"
+            enterkeyhint="next"
+          />
+          <div>
+            <div>Text with value</div>
+          </div>
+          <div>
+            <error>Inline validation error</error>
+            <span>Supporting text</span>
+          </div>
+        </label>
+      </div>
+    </section>
+
+    <section class="space-y-3 box">
       <h2>Tables</h2>
       <div class="border border-outline-variant">
         <table class="w-full text-left">

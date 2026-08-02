@@ -44,7 +44,7 @@ import BaseLayout from "src/layouts/BaseLayout.astro";
           {
             skills.map((skill) => (
               <a
-                href={`/artifacts?tag=${encodeURIComponent(skill.toLowerCase())}`}
+                href={`/search?q=${encodeURIComponent(skill.toLowerCase())}`}
                 class="btn-chip"
               >
                 {skill}
@@ -89,7 +89,7 @@ import BaseLayout from "src/layouts/BaseLayout.astro";
               <div class="mt-2 flex flex-wrap gap-1 md:gap-2">
                 {role.topics.map((topic) => (
                   <a
-                    href={`/artifacts?tag=${encodeURIComponent(topic.toLowerCase())}`}
+                    href={`/search?q=${encodeURIComponent(topic.toLowerCase())}`}
                     class="btn-chip"
                   >
                     {topic}

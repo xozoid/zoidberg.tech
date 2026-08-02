@@ -67,7 +67,7 @@ const artifactLogs = sortedLogs
           {
             artifact.tags.map((tag) => (
               <a
-                href={`/artifacts?tag=${encodeURIComponent(tag.toLowerCase())}`}
+                href={`/search?q=${encodeURIComponent(tag.toLowerCase())}`}
                 class="btn-chip"
               >
                 {tag}
