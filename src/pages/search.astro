@@ -1,0 +1,132 @@
+---
+import Crumbs from "src/components/Crumbs.astro";
+import BaseLayout from "src/layouts/BaseLayout.astro";
+import { artifacts } from "src/data/artifacts";
+import { logSlug, sortedLogs } from "src/data/logs";
+
+const artifactsByTitle = Object.entries(artifacts).sort(
+  ([, first], [, second]) => first.title.localeCompare(second.title),
+);
+---
+
+<BaseLayout
+  title="Search | zoidberg.tech"
+  description="Searchable index of artifacts and logs from zoidberg.tech."
+>
+  <main class="mx-auto w-full max-w-6xl space-y-2 md:space-y-4">
+    <section class="box">
+      <Crumbs />
+      <h1>Search</h1>
+      <subtitle>Artifacts and logs from across zoidberg.tech.</subtitle>
+      <label class="input-outlined mt-6 max-w-prose">
+        <input
+          id="search-query"
+          placeholder=""
+          autocomplete="off"
+          enterkeyhint="next"
+        />
+        <div>
+          <div>Search titles, summaries, and tags</div>
+        </div>
+        <div>
+          <error></error>
+        </div>
+        <icon>search</icon>
+        <icon id="search-clear">clear</icon>
+      </label>
+    </section>
+
+    <section id="results-artifacts" hidden>
+      <div class="mb-2 box bg-primary-container md:mb-4">
+        <h2 class="text-on-primary-container">Artifacts</h2>
+      </div>
+
+      <div
+        class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-2 md:gap-4"
+      >
+        {
+          artifactsByTitle.map(([slug, artifact]) => (
+            <article
+              class="flex min-h-64 flex-col gap-3 box"
+              data-search-item
+              data-search-type="artifact"
+              data-search-all-tags={artifact.allTags.join(" ")}
+              hidden
+            >
+              <a
+                href={`/artifacts/${slug}`}
+                class="flex items-baseline justify-between gap-3 border-b-2 border-transparent transition-colors hover:border-secondary"
+              >
+                <h3>{artifact.title}</h3>
+                <icon class="text-secondary">{artifact.icon}</icon>
+              </a>
+              <p class="prose grow">{artifact.summary.join(" ")}</p>
+              <a href={`/artifacts/${slug}`} class="ml-auto btn-text w-fit">
+                <span>Open</span>
+                <icon>arrow_forward</icon>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section id="results-logs" hidden>
+      <div class="mb-2 box bg-primary-container md:mb-4">
+        <h2 class="text-on-primary-container">Logs</h2>
+      </div>
+
+      <div
+        class="grid gap-2 md:grid-cols-[repeat(auto-fill,minmax(400px,1fr))] md:gap-4"
+      >
+        {
+          sortedLogs.map((log) => (
+            <article
+              class="flex flex-col gap-3 box"
+              data-search-item
+              data-search-type="log"
+              data-search-all-tags={log.allTags.join(" ")}
+              hidden
+            >
+              <div class="flex items-baseline justify-between gap-3">
+                <a
+                  href={`/logs/${logSlug(log)}`}
+                  class="border-b-2 border-transparent transition-colors hover:border-secondary"
+                >
+                  <h3>{log.title}</h3>
+                </a>
+                <icon class="text-secondary">{log.icon}</icon>
+              </div>
+              <div class="flex items-baseline justify-between gap-3 max-md:flex-wrap">
+                <a
+                  href={log.project.href}
+                  class="text-on-surface-variant hover:underline"
+                >
+                  {log.project.label}
+                </a>
+                <time class="font-mono text-secondary" datetime={log.date}>
+                  {new Date(`${log.date}T00:00:00`).toLocaleDateString(
+                    "en-US",
+                    {
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    },
+                  )}
+                </time>
+              </div>
+              <p class="prose">{log.summary.join(" ")}</p>
+              <a href={`/logs/${logSlug(log)}`} class="ml-auto btn-text w-fit">
+                <span>Open</span>
+                <icon>arrow_forward</icon>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+  </main>
+  <script>
+    import "src/scripts/search";
+  </script>
+</BaseLayout>

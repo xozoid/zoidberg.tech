@@ -66,7 +66,7 @@ const olderLog = sortedLogs[logIndex + 1];
           {
             log.tags.map((tag) => (
               <a
-                href={`/logs?tag=${encodeURIComponent(tag.toLowerCase())}`}
+                href={`/search?q=${encodeURIComponent(tag.toLowerCase())}`}
                 class="btn-chip"
               >
                 {tag}

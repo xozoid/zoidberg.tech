@@ -16,7 +16,7 @@ import { artifacts } from "src/data/artifacts";
     </section>
 
     <section
-      class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-2 md:gap-4"
+      class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-2 md:gap-4"
     >
       {
         Object.entries(artifacts).map(([slug, artifact]) => (
@@ -32,7 +32,7 @@ import { artifacts } from "src/data/artifacts";
             <div class="flex flex-wrap gap-1 md:gap-2">
               {artifact.tags.slice(0, -1).map((tag) => (
                 <a
-                  href={`/artifacts?tag=${encodeURIComponent(tag.toLowerCase())}`}
+                  href={`/search?q=${encodeURIComponent(tag.toLowerCase())}`}
                   class="btn-chip"
                 >
                   {tag}
@@ -42,7 +42,7 @@ import { artifacts } from "src/data/artifacts";
               <div class="flex w-full gap-1 md:gap-2">
                 {artifact.tags.slice(-1).map((tag) => (
                   <a
-                    href={`/artifacts?tag=${encodeURIComponent(tag.toLowerCase())}`}
+                    href={`/search?q=${encodeURIComponent(tag.toLowerCase())}`}
                     class="btn-chip"
                   >
                     {tag}
