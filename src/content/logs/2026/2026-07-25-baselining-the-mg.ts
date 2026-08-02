@@ -71,6 +71,7 @@ const mgBaselining = {
       alt: "Tape measure spanning the gap between the MG Midget's bonnet and front body panel",
       caption:
         "One of the measured bonnet gaps, recorded before removing the panel.",
+      size: "sm",
     },
     `
     <h2>Checking the differential ratio</h2>

@@ -75,6 +75,7 @@ export const tahomaRoboticsCamp = {
       src: imgWifflePiffle,
       alt: "Circular Wiffle Piffle logo with red and blue arcs, a Wiffle ball, and a Bear Metal bear mark",
       caption: "Wiffle Piffle branding for the first fully custom camp game.",
+      size: "sm",
     },
     `
     <h2>2017: Flag Frenzy</h2>
@@ -89,6 +90,7 @@ export const tahomaRoboticsCamp = {
       alt: "Flag Frenzy logo with red and blue text with a triangular flag",
       caption:
         "Flag Frenzy, the 2017 camp game inspired by capture-the-flag mechanics.",
+      size: "sm",
     },
     `
     <h2>2018: Mallard Madness</h2>

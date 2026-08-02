@@ -43,6 +43,7 @@ export const cougsat = {
       src: imgRender,
       alt: "Rendered CougSat-1 CubeSat flying over Earth with antennae deployed",
       caption: "A rendered view of the CougSat-1 CubeSat concept in orbit.",
+      size: "lg",
     },
     `
     <h2>Architecture and integration</h2>

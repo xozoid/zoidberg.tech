@@ -39,6 +39,7 @@ export const mgMidget = {
       alt: "Maroon 1977 MG Midget sitting on a U-Haul trailer outside an industrial building",
       caption:
         "The MG Midget as acquired, before disassembly and EV conversion work began.",
+      size: "lg",
     },
     `
     <h2>Engineering before fabrication</h2>

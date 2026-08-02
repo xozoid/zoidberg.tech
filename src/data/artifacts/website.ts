@@ -35,6 +35,7 @@ export const website = {
       alt: "Dark zoidberg.tech welcome screen with a glowing cyan Z logo, system-engineering subtitle, and terminal-style controls",
       caption:
         "The current zoidberg.tech welcome screen and Xenon Core visual language.",
+      size: "sm",
     },
     `
     <h2>Why rebuild it</h2>

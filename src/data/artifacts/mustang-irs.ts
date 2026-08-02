@@ -37,6 +37,7 @@ export const mustangIrs = {
       alt: "CAD rendering of a Jaguar independent rear suspension and support frame",
       caption:
         "The Jaguar IRS conversion modeled around the 1968 Mustang packaging constraints.",
+      size: "lg",
     },
     `
     <h2>Packaging the Jaguar hardware</h2>

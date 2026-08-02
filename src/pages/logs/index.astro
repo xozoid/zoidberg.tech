@@ -30,7 +30,7 @@ import BaseLayout from "src/layouts/BaseLayout.astro";
           <article class="relative flex">
             <div class="absolute -left-4.25 h-8 w-8 rounded-full border-2 border-secondary bg-surface" />
             <time
-              class="mt-4 shrink-0 border-t-2 border-secondary pr-2 pl-8 font-mono text-secondary"
+              class="mt-4 w-40 shrink-0 border-t-2 border-secondary pr-2 pl-8 font-mono text-secondary"
               datetime={log.date}
             >
               {new Date(`${log.date}T00:00:00`).toLocaleDateString("en-US", {

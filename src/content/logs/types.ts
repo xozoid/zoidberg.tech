@@ -11,6 +11,7 @@ export type LogDetailImage = {
   src: ImageMetadata;
   alt: string;
   caption?: string;
+  size?: "sm" | "md" | "lg";
 };
 
 export type LogDetailBlock = string | LogDetailImage;

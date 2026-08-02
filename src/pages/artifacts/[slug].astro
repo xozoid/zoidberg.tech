@@ -10,6 +10,7 @@ type ArtifactDetailImage = {
   src: ImageMetadata;
   alt: string;
   caption?: string;
+  size?: "sm" | "md" | "lg";
 };
 
 type ArtifactDetailBlock = string | ArtifactDetailImage;
@@ -87,8 +88,8 @@ const detailBlocks = (
       </section>
     </div>
 
-    <section class="mx-auto w-fit box">
-      <div class="prose">
+    <section class="box">
+      <div class="space-y-8">
         {
           detailBlocks.map((detailBlock) =>
             isOptimizedImageDetail(detailBlock) ? (
@@ -96,9 +97,12 @@ const detailBlocks = (
                 src={detailBlock.src}
                 alt={detailBlock.alt}
                 caption={detailBlock.caption}
+                size={detailBlock.size}
               />
             ) : (
-              <Fragment set:html={detailBlock} />
+              <div class="mx-auto prose">
+                <Fragment set:html={detailBlock} />
+              </div>
             ),
           )
         }

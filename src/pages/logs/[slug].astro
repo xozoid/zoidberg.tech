@@ -90,8 +90,8 @@ const olderLog = sortedLogs[logIndex + 1];
       </section>
     </div>
 
-    <section class="mx-auto w-fit box">
-      <div class="prose">
+    <section class="box">
+      <div class="space-y-8">
         {
           log.details.map((detail) =>
             isLogDetailImage(detail) ? (
@@ -99,9 +99,12 @@ const olderLog = sortedLogs[logIndex + 1];
                 src={detail.src}
                 alt={detail.alt}
                 caption={detail.caption}
+                size={detail.size}
               />
             ) : (
-              <Fragment set:html={detail} />
+              <div class="mx-auto prose">
+                <Fragment set:html={detail} />
+              </div>
             ),
           )
         }
@@ -111,27 +114,33 @@ const olderLog = sortedLogs[logIndex + 1];
     {
       (newerLog || olderLog) && (
         <nav
-          class="grid gap-2 md:grid-cols-2 md:gap-4"
+          class="mt-16 mb-4 grid gap-2 md:grid-cols-2 md:gap-4"
           aria-label="Log navigation"
         >
           {olderLog ? (
-            <a class="group box" href={logHref(olderLog)}>
-              <span class="font-mono text-sm text-secondary">Older log</span>
-              <span class="mt-1 flex items-center gap-2 text-lg">
+            <a
+              class="group box hover:bg-primary-container"
+              href={logHref(olderLog)}
+            >
+              <span class="flex items-center gap-2 text-on-surface-variant">
                 <icon>arrow_back</icon>
-                {olderLog.title}
+                Older
               </span>
+              <span class="mt-1 text-lg">{olderLog.title}</span>
             </a>
           ) : (
             <div />
           )}
           {newerLog && (
-            <a class="group box text-right" href={logHref(newerLog)}>
-              <span class="font-mono text-sm text-secondary">Newer log</span>
-              <span class="mt-1 flex items-center justify-end gap-2 text-lg">
-                {newerLog.title}
+            <a
+              class="group box text-right hover:bg-primary-container"
+              href={logHref(newerLog)}
+            >
+              <span class="flex items-center justify-end gap-2 text-on-surface-variant">
+                Newer
                 <icon>arrow_forward</icon>
               </span>
+              <span class="mt-1 text-lg">{newerLog.title}</span>
             </a>
           )}
         </nav>

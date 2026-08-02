@@ -36,6 +36,7 @@ export const dotfiles = {
       alt: "Terminal workspace with Neovim, tmux panes, shell output, and status bars arranged for software development",
       caption:
         "A tmux and Neovim development session configured through the dotfiles repository.",
+      size: "lg",
     },
     `
     <h2>Topic-oriented configuration</h2>
