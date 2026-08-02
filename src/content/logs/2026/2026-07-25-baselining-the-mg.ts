@@ -14,6 +14,21 @@ const mgBaselining = {
   ],
 
   tags: ["MG Midget", "Restoration", "Measurement", "Documentation"],
+  allTags: [
+    "MG Midget",
+    "Restoration",
+    "Measurement",
+    "Documentation",
+    "Automotive",
+    "EV conversion",
+    "Baseline survey",
+    "Vehicle inspection",
+    "Body alignment",
+    "Panel gaps",
+    "Drivetrain",
+    "Differential ratio",
+    "Datsun A12",
+  ],
 
   project: {
     label: "MG electric conversion",

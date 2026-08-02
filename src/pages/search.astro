@@ -50,7 +50,7 @@ const artifactsByTitle = Object.entries(artifacts).sort(
               class="flex min-h-64 flex-col gap-3 box"
               data-search-item
               data-search-type="artifact"
-              data-search-tags={artifact.tags.join(" ")}
+              data-search-all-tags={artifact.allTags.join(" ")}
               hidden
             >
               <a
@@ -85,7 +85,7 @@ const artifactsByTitle = Object.entries(artifacts).sort(
               class="flex flex-col gap-3 box"
               data-search-item
               data-search-type="log"
-              data-search-tags={log.tags.join(" ")}
+              data-search-all-tags={log.allTags.join(" ")}
               hidden
             >
               <div class="flex items-baseline justify-between gap-3">

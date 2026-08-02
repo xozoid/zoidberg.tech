@@ -11,6 +11,18 @@ export const mustangIrs = {
     "The fabricator built and installed the finished assembly, then used it successfully in competitive autocross.",
   ],
   tags: ["CAD", "Mechanical design", "Technical drawings", "Automotive"],
+  allTags: [
+    "CAD",
+    "Mechanical design",
+    "Technical drawings",
+    "Automotive",
+    "Autodesk Inventor",
+    "Independent rear suspension",
+    "Jaguar XJ12",
+    "Suspension design",
+    "Fabrication",
+    "Autocross",
+  ],
   stats: [
     { label: "Status", value: "Complete" },
     { label: "Started", value: "Dec 2015", class: "font-mono" },

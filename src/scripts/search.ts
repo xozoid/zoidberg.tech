@@ -6,29 +6,29 @@ const searchItems = [
   ...document.querySelectorAll<HTMLElement>("[data-search-item]"),
 ];
 
+function getWords(text: string): string[] {
+  return text.toLocaleLowerCase().match(/[\p{L}\p{N}+#]+/gu) ?? [];
+}
+
 function updateSearchResults() {
   if (!searchInput) return;
 
-  const query = searchInput.value.trim().toLowerCase();
-  const matches: Array<{ title: string; type: string | undefined }> = [];
-
+  const queryWords = getWords(searchInput.value);
   for (const item of searchItems) {
     const searchableText = [
       item.querySelector("h3")?.textContent,
       item.querySelector("p")?.textContent,
-      item.dataset.searchTags,
-    ]
-      .join(" ")
-      .toLowerCase();
-    const isMatch = query.length > 0 && searchableText.includes(query);
+      item.dataset.searchAllTags,
+    ].join(" ");
+    const sourceWords = new Set(getWords(searchableText));
+    const isMatch = queryWords.some(
+      (word) =>
+        sourceWords.has(word) ||
+        (word.length >= 3 &&
+          [...sourceWords].some((source) => source.includes(word))),
+    );
 
     item.hidden = !isMatch;
-    if (isMatch) {
-      matches.push({
-        title: item.querySelector("h3")?.textContent ?? "(untitled)",
-        type: item.dataset.searchType,
-      });
-    }
   }
 
   for (const section of resultSections) {
@@ -38,18 +38,6 @@ function updateSearchResults() {
 
     section.hidden = visibleItemCount === 0;
   }
-
-  console.log("[search] results updated", {
-    query,
-    matches,
-    sections: [...resultSections].map((section) => ({
-      id: section.id,
-      hidden: section.hidden,
-      visibleItemCount: [
-        ...section.querySelectorAll<HTMLElement>("[data-search-item]"),
-      ].filter((item) => !item.hidden).length,
-    })),
-  });
 }
 
 if (searchInput) {
@@ -57,11 +45,6 @@ if (searchInput) {
   let settleTimeoutId: number | undefined;
 
   if (initialQuery) searchInput.value = initialQuery;
-  console.log("[search] initialized", {
-    initialQuery,
-    itemCount: searchItems.length,
-    sectionCount: resultSections.length,
-  });
   updateSearchResults();
 
   searchInput.addEventListener("input", () => {
