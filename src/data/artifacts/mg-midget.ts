@@ -3,6 +3,17 @@ import imgOriginalState from "src/assets/artifacts/mg-midget/original-state.jpg"
 export const mgMidget = {
   title: "1977 MG Midget EV Conversion",
   icon: "directions_car",
+  featured: true,
+  homepage: {
+    title: "MG Midget EV conversion",
+    description:
+      "Engineering a lightweight electric roadster through drivetrain modeling, restoration planning, fabrication, and testing.",
+    status: "Modeling the drivetrain and planning the restoration.",
+    image: {
+      src: imgOriginalState,
+      alt: "Maroon 1977 MG Midget sitting on a U-Haul trailer outside an industrial building",
+    },
+  },
   summary: [
     "Engineering a lightweight electric drivetrain through vehicle modeling, component selection, packaging, and hands-on restoration.",
   ],

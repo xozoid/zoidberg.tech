@@ -4,6 +4,7 @@ import imgMk2 from "src/assets/artifacts/website/mk-2.png";
 export const website = {
   title: "zoidberg.tech",
   icon: "book_2",
+  featured: true,
   summary: [
     "The current version of my personal website: part portfolio, part public notebook, and part excuse to keep experimenting with web tooling.",
   ],
