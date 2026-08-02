@@ -40,6 +40,7 @@ export const nummus = {
       alt: "nummus dashboard showing net worth, income, spending categories, and emergency fund charts",
       caption:
         "The dashboard combines current balances, category summaries, and trend charts into one overview.",
+      size: "lg",
     },
     `
     <h2>From transactions to a financial model</h2>

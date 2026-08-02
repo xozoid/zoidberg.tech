@@ -39,7 +39,7 @@ import { artifacts } from "src/data/artifacts";
                 </a>
               ))}
 
-              <div class="flex w-full items-center gap-1 md:gap-2">
+              <div class="flex w-full gap-1 md:gap-2">
                 {artifact.tags.slice(-1).map((tag) => (
                   <a
                     href={`/artifacts?tag=${encodeURIComponent(tag.toLowerCase())}`}

@@ -1,10 +1,23 @@
 ---
+import Crumbs from "src/components/Crumbs.astro";
+import LogsTimeline from "src/components/LogsTimeline.astro";
+import { sortedLogs } from "src/data/logs";
 import BaseLayout from "src/layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="zoidberg.tech">
-  <main class="box">
-    <h2>Logs</h2>
-    <p>Coming soon</p>
+<BaseLayout
+  title="Logs | zoidberg.tech"
+  description="Chronological notes from zoidberg.tech."
+>
+  <main class="mx-auto w-full max-w-4xl space-y-2 md:space-y-4">
+    <section class="box">
+      <Crumbs />
+      <h1>Logs</h1>
+      <subtitle>
+        Engineering journal, project updates, experiments, & thoughts
+      </subtitle>
+    </section>
+
+    <LogsTimeline logs={sortedLogs} />
   </main>
 </BaseLayout>

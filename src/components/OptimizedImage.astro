@@ -7,13 +7,19 @@ interface Props {
   src: ImageMetadata;
   alt: string;
   caption?: string;
+  size?: "sm" | "md" | "lg";
 }
 
 type LocalImageMetadata = ImageMetadata & {
   fsPath?: string;
 };
 
-const { src, alt, caption } = Astro.props;
+const { src, alt, caption, size = "md" } = Astro.props;
+const sizeClasses = {
+  sm: "max-w-[40ch]",
+  md: "max-w-prose",
+  lg: "w-full",
+} as const;
 const largeImage = await getImage({
   src,
   width: 2400,
@@ -37,10 +43,10 @@ const previewBuffer = await sharp(localSrc.fsPath)
 const previewDataUrl = `data:image/webp;base64,${previewBuffer.toString("base64")}`;
 ---
 
-<figure>
+<figure class:list={["mx-auto space-y-2", sizeClasses[size]]}>
   <a
     href={largeImage.src}
-    class="not-prose optimized-image-link"
+    class="optimized-image-link"
     data-optimized-image-frame
   >
     <img
@@ -66,5 +72,9 @@ const previewDataUrl = `data:image/webp;base64,${previewBuffer.toString("base64"
       onload="this.closest('[data-optimized-image-frame]').classList.add('optimized-image-loaded')"
     />
   </a>
-  {caption && <figcaption>{caption}</figcaption>}
+  {
+    caption && (
+      <figcaption class="text-sm text-on-surface-variant">{caption}</figcaption>
+    )
+  }
 </figure>

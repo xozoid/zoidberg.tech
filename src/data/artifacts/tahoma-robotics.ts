@@ -56,12 +56,14 @@ export const tahomaRobotics = {
       alt: "Bear Metal 2046 robot with aluminum frame and orange basketball mechanisms standing in a robotics shop",
       caption:
         "Bearmageddon, the 2012 robot, in the shop with its turret and ball-handling structure",
+      size: "sm",
     },
     {
       type: "image",
       src: img2013,
       alt: "Bear Metal 2046 robot frame and climbing mechanism mounted on a blue test structure in a workshop",
       caption: "Bearodactyl during development of the 2013 climbing mechanism.",
+      size: "sm",
     },
     {
       type: "image",
@@ -69,6 +71,7 @@ export const tahomaRobotics = {
       alt: "Bear Metal 2046 robot with a large red exercise ball positioned at its front mechanism",
       caption:
         "Bearium, the 2014 robot, built around collecting and launching the large game ball.",
+      size: "sm",
     },
     `
     <h2>2015-2016: Design Lead</h2>
@@ -96,6 +99,7 @@ export const tahomaRobotics = {
       alt: "Bear Metal Xcalibear design poster with a yellow and black CAD robot render and mechanism labels",
       caption:
         "The 2016 Xcalibear design poster showing the obstacle-crossing robot and its mechanisms.",
+      size: "sm",
     },
     {
       type: "image",
@@ -103,6 +107,7 @@ export const tahomaRobotics = {
       alt: "Bear Metal 2046 robot launching a ball into a tower during a 2016 FIRST Robotics Competition match",
       caption:
         "Xcalibear launching boulders into a tower during the mediveal themed game.",
+      size: "sm",
     },
     `
     <h2>2017: Hindenbearg</h2>
@@ -131,6 +136,7 @@ export const tahomaRobotics = {
       alt: "Bear Metal 2046 Hindenbearg robot driving across a competition field with green fuel balls contained in its hopper",
       caption:
         "Hindenbearg on the 2017 competition field with its fuel hopper primed for launching.",
+      size: "lg",
     },
     `
     <h2>What the five years taught me</h2>
