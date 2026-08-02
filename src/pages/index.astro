@@ -1,18 +1,122 @@
 ---
 import BaseLayout from "src/layouts/BaseLayout.astro";
+import LogsTimeline from "src/components/LogsTimeline.astro";
+import OptimizedImage from "src/components/OptimizedImage.astro";
+import { artifacts, type ArtifactSlug } from "src/data/artifacts";
+import { sortedLogs } from "src/data/logs";
+
+const currentProject = artifacts["mg-midget"];
+const latestLogs = sortedLogs.slice(0, 2);
+const featuredArtifacts = Object.entries(artifacts)
+  .filter(([, artifact]) => "featured" in artifact && artifact.featured)
+  .slice(0, 3) as [ArtifactSlug, (typeof artifacts)[ArtifactSlug]][];
 ---
 
 <BaseLayout
   title="Home | zoidberg.tech"
-  description="Home page for zoidberg.tech"
+  description="Engineering projects, experiments, and the reasoning behind them."
 >
-  <script is:inline>
-    if (!document.cookie.split("; ").includes("welcome_seen=true")) {
-      window.location.replace("/welcome");
-    }
-  </script>
-  <main class="box">
-    <h1>Home</h1>
-    <p>Coming soon</p>
+  <main class="mx-auto w-full max-w-6xl space-y-2 md:space-y-4">
+    <section class="box">
+      <p class="font-brand text-xl text-secondary">Xenon Ollie Zoidberg</p>
+      <h1 class="mt-1">Systems engineer.</h1>
+      <subtitle>Builder. Curious by compulsion.</subtitle>
+      <p class="prose">
+        I build software, electronics, and mechanical systems—and document the
+        reasoning, tradeoffs, and lessons behind each project.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-2">
+        <a class="btn-filled" href="/artifacts">
+          Explore artifacts
+          <icon aria-hidden="true">arrow_forward</icon>
+        </a>
+        <a class="btn-outlined" href="/logs">
+          Read logs
+          <icon aria-hidden="true">arrow_forward</icon>
+        </a>
+      </div>
+    </section>
+
+    <section class="box">
+      <p class="font-mono text-sm text-secondary uppercase">Current project</p>
+      <div
+        class="mt-2 grid items-center gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.8fr)]"
+      >
+        <div class="space-y-4">
+          <h2>{currentProject.homepage.title}</h2>
+          <p class="max-w-prose text-lg">
+            {currentProject.homepage.description}
+          </p>
+          <p class="font-mono text-sm text-on-surface-variant">
+            <span class="text-secondary uppercase">Status: </span>
+            {currentProject.homepage.status}
+          </p>
+          <a class="mx-auto btn-text w-fit" href="/artifacts/mg-midget">
+            View project
+            <icon aria-hidden="true">arrow_forward</icon>
+          </a>
+        </div>
+        {
+          currentProject.homepage.image ? (
+            <OptimizedImage
+              src={currentProject.homepage.image.src}
+              alt={currentProject.homepage.image.alt}
+              size="lg"
+            />
+          ) : (
+            <div class="flex min-h-48 items-center justify-center border border-outline-variant bg-surface-container text-on-surface-variant">
+              <icon aria-hidden="true" class="lg text-secondary">
+                directions_car
+              </icon>
+            </div>
+          )
+        }
+      </div>
+    </section>
+
+    <section class="space-y-2 md:space-y-4">
+      <div class="flex items-center justify-between gap-3 border-b">
+        <h2>Latest logs</h2>
+        <a class="btn-text w-fit" href="/logs">
+          View all logs
+          <icon aria-hidden="true">arrow_forward</icon>
+        </a>
+      </div>
+      <LogsTimeline logs={latestLogs} />
+    </section>
+
+    <section class="space-y-2 md:space-y-4">
+      <div class="flex items-center justify-between gap-3 border-b">
+        <h2>Featured artifacts</h2>
+        <a class="btn-text w-fit" href="/artifacts">
+          View all artifacts
+          <icon aria-hidden="true">arrow_forward</icon>
+        </a>
+      </div>
+      <div
+        class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-2 md:gap-4"
+      >
+        {
+          featuredArtifacts.map(([slug, artifact]) => (
+            <article class="flex min-h-64 flex-col gap-3 box">
+              <a
+                href={`/artifacts/${slug}`}
+                class="flex items-baseline justify-between gap-3 border-b-2 border-transparent transition-colors hover:border-secondary"
+              >
+                <h3>{artifact.title}</h3>
+                <icon aria-hidden="true" class="text-secondary">
+                  {artifact.icon}
+                </icon>
+              </a>
+              <p class="prose grow">{artifact.summary.join(" ")}</p>
+              <a href={`/artifacts/${slug}`} class="ml-auto btn-text w-fit">
+                Open
+                <icon aria-hidden="true">arrow_forward</icon>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </section>
   </main>
 </BaseLayout>

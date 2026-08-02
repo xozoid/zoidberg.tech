@@ -5,6 +5,7 @@ import imgDashboard from "src/assets/artifacts/nummus/dashboard.png";
 export const nummus = {
   title: "nummus",
   icon: "account_balance_wallet",
+  featured: true,
   summary: [
     "A self-hosted financial planning application that aggregates account data and turns it into useful trends, forecasts, and planning workflows.",
   ],
