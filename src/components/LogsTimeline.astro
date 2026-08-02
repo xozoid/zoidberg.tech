@@ -1,0 +1,93 @@
+---
+import type { LogEntry } from "src/content/logs/types";
+import { logSlug } from "src/data/logs";
+
+type Props = {
+  logs: readonly LogEntry[];
+  variant?: "artifact";
+};
+
+const { logs, variant } = Astro.props;
+---
+
+<section
+  class="relative ml-3 space-y-6 border-l-2 border-secondary md:ml-4"
+  aria-label="Log entries"
+>
+  {
+    logs.map((log, index) => (
+      <article class="relative flex max-md:flex-wrap">
+        {index === logs.length - 1 && (
+          <div class="absolute -left-3.25 h-full w-6 bg-surface md:-left-4.25 md:w-8" />
+        )}
+        <div class="absolute -left-3.25 h-6 w-6 rounded-full border-2 border-secondary bg-surface md:-left-4.25 md:h-8 md:w-8" />
+        <time
+          class="mr-2 shrink-0 pl-4 font-mono text-secondary md:mt-1 md:w-36 md:text-right"
+          datetime={log.date}
+        >
+          {new Date(`${log.date}T00:00:00`).toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+          })}
+        </time>
+        <div class="grow space-y-2 box max-md:ml-3">
+          <a
+            href={`/logs/${logSlug(log)}`}
+            class="flex items-baseline justify-between gap-3 border-b-2 border-transparent transition-colors hover:border-secondary"
+          >
+            <h2>{log.title}</h2>
+            <icon class="text-secondary">{log.icon}</icon>
+          </a>
+          {variant === "artifact" ? (
+            <div class="flex items-end gap-x-2 gap-y-1 max-md:flex-wrap">
+              <p class="prose grow">{log.summary}</p>
+              <a href={`/logs/${logSlug(log)}`} class="ml-auto btn-text w-fit">
+                <span>Open</span>
+                <icon>arrow_forward</icon>
+              </a>
+            </div>
+          ) : (
+            <>
+              <a
+                href={log.project.href}
+                class="text-on-surface-variant hover:underline"
+              >
+                {log.project.label}
+              </a>
+              <p class="prose">{log.summary}</p>
+              <div class="flex flex-wrap gap-1 md:gap-2">
+                {log.tags.slice(0, -1).map((tag) => (
+                  <a
+                    href={`/logs?tag=${encodeURIComponent(tag.toLowerCase())}`}
+                    class="btn-chip"
+                  >
+                    {tag}
+                  </a>
+                ))}
+                <div class="flex grow gap-1 md:gap-2">
+                  {log.tags.slice(-1).map((tag) => (
+                    <a
+                      href={`/logs?tag=${encodeURIComponent(tag.toLowerCase())}`}
+                      class="btn-chip"
+                    >
+                      {tag}
+                    </a>
+                  ))}
+
+                  <a
+                    href={`/logs/${logSlug(log)}`}
+                    class="ml-auto btn-text w-fit"
+                  >
+                    <span>Open</span>
+                    <icon>arrow_forward</icon>
+                  </a>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+      </article>
+    ))
+  }
+</section>
