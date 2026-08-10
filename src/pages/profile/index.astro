@@ -42,12 +42,22 @@ const sections = [
     <div class="flex items-start gap-2 max-md:flex-wrap md:gap-4">
       <section class="grow-3 box">
         <Crumbs />
-        <h1>Profile</h1>
-        <p class="font-brand text-3xl text-secondary">Xenon Ollie Zoidberg</p>
+        <h3 class="text-secondary">Profile</h3>
+        <h1 class="font-brand">Xenon Ollie Zoidberg</h1>
         <subtitle>Systems engineer.</subtitle>
         <subtitle>Builder by nature.</subtitle>
         <subtitle>Curious by compulsion.</subtitle>
-        <subtitle> Collector of interesting side projects. </subtitle>
+        <subtitle>Collector of interesting side projects.</subtitle>
+
+        <div class="mt-6 text-sm text-on-surface-variant">OpenPGP</div>
+        <div class="flex items-center gap-2 text-sm text-secondary">
+          <icon class="sm">fingerprint</icon>
+          <code>1E12 5F84 304A 7207 C6DD 736E 8A13 51AB E351 7216</code>
+        </div>
+        <a href="/public.asc" class="btn-text w-fit btn-sq">
+          <icon class="sm">download</icon>
+          Public key
+        </a>
       </section>
       <section class="min-w-64 shrink-0 grow box">
         <h2>Signals</h2>

@@ -1,9 +1,13 @@
 Astro
+Backblaze
+Bitwarden
+Colemak
+Diceware
 ENTER
 Magna Cum Laude
 MG Midget
 Neovim
-Ollie
+Xenon Ollie Zoidberg
 APIs
 Ansible
 Autodesk
@@ -28,6 +32,8 @@ microcontrollers
 microstrip
 mockup
 PCBs
+smartcard
+subkey
 reflowed
 rulebooks
 SIwave
@@ -56,5 +62,6 @@ precision_manufacturing
 pytest
 rocket_launch
 satellite_alt
+security_key
 tools_power_drill
 (?i)zoidberg

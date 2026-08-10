@@ -7,6 +7,7 @@ const CHECKED_EXTENSIONS = new Set([".astro", ".html"]);
 const HEADING_PATTERN = /<h([1-6])\b[^>]*>([\s\S]*?)<\/h\1>/gi;
 const TAG_PATTERN = /<[^>]*>/g;
 const WORD_PATTERN = /[\p{L}][\p{L}\p{M}'-]*/gu;
+const RESERVED_WORDS = new Set(["Xenon", "Ollie", "Zoidberg"]);
 
 const ENTITY_MAP = new Map([
   ["amp", "&"],
@@ -116,7 +117,7 @@ function findTitleCaseWords(text) {
 }
 
 function isSimpleTitleCaseWord(word) {
-  return /^\p{Lu}[\p{Ll}\p{M}'-]+$/u.test(word);
+  return !RESERVED_WORDS.has(word) && /^\p{Lu}[\p{Ll}\p{M}'-]+$/u.test(word);
 }
 
 function getLineNumber(source, index) {

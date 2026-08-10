@@ -36,8 +36,8 @@ const mgBaselining = {
   },
 
   stats: [
-    { label: "Photos", value: "164" },
-    { label: "Measurements", value: "28" },
+    { label: "Photos", value: "164", class: "font-mono" },
+    { label: "Measurements", value: "28", class: "font-mono" },
     { label: "Differential", value: "≈ 3.9:1", class: "font-mono" },
     { label: "Activity", value: "Baseline survey" },
   ],
