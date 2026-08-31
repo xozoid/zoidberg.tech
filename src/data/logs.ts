@@ -1,8 +1,14 @@
 import mgBaselining from "src/content/logs/2026/2026-07-25-baselining-the-mg";
+import mgGlider from "src/content/logs/2026/2026-08-30-mg-glider";
 import vaultPostmortem from "src/content/logs/2026/2026-08-09-vault-postmortem";
+
 import type { LogEntry } from "src/content/logs/types";
 
-export const logs: readonly LogEntry[] = [mgBaselining, vaultPostmortem];
+export const logs: readonly LogEntry[] = [
+  mgBaselining,
+  mgGlider,
+  vaultPostmortem,
+];
 
 export function slugFromTitle(title: string): string {
   return title
