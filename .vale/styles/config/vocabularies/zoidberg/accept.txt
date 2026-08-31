@@ -15,6 +15,7 @@ Bearmageddon
 Bearodactyl
 Bitwarden
 buildable
+Clarkston
 Colemak
 Cougs
 cyanoacrylate

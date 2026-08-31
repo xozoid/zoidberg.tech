@@ -98,12 +98,14 @@ const artifactsByTitle = Object.entries(artifacts).sort(
                 <icon class="text-secondary">{log.icon}</icon>
               </div>
               <div class="flex items-baseline justify-between gap-3 max-md:flex-wrap">
-                <a
-                  href={log.project.href}
-                  class="text-on-surface-variant hover:underline"
-                >
-                  {log.project.label}
-                </a>
+                {log.project && (
+                  <a
+                    href={log.project.href}
+                    class="text-on-surface-variant hover:underline"
+                  >
+                    {log.project.label}
+                  </a>
+                )}
                 <time class="font-mono text-secondary" datetime={log.date}>
                   {new Date(`${log.date}T00:00:00`).toLocaleDateString(
                     "en-US",
