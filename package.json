@@ -16,7 +16,7 @@
     "verify:brand-assets": "jiti scripts/verify-brand-assets.ts",
     "lint:headings": "node scripts/lint-heading-case.mjs",
     "lint:prose:sync": "node_modules/@vvago/vale/bin/vale sync",
-    "lint:prose": "npm run build && node_modules/@vvago/vale/bin/vale --glob='!**/{style/**,*.svg,*.png,*.jpg,*.webp,*.pdf}' --output=line readme.md dist",
+    "lint:prose": "npm run build && node_modules/@vvago/vale/bin/vale --glob='!**/{style/**,*.svg,*.png,*.jpg,*.webp,*.pdf,public.asc}' --output=line readme.md dist",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
