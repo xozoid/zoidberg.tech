@@ -44,14 +44,18 @@ const olderLog = sortedLogs[logIndex + 1];
           <h1>{log.title}</h1>
           <icon class="text-secondary">{log.icon}</icon>
         </div>
-        <div>
-          <a
-            href={log.project.href}
-            class="text-on-surface-variant hover:underline"
-          >
-            {log.project.label}
-          </a>
-        </div>
+        {
+          log.project && (
+            <div>
+              <a
+                href={log.project.href}
+                class="text-on-surface-variant hover:underline"
+              >
+                {log.project.label}
+              </a>
+            </div>
+          )
+        }
         <time class="shrink-0 font-mono text-secondary" datetime={log.date}>
           {
             new Date(`${log.date}T00:00:00`).toLocaleDateString("en-US", {

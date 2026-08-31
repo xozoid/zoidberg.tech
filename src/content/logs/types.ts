@@ -24,7 +24,7 @@ export type LogEntry = {
   summary: readonly string[];
   tags: readonly string[];
   allTags: readonly string[];
-  project: {
+  project?: {
     label: string;
     href: string;
   };

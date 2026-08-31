@@ -34,7 +34,7 @@ const detailBlocks = (
   Array.isArray(artifact.details) ? artifact.details : [artifact.details]
 ) as readonly ArtifactDetailBlock[];
 const artifactLogs = sortedLogs
-  .filter((log) => log.project.href === `/artifacts/${Astro.params.slug}`)
+  .filter((log) => log.project?.href === `/artifacts/${Astro.params.slug}`)
   .reverse();
 ---
 

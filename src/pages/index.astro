@@ -6,7 +6,7 @@ import { artifacts, type ArtifactSlug } from "src/data/artifacts";
 import { sortedLogs } from "src/data/logs";
 
 const currentProject = artifacts["mg-midget"];
-const latestLogs = sortedLogs.slice(0, 2);
+const latestLogs = sortedLogs.slice(0, 3);
 const featuredArtifacts = Object.entries(artifacts)
   .filter(([, artifact]) => "featured" in artifact && artifact.featured)
   .slice(0, 3) as [ArtifactSlug, (typeof artifacts)[ArtifactSlug]][];
