@@ -4,10 +4,12 @@ import mgGlider from "src/content/logs/2026/2026-08-30-mg-glider";
 import vaultPostmortem from "src/content/logs/2026/2026-08-09-vault-postmortem";
 
 import type { LogEntry } from "src/content/logs/types";
+import mgBlasting from "src/content/logs/2026/2026-10-05-mg-blasting";
 
 export const logs: readonly LogEntry[] = [
   honeyHarvest,
   mgBaselining,
+  mgBlasting,
   mgGlider,
   vaultPostmortem,
 ];
