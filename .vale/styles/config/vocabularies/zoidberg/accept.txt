@@ -1,5 +1,3 @@
-(?i)homelab
-(?i)zoidberg
 account_balance_wallet
 Ansible
 APIs
@@ -16,6 +14,7 @@ Bearodactyl
 Bitwarden
 buildable
 Clarkston
+cloud_off
 Colemak
 Cougs
 cyanoacrylate
@@ -24,13 +23,15 @@ Datsun
 deburring
 Diceware
 directions_car
-dns
-Dotfiles
-dotfiles
+DNS|dns
+dnsmasq
+(d|D)otfiles
 ENTER
 frisbee
 gameplay
 Hindenbearg
+(?i)homelab
+Kuma
 light_mode
 livestream
 livestreaming
@@ -62,8 +63,10 @@ Terraforming
 tmux
 tools_power_drill
 Travis Cea
+Unbound
 Wiffle
 Xcalibear
 Xenon Ollie Zoidberg
 Yocto
+(?i)zoidberg
 Zsh
