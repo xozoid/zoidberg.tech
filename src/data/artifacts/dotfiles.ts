@@ -49,10 +49,12 @@ export const dotfiles = {
     <h2>The computer should remember this, not me</h2>
     <p>
       My dotfiles repository stores small preferences and repeated setup work
-      until they become infrastructure. Shell configuration, Git behavior, terminal
-      tooling, language environments, and scripts all live there. Desktop configuration
-      and development utilities also share that version-controlled place instead of
-      requiring manual rebuilds on every Linux system I use.
+      until they become infrastructure.
+      Shell configuration, Git behavior, terminal tooling, language
+      environments, and scripts all live there.
+      Desktop configuration and development utilities also share that
+      version-controlled place instead of requiring manual rebuilds on every
+      Linux system I use.
     </p>`,
     {
       type: "image",
@@ -66,22 +68,23 @@ export const dotfiles = {
     <h2>Topic-oriented configuration</h2>
     <p>
       The repository follows Zach Holman's topic-oriented dotfiles structure.
-      Configuration groups by purpose rather than by machine: Git, Zsh, Python, Rust, Go,
-      tmux, desktop tooling, Docker, fonts, PlatformIO, and other areas each own their
-      setup.
+      Configuration groups by purpose rather than by machine: Git, Zsh, Python,
+      Rust, Go, tmux, desktop tooling, Docker, fonts, PlatformIO, and other
+      areas each own their setup.
     </p>
     <p>
-      Bootstrap scripts create the appropriate symlinks into my home directory while
-      topic-specific install scripts configure the surrounding software. Over 3 years of
-      commits, that structure has turned the repository into a long-running record of how
-      I prefer to use computers.
+      Bootstrap scripts create the appropriate symlinks into my home directory
+      while topic-specific install scripts configure the surrounding software.
+      Over 3 years of commits, that structure has turned the repository into a
+      long-running record of how I prefer to use computers.
     </p>
 
     <h2>A project with no finish line</h2>
     <p>
-      This acts less like a standalone product than a continuously maintained toolbox.
-      Every time I remove a manual setup step, fix an annoyance, or discover a better
-      tool, some of that knowledge tends to end up here.
+      This acts less like a standalone product than a continuously maintained
+      toolbox.
+      Every time I remove a manual setup step, fix an annoyance, or discover a
+      better tool, some of that knowledge tends to end up here.
     </p>
   `,
   ],

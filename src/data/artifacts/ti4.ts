@@ -43,12 +43,14 @@ export const ti4 = {
     `
     <h2>The storage problem</h2>
     <p>
-      Twilight Imperium turns setup into a project of its own. The base game and
-      expansions contain many faction components, cards, tiles, tokens, and player pieces.
+      Twilight Imperium turns setup into a project of its own.
+      The base game and expansions contain many faction components, cards,
+      tiles, tokens, and player pieces.
     </p>
     <p>
-      I designed a custom insert and box system so those parts could stay organized
-      between games and move from storage to the table with less sorting.
+      I designed a custom insert and box system so those parts could stay
+      organized between games and move from storage to the table with less
+      sorting.
     </p>`,
     {
       type: "image",
@@ -60,10 +62,10 @@ export const ti4 = {
     `
     <h2>Designed around the game</h2>
     <p>
-      Instead of treating the interior as one generic organizer, I modeled storage around
-      the game's component hierarchy. The CAD repository includes dedicated player boxes,
-      faction storage, hex storage, component organizers, an agenda holder, and other
-      printed parts.
+      Instead of treating the interior as one generic organizer, I modeled
+      storage around the game's component hierarchy.
+      The CAD repository includes dedicated player boxes, faction storage, hex
+      storage, component organizers, an agenda holder, and other printed parts.
     </p>`,
     {
       type: "image",
@@ -82,13 +84,14 @@ export const ti4 = {
     `
     <h2>A practical CAD exercise</h2>
     <p>
-      Board-game inserts make a useful mechanical-design exercise. Every millimeter of
-      volume matters, printed parts need realistic clearances, components must remain
-      quick to retrieve, and the final arrangement has to survive transport.
+      Board-game inserts make a useful mechanical-design exercise.
+      Every millimeter of volume matters, printed parts need realistic
+      clearances, components must remain quick to retrieve, and the final
+      arrangement has to survive transport.
     </p>
     <p>
-      Unlike a CAD model made only to look correct on screen, every mistake in an organizer
-      becomes visible the first time the game gets packed.
+      Unlike a CAD model made only to look correct on screen, every mistake in
+      an organizer becomes visible the first time the game gets packed.
     </p>`,
   ],
 } as const;

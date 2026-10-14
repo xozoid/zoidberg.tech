@@ -44,9 +44,10 @@ export const website = {
     `
     <h2>The website you have open</h2>
     <p>
-      zoidberg.tech continues a personal website I have maintained in many forms for
-      years. I use it as a portfolio, a public notebook, and a home for
-      projects that need more than the few lines available on a résumé.
+      zoidberg.tech continues a personal website I have maintained in many forms
+      for years.
+      I use it as a portfolio, a public notebook, and a home for projects that
+      need more than the few lines available on a résumé.
     </p>`,
     {
       type: "image",
@@ -60,9 +61,9 @@ export const website = {
     <h2>Why rebuild it</h2>
     <p>
       My previous site accumulated years of hand-written HTML, CSS, JavaScript,
-      interactive résumé pages, project pages, tools, and experiments. Rather than
-      continue renovating that structure indefinitely, I started over in 2026 with a
-      smaller architecture and a clearer content model.
+      interactive résumé pages, project pages, tools, and experiments.
+      Rather than continue renovating that structure indefinitely, I started
+      over in 2026 with a smaller architecture and a clearer content model.
     </p>`,
     {
       type: "image",
@@ -74,20 +75,23 @@ export const website = {
     `
     <h2>Static by default</h2>
     <p>
-      The new site uses Astro, TypeScript, and Tailwind CSS. Most pages contain content
-      rather than applications, so static HTML keeps the architecture small while still
-      leaving room for interactive components where they add value.
+      The new site uses Astro, TypeScript, and Tailwind CSS.
+      Most pages contain content rather than applications, so static HTML keeps
+      the architecture small while still leaving room for interactive components
+      where they add value.
     </p>
     <p>
-      Projects, résumé information, and other repeated content live as structured data
-      rather than copied markup.
+      Projects, résumé information, and other repeated content live as
+      structured data rather than copied markup.
     </p>
 
     <h2>A place for unfinished things</h2>
     <p>
-      Maintaining a personal website stays interesting because it never becomes finished.
-      This version gives experiments, side projects, and work in progress somewhere to
-      live before each item turns into a conventional portfolio piece.
+      Maintaining a personal website stays interesting because it never becomes
+      finished.
+      This version gives experiments, side projects, and work in progress
+      somewhere to live before each item turns into a conventional portfolio
+      piece.
     </p>`,
   ],
 } as const;
