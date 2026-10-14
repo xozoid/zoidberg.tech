@@ -43,10 +43,11 @@ const mgGlider = {
     `
     <h2>Out with the Datsun drivetrain</h2>
     <p>
-      The MG came to me with a Datsun A12 engine and transmission in place of its
-      original drivetrain. With the restoration and electric conversion beginning,
-      I removed the existing ICE drivetrain to expose the engine bay and establish
-      the car's weight without it.
+      The MG came to me with a Datsun A12 engine and transmission in place of
+      its original drivetrain.
+      With the restoration and electric conversion beginning, I removed the
+      existing ICE drivetrain to expose the engine bay and establish the car's
+      weight without it.
     </p>
     `,
     {
@@ -58,10 +59,10 @@ const mgGlider = {
     },
     `
     <p>
-      I didn't do much more disassembly during this session. With the drivetrain
-      out, though, the empty engine bay gives a clearer picture of
-      the space available for the electric motor, power electronics, and potential
-      battery packaging.
+      I didn't do much more disassembly during this session.
+      With the drivetrain out, though, the empty engine bay gives a clearer
+      picture of the space available for the electric motor, power electronics,
+      and potential battery packaging.
     </p>
     `,
     {
@@ -75,11 +76,10 @@ const mgGlider = {
     `
     <h2>Weighing the glider</h2>
     <p>
-      With the drivetrain removed, I put the car on four load-cell scales to get an
-      actual baseline rather than relying on published curb-weight figures. The
-      corner-weight system is based on Travis Cea's
-      <a href="https://github.com/traviscea/DIY-ESP32-Race-Scales"
-         target="_blank" rel="noopener noreferrer">DIY ESP32 Race Scales</a>
+      With the drivetrain removed, I put the car on four load-cell scales to get
+      an actual baseline rather than relying on published curb-weight figures.
+      The corner-weight system is based on Travis Cea's
+      <a href="https://github.com/traviscea/DIY-ESP32-Race-Scales" target="_blank" rel="noopener noreferrer">DIY ESP32 Race Scales</a>
       project.
     </p>
 
@@ -167,10 +167,11 @@ const mgGlider = {
 
     <h2>Accounting for the bonnet</h2>
     <p>
-      The bonnet was off the car during the corner-weight measurement, so I weighed
-      it at 12.4 kg. Its center of gravity is approximately
-      7 inches behind the front axle. With a 72-inch wheelbase, that places about
-      11.2 kg of its weight on the front axle and 1.21 kg on the rear axle.
+      The bonnet was off the car during the corner-weight measurement, so I
+      weighed it at 12.4 kg.
+      Its center of gravity is approximately 7 inches behind the front axle.
+      With a 72-inch wheelbase, that places about 11.2 kg of its weight on the
+      front axle and 1.21 kg on the rear axle.
     </p>
 
     <pre><code>Bonnet weight = 12.4 kg
@@ -179,18 +180,20 @@ Front contribution = 12.4 × (72 - 7) / 72 = 11.2  kg
 Rear contribution  = 12.4 × 7 / 72        =  1.21 kg</code></pre>
 
     <p>
-      Adding the bonnet produces a complete-glider weight of about
-      <strong>498 kg</strong>. The corresponding axle loads are
-      approximately <strong>218 kg front</strong> and
-      <strong>280 kg rear</strong>, or <strong>43.8% front / 56.2% rear</strong>.
+      Adding the bonnet produces a complete-glider weight of about <strong>498
+      kg</strong>.
+      The corresponding axle loads are approximately <strong>218 kg
+      front</strong> and <strong>280 kg rear</strong>, or <strong>43.8% front /
+      56.2% rear</strong>.
     </p>
 
     <h2>A useful EV baseline</h2>
     <p>
       This gives me an actual mass baseline for the car before adding electric
-      drivetrain components. Rather than designing around a stock MG Midget's
-      published weight, I can use the 498 kg glider and its measured axle
-      distribution to assess motor and battery locations.
+      drivetrain components.
+      Rather than designing around a stock MG Midget's published weight, I can
+      use the 498 kg glider and its measured axle distribution to assess motor
+      and battery locations.
     </p>
     <p>
       Each component's mass and position can be added to this baseline as the

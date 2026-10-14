@@ -36,10 +36,10 @@ const honeyHarvest = {
     `
     <h2>Two hives, two distinct honeys</h2>
     <p>
-      I co-parent approximately 60,000 bees across two hives. We harvested
-      honey from both this year. The Caucasian hive produced 13.4 kg of lighter
-      honey, while the Clarkston mutts, Italian-Carniolan
-      cross-breeds, produced 3.7 kg of darker honey.
+      I co-parent approximately 60,000 bees across two hives.
+      We harvested honey from both this year.
+      The Caucasian hive produced 13.4 kg of lighter honey, while the Clarkston
+      mutts, Italian-Carniolan cross-breeds, produced 3.7 kg of darker honey.
       Both taste great.
     </p>
     `,
@@ -55,15 +55,15 @@ const honeyHarvest = {
     `
     <h2>Extraction</h2>
     <p>
-      I pulled the honey supers and extracted the frames by spinning them. The
-      extractor throws the honey out of the comb, after which it can be
+      I pulled the honey supers and extracted the frames by spinning them.
+      The extractor throws the honey out of the comb, after which it can be
       collected and filtered.
     </p>
 
     <p>
-      I also ate some comb directly. Between that and everything else
-      sampled during extraction, I probably ate about a quarter cup of honey
-      that day.
+      I also ate some comb directly.
+      Between that and everything else sampled during extraction, I probably ate
+      about a quarter cup of honey that day.
     </p>
     `,
     {
@@ -76,28 +76,32 @@ const honeyHarvest = {
     `
     <h2>The bees would like their boxes back</h2>
     <p>
-      Returning the supers became chaotic. It had started raining,
-      which meant most of the bees had moved back inside the hive. They were
-      unhappy about me opening it again.
+      Returning the supers became chaotic.
+      It had started raining, which meant most of the bees had moved back inside
+      the hive.
+      They were unhappy about me opening it again.
     </p>
 
     <p>
-      What followed resembled a Benny Hill skit. An increasingly angry hive,
-      a box that didn't make it back onto the hive, and a bee stuck in my hair
-      made for a memorable few minutes. I ended up with about five stings.
+      What followed resembled a Benny Hill skit.
+      An increasingly angry hive, a box that didn't make it back onto the hive,
+      and a bee stuck in my hair made for a memorable few minutes.
+      I ended up with about five stings.
     </p>
 
     <h2>Let the bees do the dishes</h2>
     <p>
-      Cleanup was easier. I placed the extraction equipment with its remaining
-      honey residue outside and let the local bees find it. They descended on
-      the equipment. Many enthusiastic bees licked essentially everything clean
-      in less than eight hours.
+      Cleanup was easier.
+      I placed the extraction equipment with its remaining honey residue outside
+      and let the local bees find it.
+      They descended on the equipment.
+      Many enthusiastic bees licked essentially everything clean in less than
+      eight hours.
     </p>
 
     <p>
-      Final yield was 17.1 kg of honey, with the Caucasian hive accounting
-      for about four-fifths of the harvest.
+      Final yield was 17.1 kg of honey, with the Caucasian hive accounting for
+      about four-fifths of the harvest.
     </p>
     `,
   ],
