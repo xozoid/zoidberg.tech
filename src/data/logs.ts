@@ -1,4 +1,5 @@
 import dnssecIncident from "src/content/logs/2026/2026-10-13-dnssec-rollover";
+import plex2shell from "src/content/logs/2026/2026-11-10-plex2shell";
 import honeyHarvest from "src/content/logs/2026/2026-08-15-honey-harvest";
 import mgBaselining from "src/content/logs/2026/2026-07-25-baselining-the-mg";
 import mgBlasting from "src/content/logs/2026/2026-10-05-mg-blasting";
@@ -8,6 +9,7 @@ import vaultPostmortem from "src/content/logs/2026/2026-08-09-vault-postmortem";
 import type { LogEntry } from "src/content/logs/types";
 
 export const logs: readonly LogEntry[] = [
+  plex2shell,
   dnssecIncident,
   honeyHarvest,
   mgBaselining,
